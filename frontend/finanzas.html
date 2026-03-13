@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Logistics & Finance - Mina ERP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>tailwind.config={darkMode:"class",theme:{extend:{colors:{primary:"#ec5b13","background-light":"#f8f6f6","background-dark":"#221610"},fontFamily:{display:["Public Sans"]},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"}}}}</script>
+<style>body{font-family:'Public Sans',sans-serif}</style>
+</head>
+<body class="bg-background-light text-slate-900">
+<div class="flex h-screen overflow-hidden">
+
+<aside class="w-64 bg-[#240f1b] flex-shrink-0 flex flex-col border-r border-white/10">
+  <div class="p-6 flex items-center gap-3">
+    <div class="size-10 rounded-full bg-primary flex items-center justify-center text-white"><span class="material-symbols-outlined">mountain_flag</span></div>
+    <div><h1 class="text-white text-base font-bold leading-tight">Mina ERP</h1><p class="text-primary/70 text-xs font-medium">Mining Management</p></div>
+  </div>
+  <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="dashboard.html"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="text-sm font-medium">Dashboard</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="operacion_mina.html"><span class="material-symbols-outlined text-[20px]">precision_manufacturing</span><span class="text-sm font-medium">Operación Mina</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="planta_lab.html"><span class="material-symbols-outlined text-[20px]">factory</span><span class="text-sm font-medium">Planta</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="laboratorio.html"><span class="material-symbols-outlined text-[20px]">science</span><span class="text-sm font-medium">Laboratorio</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="mantenimiento.html"><span class="material-symbols-outlined text-[20px]">build</span><span class="text-sm font-medium">Mantenimiento</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="inventario.html"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="text-sm font-medium">Inventario</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="rh_seguridad.html"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="text-sm font-medium">RH y Seguridad</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 bg-primary text-white rounded-xl shadow-lg shadow-primary/20" href="finanzas.html"><span class="material-symbols-outlined text-[20px]">local_shipping</span><span class="text-sm font-semibold">Embarques / Finanzas</span></a>
+  </nav>
+  <div class="p-4 border-t border-white/5">
+    <div class="bg-white/5 rounded-xl p-3">
+      <p class="text-[10px] uppercase tracking-wider text-white/40 font-bold mb-2">Estado del Sistema</p>
+      <div class="flex items-center gap-2"><div class="size-2 rounded-full bg-emerald-500 animate-pulse"></div><span class="text-xs text-white/80 font-medium">Servidores Activos</span></div>
+    </div>
+  </div>
+</aside>
+
+<div class="flex-1 flex flex-col overflow-hidden">
+  <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 z-10">
+    <div class="flex items-center gap-4"><span class="material-symbols-outlined text-primary">analytics</span><h2 class="text-lg font-bold text-slate-800">Control de Góndolas y Facturación</h2></div>
+    <div class="flex items-center gap-6">
+      <button class="relative p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors"><span class="material-symbols-outlined">notifications</span><span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span></button>
+      <div class="h-8 w-[1px] bg-slate-200"></div>
+      <div class="flex items-center gap-3">
+        <div class="text-right"><p class="text-sm font-bold text-slate-800">Gerente Turno 1</p><p class="text-[10px] text-slate-400 uppercase font-medium">En línea</p></div>
+        <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">GT</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 overflow-y-auto p-8 space-y-8">
+    <!-- Logistics Section -->
+    <section>
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold flex items-center gap-2"><span class="material-symbols-outlined text-primary">conveyor_belt</span>Control de Góndolas</h3>
+        <button class="flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-bold rounded-xl shadow-lg shadow-primary/20 hover:opacity-90 transition-opacity"><span class="material-symbols-outlined text-sm">add</span>Nuevo Despacho</button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+          <p class="text-slate-500 text-sm font-medium mb-1">Camiones en Ruta</p>
+          <div class="flex items-end justify-between"><h4 class="text-3xl font-bold text-slate-900">4</h4><span class="text-primary bg-primary/10 px-2 py-1 rounded text-xs font-bold">+2 hoy</span></div>
+        </div>
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+          <p class="text-slate-500 text-sm font-medium mb-1">Góndolas Despachadas</p>
+          <div class="flex items-end justify-between"><h4 class="text-3xl font-bold text-slate-900">6/8</h4><div class="w-24 h-2 bg-slate-100 rounded-full overflow-hidden mb-2"><div class="bg-primary h-full w-[75%]"></div></div></div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-200 bg-slate-50/50"><h4 class="text-sm font-bold text-slate-700">Despachos Activos</h4></div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead class="bg-slate-50 border-b border-slate-200">
+              <tr><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">ID Viaje</th><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Placas Camión</th><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase text-center">Peso (Ton)</th><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Destino</th><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Estatus</th></tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 text-sm font-bold text-primary">V-1024</td><td class="px-6 py-4 text-sm font-medium">ABC-123</td><td class="px-6 py-4 text-sm text-center font-medium">32.5</td><td class="px-6 py-4 text-sm text-slate-600">Puerto Norte</td><td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700">En Planta</span></td></tr>
+              <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 text-sm font-bold text-primary">V-1025</td><td class="px-6 py-4 text-sm font-medium">XYZ-987</td><td class="px-6 py-4 text-sm text-center font-medium">28.0</td><td class="px-6 py-4 text-sm text-slate-600">Refinería Central</td><td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700">En Tránsito</span></td></tr>
+              <tr class="hover:bg-slate-50 transition-colors"><td class="px-6 py-4 text-sm font-bold text-primary">V-1026</td><td class="px-6 py-4 text-sm font-medium">LMN-456</td><td class="px-6 py-4 text-sm text-center font-medium">30.2</td><td class="px-6 py-4 text-sm text-slate-600">Cliente Externo</td><td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">Entregado</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Finance Section -->
+    <section>
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold flex items-center gap-2"><span class="material-symbols-outlined text-primary">account_balance_wallet</span>Finanzas (Odoo Integration)</h3>
+        <div class="flex items-center gap-2 text-xs font-medium text-slate-500"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>Conectado con Odoo v16</div>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-1 space-y-6">
+          <div class="bg-primary p-6 rounded-xl text-white shadow-lg shadow-primary/20">
+            <p class="text-sm font-medium mb-1 opacity-80">Ingresos del Mes</p>
+            <h4 class="text-3xl font-bold tracking-tight mb-4">$142,500.00 USD</h4>
+            <div class="h-24 w-full bg-white/10 rounded flex items-end p-2 gap-1">
+              <div class="flex-1 bg-white/20 h-[40%] rounded-sm"></div>
+              <div class="flex-1 bg-white/20 h-[60%] rounded-sm"></div>
+              <div class="flex-1 bg-white/20 h-[50%] rounded-sm"></div>
+              <div class="flex-1 bg-white/40 h-[80%] rounded-sm"></div>
+              <div class="flex-1 bg-white h-[95%] rounded-sm"></div>
+            </div>
+          </div>
+          <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+            <p class="text-slate-500 text-sm font-medium mb-1">Costos Operativos</p>
+            <h4 class="text-2xl font-bold text-slate-900 tracking-tight">$68,230.45 USD</h4>
+            <p class="text-xs text-red-500 font-bold mt-2 flex items-center gap-1"><span class="material-symbols-outlined text-xs">trending_up</span>+4.2% vs mes anterior</p>
+          </div>
+        </div>
+        <div class="lg:col-span-2 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center"><h4 class="text-sm font-bold text-slate-700">Facturación Reciente</h4><a class="text-xs font-bold text-primary hover:underline" href="#">Ver todas</a></div>
+          <div class="divide-y divide-slate-200">
+            <div class="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors"><div class="flex items-center gap-4"><div class="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center"><span class="material-symbols-outlined text-slate-500">description</span></div><div><p class="text-sm font-bold text-slate-800">F-2023-089</p><p class="text-xs text-slate-500">Minera del Norte S.A.</p></div></div><div class="text-right"><p class="text-sm font-bold text-slate-800">$45,200.00</p><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary uppercase"><span class="material-symbols-outlined text-[10px]">sync</span>Sincronizado</span></div></div>
+            <div class="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors"><div class="flex items-center gap-4"><div class="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center"><span class="material-symbols-outlined text-slate-500">description</span></div><div><p class="text-sm font-bold text-slate-800">F-2023-088</p><p class="text-xs text-slate-500">Construcciones Delta</p></div></div><div class="text-right"><p class="text-sm font-bold text-slate-800">$12,850.00</p><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary uppercase"><span class="material-symbols-outlined text-[10px]">sync</span>Sincronizado</span></div></div>
+            <div class="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors"><div class="flex items-center gap-4"><div class="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center"><span class="material-symbols-outlined text-slate-500">description</span></div><div><p class="text-sm font-bold text-slate-800">F-2023-087</p><p class="text-xs text-slate-500">Grupo Industrial Sur</p></div></div><div class="text-right"><p class="text-sm font-bold text-slate-800">$22,400.00</p><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary uppercase"><span class="material-symbols-outlined text-[10px]">sync</span>Sincronizado</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Operación Mina - Mina ERP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>tailwind.config={darkMode:"class",theme:{extend:{colors:{primary:"#ec5b13","background-light":"#f8f6f6","background-dark":"#221610"},fontFamily:{display:["Public Sans"]},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"}}}}</script>
+<style>body{font-family:'Public Sans',sans-serif}</style>
+</head>
+<body class="bg-background-light text-slate-900">
+<div class="flex h-screen overflow-hidden">
+
+<aside class="w-64 bg-[#240f1b] flex-shrink-0 flex flex-col border-r border-white/10">
+  <div class="p-6 flex items-center gap-3">
+    <div class="size-10 rounded-full bg-primary flex items-center justify-center text-white"><span class="material-symbols-outlined">mountain_flag</span></div>
+    <div><h1 class="text-white text-base font-bold leading-tight">Mina ERP</h1><p class="text-primary/70 text-xs font-medium">Mining Management</p></div>
+  </div>
+  <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="dashboard.html"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="text-sm font-medium">Dashboard</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 bg-primary text-white rounded-xl shadow-lg shadow-primary/20" href="operacion_mina.html"><span class="material-symbols-outlined text-[20px]">precision_manufacturing</span><span class="text-sm font-semibold">Operación Mina</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="planta_lab.html"><span class="material-symbols-outlined text-[20px]">factory</span><span class="text-sm font-medium">Planta</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="laboratorio.html"><span class="material-symbols-outlined text-[20px]">science</span><span class="text-sm font-medium">Laboratorio</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="mantenimiento.html"><span class="material-symbols-outlined text-[20px]">build</span><span class="text-sm font-medium">Mantenimiento</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="inventario.html"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="text-sm font-medium">Inventario</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="rh_seguridad.html"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="text-sm font-medium">RH y Seguridad</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="finanzas.html"><span class="material-symbols-outlined text-[20px]">local_shipping</span><span class="text-sm font-medium">Embarques / Finanzas</span></a>
+  </nav>
+  <div class="p-4 border-t border-white/5">
+    <div class="bg-white/5 rounded-xl p-3">
+      <p class="text-[10px] uppercase tracking-wider text-white/40 font-bold mb-2">Estado del Sistema</p>
+      <div class="flex items-center gap-2"><div class="size-2 rounded-full bg-emerald-500 animate-pulse"></div><span class="text-xs text-white/80 font-medium">Servidores Activos</span></div>
+    </div>
+  </div>
+</aside>
+
+<div class="flex-1 flex flex-col overflow-hidden">
+  <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 z-10">
+    <div class="flex items-center gap-4"><span class="material-symbols-outlined text-primary">construction</span><h2 class="text-lg font-bold text-slate-800">Operación de Extracción</h2></div>
+    <div class="flex items-center gap-6">
+      <button class="relative p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors"><span class="material-symbols-outlined">notifications</span><span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span></button>
+      <div class="h-8 w-[1px] bg-slate-200"></div>
+      <div class="flex items-center gap-3">
+        <div class="text-right"><p class="text-sm font-bold text-slate-800">Ing. Carlos Ramos</p><p class="text-[10px] text-slate-400 uppercase font-medium">Jefe de Mina</p></div>
+        <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">CR</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 overflow-y-auto p-8 space-y-8">
+    <!-- KPIs -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+        <p class="text-slate-500 text-sm font-medium mb-2">Toneladas Extraídas</p>
+        <h4 class="text-3xl font-bold text-slate-900 tracking-tight">850 <span class="text-lg text-slate-400">/ 1,000 ton</span></h4>
+        <div class="mt-3 h-2 bg-slate-100 rounded-full"><div class="h-full bg-primary rounded-full" style="width:85%"></div></div>
+        <p class="text-xs text-slate-500 mt-2">Meta diaria al <span class="font-bold text-primary">85%</span></p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+        <p class="text-slate-500 text-sm font-medium mb-2">Costo por Tonelada</p>
+        <h4 class="text-3xl font-bold text-slate-900 tracking-tight">$12.50 <span class="text-lg text-slate-400">USD/ton</span></h4>
+        <p class="text-xs text-emerald-600 font-bold mt-3 flex items-center gap-1"><span class="material-symbols-outlined text-xs">trending_down</span>-3.2% vs semana anterior</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+        <p class="text-slate-500 text-sm font-medium mb-2">Eficiencia Acarreo</p>
+        <h4 class="text-3xl font-bold text-slate-900 tracking-tight">92<span class="text-lg text-slate-400">%</span></h4>
+        <p class="text-xs text-amber-600 font-bold mt-3 flex items-center gap-1"><span class="material-symbols-outlined text-xs">warning</span>1 equipo en paro técnico</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Blast Registration Form -->
+      <div class="lg:col-span-1 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-200 bg-slate-50/50 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">crisis_alert</span><h3 class="text-sm font-bold text-slate-700">Registro de Voladura</h3></div>
+        <form class="px-6 py-4 space-y-4">
+          <div><label class="text-xs font-bold text-slate-500 block mb-1">Nivel / Zona</label>
+            <select class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-700 focus:ring-primary focus:border-primary"><option>Nivel 450 – Zona Norte</option><option>Nivel 450 – Zona Sur</option><option>Nivel 500 – Zona Este</option></select>
+          </div>
+          <div><label class="text-xs font-bold text-slate-500 block mb-1">Metros Avanzados</label><input class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-primary focus:border-primary" placeholder="0.0" type="number"/></div>
+          <div><label class="text-xs font-bold text-slate-500 block mb-1">Explosivo utilizado (kg)</label><input class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-primary focus:border-primary" placeholder="0" type="number"/></div>
+          <div><label class="text-xs font-bold text-slate-500 block mb-1">Tipo de Explosivo</label>
+            <select class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-700 focus:ring-primary focus:border-primary"><option>Emulsión</option><option>ANFO</option><option>Dinamita</option></select>
+          </div>
+          <div><label class="text-xs font-bold text-slate-500 block mb-1">Observaciones</label><textarea class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm resize-none focus:ring-primary focus:border-primary" placeholder="Notas de la voladura..." rows="3"></textarea></div>
+          <button class="w-full bg-primary text-white text-sm font-bold py-2.5 rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2"><span class="material-symbols-outlined text-md">add_circle</span>Registrar Voladura</button>
+        </form>
+      </div>
+
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Daily Advances -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="px-6 py-4 border-b border-slate-200 bg-slate-50/50"><h3 class="text-sm font-bold text-slate-700">Avances del Turno</h3></div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead class="bg-slate-50 border-b border-slate-200">
+                <tr><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Nivel/Zona</th><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase text-center">Avance (m)</th><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase text-center">Explosivo (kg)</th><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Responsable</th><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Hora</th></tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4 text-sm font-medium">Nv. 450 – Norte</td><td class="px-6 py-4 text-center"><span class="font-bold text-primary">3.2 m</span></td><td class="px-6 py-4 text-center text-sm">240 kg</td><td class="px-6 py-4 text-sm text-slate-600">J. Martínez</td><td class="px-6 py-4 text-xs text-slate-500">07:45</td></tr>
+                <tr class="hover:bg-slate-50"><td class="px-6 py-4 text-sm font-medium">Nv. 500 – Este</td><td class="px-6 py-4 text-center"><span class="font-bold text-primary">2.8 m</span></td><td class="px-6 py-4 text-center text-sm">180 kg</td><td class="px-6 py-4 text-sm text-slate-600">R. Gutiérrez</td><td class="px-6 py-4 text-xs text-slate-500">10:30</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Ore Yard -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="px-6 py-4 border-b border-slate-200 bg-slate-50/50 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">layers</span><h3 class="text-sm font-bold text-slate-700">Patio de Mineral</h3></div>
+          <div class="p-6 grid grid-cols-2 gap-4">
+            <div class="border border-slate-200 rounded-xl p-4 bg-amber-50/50 hover:bg-amber-50 transition-colors cursor-pointer">
+              <p class="text-xs font-bold text-amber-800 mb-1">Lote #102</p>
+              <p class="text-2xl font-bold text-amber-700">345 ton</p>
+              <p class="text-xs text-amber-600 mt-1">Au: 2.1 g/t · En espera trituración</p>
+            </div>
+            <div class="border border-slate-200 rounded-xl p-4 bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer">
+              <p class="text-xs font-bold text-slate-600 mb-1">Lote #103</p>
+              <p class="text-2xl font-bold text-slate-800">180 ton</p>
+              <p class="text-xs text-slate-500 mt-1">Au: 1.8 g/t · Clasificando</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Caseta Nv. 450 - Mina ERP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>tailwind.config={darkMode:"class",theme:{extend:{colors:{primary:"#ec5b13","background-light":"#f8f6f6","background-dark":"#221610"},fontFamily:{display:["Public Sans"]}}}}</script>
+<style>body{font-family:'Public Sans',sans-serif}</style>
+</head>
+<body class="bg-background-light text-slate-900">
+<div class="flex h-screen overflow-hidden">
+
+<aside class="w-64 bg-[#240f1b] flex-shrink-0 flex flex-col border-r border-white/10">
+  <div class="p-6 flex items-center gap-3">
+    <div class="size-10 rounded-full bg-primary flex items-center justify-center text-white"><span class="material-symbols-outlined">mountain_flag</span></div>
+    <div><h1 class="text-white text-base font-bold leading-tight">Mina ERP</h1><p class="text-primary/70 text-xs font-medium">Mining Management</p></div>
+  </div>
+  <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="dashboard.html"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="text-sm font-medium">Dashboard</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 bg-primary text-white rounded-xl shadow-lg shadow-primary/20" href="operacion_mina.html"><span class="material-symbols-outlined text-[20px]">precision_manufacturing</span><span class="text-sm font-semibold">Operación Mina</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="planta_lab.html"><span class="material-symbols-outlined text-[20px]">factory</span><span class="text-sm font-medium">Planta</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="laboratorio.html"><span class="material-symbols-outlined text-[20px]">science</span><span class="text-sm font-medium">Laboratorio</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="mantenimiento.html"><span class="material-symbols-outlined text-[20px]">build</span><span class="text-sm font-medium">Mantenimiento</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="inventario.html"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="text-sm font-medium">Inventario</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="rh_seguridad.html"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="text-sm font-medium">RH y Seguridad</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="finanzas.html"><span class="material-symbols-outlined text-[20px]">local_shipping</span><span class="text-sm font-medium">Embarques / Finanzas</span></a>
+  </nav>
+  <div class="p-4 border-t border-white/5">
+    <div class="bg-white/5 rounded-xl p-3">
+      <p class="text-[10px] uppercase tracking-wider text-white/40 font-bold mb-2">Estado del Sistema</p>
+      <div class="flex items-center gap-2"><div class="size-2 rounded-full bg-emerald-500 animate-pulse"></div><span class="text-xs text-white/80 font-medium">Servidores Activos</span></div>
+    </div>
+  </div>
+</aside>
+
+<div class="flex-1 flex flex-col overflow-hidden">
+  <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 z-10">
+    <div class="flex items-center gap-4"><span class="material-symbols-outlined text-primary">security</span><h2 class="text-lg font-bold text-slate-800">Caseta de Control – Nivel 450</h2></div>
+    <div class="flex items-center gap-3">
+      <span class="flex items-center gap-1.5 text-sm font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>Turno Activo</span>
+    </div>
+  </header>
+
+  <main class="flex-1 overflow-y-auto p-8 space-y-8">
+    <!-- KPI Top Bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+        <span class="material-symbols-outlined text-primary text-3xl block mb-1">local_shipping</span>
+        <p class="text-2xl font-bold text-slate-900">14</p>
+        <p class="text-xs text-slate-500 font-medium">Camiones procesados</p>
+      </div>
+      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+        <span class="material-symbols-outlined text-primary text-3xl block mb-1">scale</span>
+        <p class="text-2xl font-bold text-slate-900">250 T</p>
+        <p class="text-xs text-slate-500 font-medium">Mineral pesado</p>
+      </div>
+      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+        <span class="material-symbols-outlined text-amber-500 text-3xl block mb-1">crisis_alert</span>
+        <p class="text-2xl font-bold text-slate-900">2</p>
+        <p class="text-xs text-slate-500 font-medium">Voladuras autorizadas</p>
+      </div>
+      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+        <span class="material-symbols-outlined text-emerald-500 text-3xl block mb-1">construction</span>
+        <p class="text-2xl font-bold text-slate-900">5</p>
+        <p class="text-xs text-slate-500 font-medium">Equipos activos</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Trip Registration -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-200 bg-slate-50/50 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">add_road</span><h3 class="text-sm font-bold text-slate-700">Registrar Viaje</h3></div>
+        <form class="px-6 py-5 space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div><label class="text-xs font-bold text-slate-500 block mb-1">Camión / Placas</label>
+              <select class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-primary focus:border-primary"><option>ABC-123 (CAT 785)</option><option>XYZ-987 (Volvo FH)</option><option>LMN-456 (Komatsu)</option></select>
+            </div>
+            <div><label class="text-xs font-bold text-slate-500 block mb-1">Destino</label>
+              <select class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-primary focus:border-primary"><option>Patio Mineral</option><option>Planta Trituración</option><option>Jales</option></select>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div><label class="text-xs font-bold text-slate-500 block mb-1">Peso Bruto (ton)</label><input class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-primary focus:border-primary" placeholder="0.0" type="number"/></div>
+            <div><label class="text-xs font-bold text-slate-500 block mb-1">Tipo de Material</label>
+              <select class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-primary focus:border-primary"><option>Mineral</option><option>Jal</option><option>Estéril</option></select>
+            </div>
+          </div>
+          <button class="w-full bg-primary text-white text-sm font-bold py-2.5 rounded-xl hover:opacity-90 transition-opacity">Confirmar Entrada/Salida</button>
+        </form>
+      </div>
+
+      <!-- Recent Trips + Blasting Log -->
+      <div class="space-y-4">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="px-6 py-4 border-b border-slate-200 bg-slate-50/50"><h3 class="text-sm font-bold text-slate-700">Últimos Viajes</h3></div>
+          <div class="divide-y divide-slate-200">
+            <div class="px-6 py-3 flex items-center gap-4"><div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary text-sm">local_shipping</span></div><div class="flex-1"><p class="text-sm font-bold text-slate-800">ABC-123 → Planta</p><p class="text-xs text-slate-500">32.5 ton · Mineral · 11:42</p></div><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">Completo</span></div>
+            <div class="px-6 py-3 flex items-center gap-4"><div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary text-sm">local_shipping</span></div><div class="flex-1"><p class="text-sm font-bold text-slate-800">LMN-456 → Jales</p><p class="text-xs text-slate-500">28.2 ton · Jal · 10:55</p></div><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">Completo</span></div>
+            <div class="px-6 py-3 flex items-center gap-4"><div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary text-sm">local_shipping</span></div><div class="flex-1"><p class="text-sm font-bold text-slate-800">XYZ-987 → Patio</p><p class="text-xs text-slate-500">30.0 ton · Mineral · 10:10</p></div><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700">En ruta</span></div>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="px-6 py-4 border-b border-slate-200 bg-amber-50/50 flex items-center gap-2"><span class="material-symbols-outlined text-amber-600 text-sm">warning</span><h3 class="text-sm font-bold text-slate-700">Plan de Voladuras</h3></div>
+          <div class="divide-y divide-slate-200">
+            <div class="px-6 py-3 flex justify-between items-center"><div><p class="text-sm font-bold text-slate-800">Nv. 450 Norte</p><p class="text-xs text-slate-500">Programada 13:00 · 240 kg</p></div><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-700">Pendiente</span></div>
+            <div class="px-6 py-3 flex justify-between items-center"><div><p class="text-sm font-bold text-slate-800">Nv. 500 Este</p><p class="text-xs text-slate-500">Ejecutada 07:45 · 180 kg</p></div><span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">Completada</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</div>
+</body>
+</html>

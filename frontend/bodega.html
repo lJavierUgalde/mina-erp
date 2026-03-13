@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bodega - Mina ERP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>tailwind.config={darkMode:"class",theme:{extend:{colors:{primary:"#ec5b13","background-light":"#f8f6f6","background-dark":"#221610"},fontFamily:{display:["Public Sans"]}}}}</script>
+<style>body{font-family:'Public Sans',sans-serif}</style>
+</head>
+<body class="bg-background-light text-slate-900">
+<div class="flex h-screen overflow-hidden">
+
+<aside class="w-64 bg-[#240f1b] flex-shrink-0 flex flex-col border-r border-white/10">
+  <div class="p-6 flex items-center gap-3">
+    <div class="size-10 rounded-full bg-primary flex items-center justify-center text-white"><span class="material-symbols-outlined">mountain_flag</span></div>
+    <div><h1 class="text-white text-base font-bold leading-tight">Mina ERP</h1><p class="text-primary/70 text-xs font-medium">Mining Management</p></div>
+  </div>
+  <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="dashboard.html"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="text-sm font-medium">Dashboard</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="operacion_mina.html"><span class="material-symbols-outlined text-[20px]">precision_manufacturing</span><span class="text-sm font-medium">Operación Mina</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="planta_lab.html"><span class="material-symbols-outlined text-[20px]">factory</span><span class="text-sm font-medium">Planta</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="laboratorio.html"><span class="material-symbols-outlined text-[20px]">science</span><span class="text-sm font-medium">Laboratorio</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="mantenimiento.html"><span class="material-symbols-outlined text-[20px]">build</span><span class="text-sm font-medium">Mantenimiento</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 bg-primary text-white rounded-xl shadow-lg shadow-primary/20" href="inventario.html"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="text-sm font-semibold">Inventario</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="rh_seguridad.html"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="text-sm font-medium">RH y Seguridad</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="finanzas.html"><span class="material-symbols-outlined text-[20px]">local_shipping</span><span class="text-sm font-medium">Embarques / Finanzas</span></a>
+  </nav>
+  <div class="p-4 border-t border-white/5">
+    <div class="bg-white/5 rounded-xl p-3">
+      <p class="text-[10px] uppercase tracking-wider text-white/40 font-bold mb-2">Estado del Sistema</p>
+      <div class="flex items-center gap-2"><div class="size-2 rounded-full bg-emerald-500 animate-pulse"></div><span class="text-xs text-white/80 font-medium">Servidores Activos</span></div>
+    </div>
+  </div>
+</aside>
+
+<div class="flex-1 flex flex-col overflow-hidden">
+  <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 z-10">
+    <div class="flex items-center gap-4"><span class="material-symbols-outlined text-primary">warehouse</span><h2 class="text-lg font-bold text-slate-800">Panel de Control de Almacén</h2></div>
+    <div class="flex items-center gap-3">
+      <span class="flex items-center gap-1.5 text-sm font-bold text-red-600 bg-red-50 px-3 py-1.5 rounded-full border border-red-200"><span class="material-symbols-outlined text-sm">warning</span>1 artículo agotado</span>
+    </div>
+  </header>
+
+  <main class="flex-1 overflow-y-auto p-8 space-y-8">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+
+      <!-- Maintenance Requests -->
+      <div class="lg:col-span-2 space-y-4">
+        <h3 class="text-sm font-bold text-slate-700 flex items-center gap-2 px-1"><span class="material-symbols-outlined text-primary text-sm">assignment</span>Solicitudes de Mantenimiento</h3>
+
+        <!-- OT-998 Card -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="px-5 py-4 border-b border-slate-100 flex justify-between items-start">
+            <div><p class="text-sm font-bold text-slate-800">OT-998 — Molino SAG-2</p><p class="text-xs text-slate-500 mt-0.5 flex items-center gap-1"><span class="material-symbols-outlined text-xs">person</span>Juan Pérez · Mecánico</p></div>
+            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full">Pendiente</span>
+          </div>
+          <div class="px-5 py-3">
+            <p class="text-xs text-slate-500 mb-3">Solicita: Rodamiento 6305-2RS (x2), Grasa SKF (1kg)</p>
+            <div class="flex gap-2">
+              <button class="flex-1 text-xs font-bold text-white bg-primary py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-1"><span class="material-symbols-outlined text-xs">check_circle</span>Aprobar y Descontar Stock</button>
+              <button class="px-3 text-xs font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-xs">block</span>Rechazar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- OT-1002 Card -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="px-5 py-4 border-b border-slate-100 flex justify-between items-start">
+            <div><p class="text-sm font-bold text-slate-800">OT-1002 — Camión CAT</p><p class="text-xs text-slate-500 mt-0.5 flex items-center gap-1"><span class="material-symbols-outlined text-xs">person</span>Carlos Ruiz · Mecánico</p></div>
+            <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full">Pendiente</span>
+          </div>
+          <div class="px-5 py-3">
+            <p class="text-xs text-slate-500 mb-3">Solicita: Filtro aceite CAT (x1), Aceite 15W-40 (20L)</p>
+            <div class="flex gap-2">
+              <button class="flex-1 text-xs font-bold text-white bg-primary py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-1"><span class="material-symbols-outlined text-xs">check_circle</span>Aprobar y Descontar Stock</button>
+              <button class="px-3 text-xs font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-xs">block</span>Rechazar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Critical Stock Table -->
+      <div class="lg:col-span-3 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-200 bg-slate-50/50 flex justify-between items-center"><h3 class="text-sm font-bold text-slate-700 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">inventory_2</span>Stock de Artículos Críticos</h3><button class="text-xs font-bold text-primary hover:underline">Ver todo el inventario →</button></div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead class="bg-slate-50 border-b border-slate-200">
+              <tr><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Referencia</th><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Descripción</th><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase text-center">Stock</th><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase text-center">Mín.</th><th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Estado</th></tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="px-6 py-4 text-sm font-bold font-mono text-slate-700">REF-552</td>
+                <td class="px-6 py-4 text-sm text-slate-700">Filtro aceite CAT 785C</td>
+                <td class="px-6 py-4 text-center"><span class="font-bold text-amber-600">2</span></td>
+                <td class="px-6 py-4 text-center text-sm text-slate-500">5</td>
+                <td class="px-6 py-4"><span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700"><span class="material-symbols-outlined text-xs">warning</span>Bajo stock</span></td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="px-6 py-4 text-sm font-bold font-mono text-slate-700">ELC-201</td>
+                <td class="px-6 py-4 text-sm text-slate-700">Cable eléctrico 6mm² (m)</td>
+                <td class="px-6 py-4 text-center"><span class="font-bold text-amber-600">5</span></td>
+                <td class="px-6 py-4 text-center text-sm text-slate-500">20</td>
+                <td class="px-6 py-4"><span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700"><span class="material-symbols-outlined text-xs">warning</span>Bajo stock</span></td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="px-6 py-4 text-sm font-bold font-mono text-slate-700">MEC-009</td>
+                <td class="px-6 py-4 text-sm text-slate-700">Rodamiento 6305-2RS SKF</td>
+                <td class="px-6 py-4 text-center"><span class="font-bold text-orange-600">1</span></td>
+                <td class="px-6 py-4 text-center text-sm text-slate-500">4</td>
+                <td class="px-6 py-4"><span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700"><span class="material-symbols-outlined text-xs">error</span>Crítico</span></td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="px-6 py-4 text-sm font-bold font-mono text-slate-700">PPE-988</td>
+                <td class="px-6 py-4 text-sm text-slate-700">Careta para soldar tipo 4</td>
+                <td class="px-6 py-4 text-center"><span class="font-bold text-red-600">0</span></td>
+                <td class="px-6 py-4 text-center text-sm text-slate-500">3</td>
+                <td class="px-6 py-4"><span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-red-200 text-red-800"><span class="material-symbols-outlined text-xs">block</span>Agotado</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="px-6 py-4 border-t border-slate-200 bg-slate-50/50 flex justify-end">
+          <button class="flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-bold rounded-xl hover:opacity-90 transition-opacity"><span class="material-symbols-outlined text-sm">shopping_cart</span>Generar Orden de Compra</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+</div>
+</body>
+</html>

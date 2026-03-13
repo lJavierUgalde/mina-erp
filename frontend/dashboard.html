@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mina ERP - Panel Principal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script>tailwind.config={darkMode:"class",theme:{extend:{colors:{primary:"#ec5b13","background-light":"#f8f6f6","background-dark":"#221610"},fontFamily:{sans:["Public Sans","sans-serif"]}}}}</script>
+<style>
+  body{font-family:'Public Sans',sans-serif}
+  .material-symbols-outlined{vertical-align:middle}
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #f1f1f1; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+</style>
+</head>
+<body class="bg-gray-50 text-slate-800 font-sans antialiased h-screen overflow-hidden flex">
+
+<!-- Sidebar -->
+<aside class="w-64 bg-[#240f1b] flex-shrink-0 flex flex-col border-r border-white/10">
+  <div class="p-6 flex items-center gap-3">
+    <div class="size-10 rounded-full bg-primary flex items-center justify-center text-white"><span class="material-symbols-outlined">mountain_flag</span></div>
+    <div><h1 class="text-white text-base font-bold leading-tight">Mina ERP</h1><p class="text-primary/70 text-xs font-medium">Mining Management</p></div>
+  </div>
+  <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
+    <a class="flex items-center gap-3 px-3 py-2 bg-primary text-white rounded-xl shadow-lg shadow-primary/20" href="dashboard.html"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="text-sm font-semibold">Dashboard</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="operacion_mina.html"><span class="material-symbols-outlined text-[20px]">precision_manufacturing</span><span class="text-sm font-medium">Operación Mina</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="planta_lab.html"><span class="material-symbols-outlined text-[20px]">factory</span><span class="text-sm font-medium">Planta</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="laboratorio.html"><span class="material-symbols-outlined text-[20px]">science</span><span class="text-sm font-medium">Laboratorio</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="mantenimiento.html"><span class="material-symbols-outlined text-[20px]">build</span><span class="text-sm font-medium">Mantenimiento</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="inventario.html"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="text-sm font-medium">Inventario</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="rh_seguridad.html"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="text-sm font-medium">RH y Seguridad</span></a>
+    <a class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/5 rounded-xl transition-colors" href="finanzas.html"><span class="material-symbols-outlined text-[20px]">local_shipping</span><span class="text-sm font-medium">Embarques / Finanzas</span></a>
+  </nav>
+  <div class="p-4 border-t border-white/5">
+    <div class="bg-white/5 rounded-xl p-3">
+      <p class="text-[10px] uppercase tracking-wider text-white/40 font-bold mb-2">Estado del Sistema</p>
+      <div class="flex items-center gap-2"><div class="size-2 rounded-full bg-emerald-500 animate-pulse"></div><span class="text-xs text-white/80 font-medium">Servidores Activos</span></div>
+    </div>
+  </div>
+</aside>
+
+<!-- Main Content -->
+<div class="flex-1 flex flex-col h-full overflow-hidden">
+  <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0 shadow-sm">
+    <h1 class="text-xl font-semibold text-slate-800">Panel Principal</h1>
+    <div class="flex items-center space-x-6">
+      <button class="relative text-gray-400 hover:text-slate-600 transition-colors">
+        <i class="far fa-bell text-xl"></i>
+        <span class="absolute -top-1 -right-1 block h-2.5 w-2.5 rounded-full bg-red-500 border-2 border-white"></span>
+      </button>
+      <div class="flex items-center space-x-3 pl-4 border-l border-gray-100">
+        <div class="text-right">
+          <p class="text-sm font-semibold text-slate-800 leading-none">Gerente Turno 1</p>
+          <span class="text-[10px] text-gray-500 uppercase font-bold">En línea</span>
+        </div>
+        <div class="h-10 w-10 rounded-full bg-amber-400 flex items-center justify-center text-white font-bold">GT</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 overflow-y-auto p-8 space-y-6">
+    <!-- Alert Banner -->
+    <section class="animate-pulse">
+      <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-md shadow-sm flex items-start space-x-4">
+        <div class="bg-red-500 text-white rounded-full p-2"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="flex-1">
+          <h3 class="text-red-800 font-bold">Alerta Crítica</h3>
+          <p class="text-red-700 text-sm">El Molino Primario 2 se detuvo inesperadamente a las 14:33 hrs. Mantenimiento notificado.</p>
+        </div>
+        <button class="text-red-400 hover:text-red-600"><i class="fas fa-times"></i></button>
+      </div>
+    </section>
+
+    <!-- KPI Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div class="flex justify-between items-start mb-4">
+          <div class="bg-blue-100 text-blue-600 p-3 rounded-lg"><i class="fas fa-truck-moving text-xl"></i></div>
+          <span class="text-green-500 text-xs font-bold bg-green-50 px-2 py-1 rounded">+5% vs plan</span>
+        </div>
+        <p class="text-gray-500 text-sm font-medium">Producción</p>
+        <h2 class="text-2xl font-bold text-slate-800">1,250 ton</h2>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div class="flex justify-between items-start mb-4">
+          <div class="bg-amber-100 text-amber-600 p-3 rounded-lg"><i class="fas fa-cogs text-xl"></i></div>
+          <span class="text-red-500 text-xs font-bold bg-red-50 px-2 py-1 rounded">-2% Molino 2</span>
+        </div>
+        <p class="text-gray-500 text-sm font-medium">Disponibilidad</p>
+        <h2 class="text-2xl font-bold text-slate-800">88%</h2>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div class="flex justify-between items-start mb-4">
+          <div class="bg-purple-100 text-purple-600 p-3 rounded-lg"><i class="fas fa-train text-xl"></i></div>
+          <span class="text-slate-400 text-xs font-bold">Despacho</span>
+        </div>
+        <p class="text-gray-500 text-sm font-medium mb-1">Góndolas Cargadas</p>
+        <div class="flex items-end justify-between mb-2">
+          <h2 class="text-2xl font-bold text-slate-800">6/8</h2>
+          <span class="text-xs text-gray-400">75%</span>
+        </div>
+        <div class="w-full bg-gray-100 h-2 rounded-full">
+          <div class="bg-purple-500 h-2 rounded-full" style="width: 75%"></div>
+        </div>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div class="flex justify-between items-start mb-4">
+          <div class="bg-emerald-100 text-emerald-600 p-3 rounded-lg"><i class="fas fa-shield-alt text-xl"></i></div>
+          <span class="text-emerald-600 text-xs font-bold bg-emerald-50 px-2 py-1 rounded">Meta cumplida</span>
+        </div>
+        <p class="text-gray-500 text-sm font-medium">Seguridad</p>
+        <h2 class="text-2xl font-bold text-slate-800">0.0 <span class="text-sm font-normal text-gray-400">Incidentes</span></h2>
+        <p class="text-[10px] text-gray-400 mt-2 uppercase tracking-wider">120 días sin accidentes</p>
+      </div>
+    </section>
+
+    <!-- Two Column Layout -->
+    <section class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <!-- Proyectos Especiales -->
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-lg font-bold text-slate-800">Proyectos Especiales</h3>
+          <button class="text-blue-500 text-sm font-semibold hover:underline">Ver todos</button>
+        </div>
+        <div class="space-y-6">
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-sm font-semibold text-slate-700">Expansión Presa de Jales</span>
+              <span class="text-sm font-bold text-blue-600">60%</span>
+            </div>
+            <div class="relative h-6 bg-gray-100 rounded-lg overflow-hidden">
+              <div class="h-full bg-blue-500 rounded-lg flex items-center justify-end px-2" style="width: 60%">
+                <span class="text-[10px] text-white font-bold">Fase 3</span>
+              </div>
+            </div>
+            <div class="flex justify-between mt-1 px-1">
+              <span class="text-[10px] text-gray-400">Ene</span><span class="text-[10px] text-gray-400">Mar</span>
+              <span class="text-[10px] font-bold text-slate-600">Hoy</span>
+              <span class="text-[10px] text-gray-400">Jul</span><span class="text-[10px] text-gray-400">Sep</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-sm font-semibold text-slate-700">Mantenimiento Mayor Trituradora</span>
+              <span class="text-sm font-bold text-amber-600">15%</span>
+            </div>
+            <div class="relative h-6 bg-gray-100 rounded-lg overflow-hidden">
+              <div class="h-full bg-amber-500 rounded-lg" style="width: 15%"></div>
+            </div>
+            <div class="flex justify-between mt-1 px-1">
+              <span class="text-[10px] text-gray-400">Abr</span>
+              <span class="text-[10px] font-bold text-slate-600">Hoy</span>
+              <span class="text-[10px] text-gray-400">Jun</span><span class="text-[10px] text-gray-400">Ago</span>
+              <span class="text-[10px] text-gray-400">Oct</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bitácora Reciente -->
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-lg font-bold text-slate-800">Bitácora Reciente</h3>
+          <span class="text-xs text-gray-400">Últimas 4 horas</span>
+        </div>
+        <div class="flex-1 space-y-4">
+          <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition-colors border-l-4 border-indigo-400">
+            <div class="bg-indigo-50 text-indigo-500 p-2 rounded-md"><i class="fas fa-vial"></i></div>
+            <div class="flex-1">
+              <p class="text-xs font-bold text-indigo-600 uppercase tracking-tighter">Laboratorio</p>
+              <p class="text-sm text-slate-700 font-medium">Ensayo de humedad Lote #442 finalizado</p>
+              <span class="text-[10px] text-gray-400">Hace 15 min</span>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition-colors border-l-4 border-amber-400">
+            <div class="bg-amber-50 text-amber-500 p-2 rounded-md"><i class="fas fa-dolly"></i></div>
+            <div class="flex-1">
+              <p class="text-xs font-bold text-amber-600 uppercase tracking-tighter">Inventario</p>
+              <p class="text-sm text-slate-700 font-medium">Salida de aceite hidráulico 200L</p>
+              <span class="text-[10px] text-gray-400">Hace 45 min</span>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition-colors border-l-4 border-orange-400">
+            <div class="bg-orange-50 text-orange-500 p-2 rounded-md"><i class="fas fa-bomb"></i></div>
+            <div class="flex-1">
+              <p class="text-xs font-bold text-orange-600 uppercase tracking-tighter">Mina</p>
+              <p class="text-sm text-slate-700 font-medium">Detonación programada nivel 4: Exitosa</p>
+              <span class="text-[10px] text-gray-400">Hace 2 horas</span>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition-colors border-l-4 border-red-400">
+            <div class="bg-red-50 text-red-500 p-2 rounded-md"><i class="fas fa-tools"></i></div>
+            <div class="flex-1">
+              <p class="text-xs font-bold text-red-600 uppercase tracking-tighter">Mantenimiento</p>
+              <p class="text-sm text-slate-700 font-medium">Orden de Trabajo Generada: OT-998 (Molino 2)</p>
+              <span class="text-[10px] text-gray-400">Hace 2.5 horas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
