@@ -17,6 +17,7 @@ export default defineConfig({
         caseta:         resolve(__dirname, 'caseta.html'),
         laboratorio:    resolve(__dirname, 'laboratorio.html'),
         bodega:         resolve(__dirname, 'bodega.html'),
+        auditorias:     resolve(__dirname, 'auditorias.html'),
       }
     }
   }
