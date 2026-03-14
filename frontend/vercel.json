@@ -3,6 +3,6 @@
   "outputDirectory": "dist",
   "framework": null,
   "routes": [
-    { "src": "/", "dest": "/dashboard.html" }
+    { "src": "/", "dest": "/index.html" }
   ]
 }
