@@ -1,7 +1,6 @@
 {
-  "buildCommand": "npm install && npm run build",
-  "outputDirectory": "dist",
   "framework": null,
+  "outputDirectory": ".",
   "routes": [
     { "src": "/", "dest": "/index.html" }
   ]
