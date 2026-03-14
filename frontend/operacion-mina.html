@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinaOS - Operación Mina Matriz</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: { 
+                        primary: '#f97316', secondary: '#0f172a',
+                        accent: '#3b82f6', success: '#10b981', danger: '#ef4444'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        
+        .card-gradient { background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); }
+        .dark .card-gradient { background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%); }
+        
+        .data-dense th, .data-dense td { padding: 0.5rem 0.75rem; font-size: 0.75rem; }
+        
+        .tab-content { display: none; opacity: 0; transform: translateY(5px); transition: all 0.3s ease; }
+        .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
+        
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        .alert-item { animation: slideIn 0.4s ease-out forwards; }
+    </style>
+</head>
+<body class="text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-950 flex h-screen overflow-hidden transition-colors duration-300">
+
+    <aside class="w-16 lg:w-64 bg-secondary text-slate-300 flex flex-col border-r border-slate-800 dark:border-slate-800/50 shrink-0 z-20 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-primary/20 to-transparent opacity-50 pointer-events-none"></div>
+        <div class="h-16 flex items-center px-5 border-b border-slate-800/80 relative z-10">
+            <div class="w-8 h-8 bg-gradient-to-tr from-primary to-orange-400 rounded flex items-center justify-center text-white shadow-[0_0_10px_rgba(249,115,22,0.5)]">
+                <span class="material-symbols-outlined text-[20px]">diamond</span>
+            </div>
+            <div class="hidden lg:block ml-3">
+                <h1 class="font-bold text-white text-sm tracking-wide leading-none">MinaOS</h1>
+                <p class="text-[9px] text-primary font-bold tracking-widest uppercase mt-0.5">Enterprise</p>
+            </div>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 relative z-10">
+            <a href="index.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
+                <span class="material-symbols-outlined text-[20px]">space_dashboard</span><span class="hidden lg:block ml-3 text-sm font-medium">Dashboard Maestro</span>
+            </a>
+            
+            <div class="nav-group mt-2">
+                <button class="w-full flex items-center justify-between p-2.5 rounded-lg bg-primary/20 text-primary border-l-2 border-primary shadow-md">
+                    <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">landscape</span><span class="hidden lg:block ml-3 text-sm font-bold">Operación Mina</span></div>
+                    <span class="material-symbols-outlined text-[16px] transform rotate-90 hidden lg:block">chevron_right</span>
+                </button>
+                <div class="pl-11 space-y-1 mt-1 hidden lg:block mb-3">
+                    <button onclick="switchTab('tab-barrenacion', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 font-bold text-primary">Barrenación y Detonación</button>
+                    <button onclick="switchTab('tab-acarreo', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Acarreo de Mineral</button>
+                    <button onclick="switchTab('tab-patio', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Inventario y Fletes</button>
+                </div>
+            </div>
+
+            <a href="#" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
+                <span class="material-symbols-outlined text-[20px]">factory</span><span class="hidden lg:block ml-3 text-sm font-medium">Planta y Calidad</span>
+            </a>
+        </nav>
+    </aside>
+
+    <div class="flex-1 flex flex-col h-full overflow-hidden bg-slate-100/50 dark:bg-slate-950/50">
+        
+        <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shrink-0 z-10 transition-colors duration-300">
+            <div class="h-16 flex items-center justify-between px-6 md:px-8">
+                <div>
+                    <h2 class="text-xl font-black text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Matriz de Operación: Mina</h2>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mt-0.5">Actividades, Recursos, Insumos y KPIs</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="theme-toggle" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shadow-sm">
+                        <span id="theme-icon" class="material-symbols-outlined text-[20px]">dark_mode</span>
+                    </button>
+                    <select class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold rounded-lg px-3 py-2 shadow-sm outline-none dark:text-white transition-colors duration-300">
+                        <option>Turno 1 (Actual)</option><option>Turno 2</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="px-6 md:px-8 flex gap-6 overflow-x-auto border-t border-slate-100 dark:border-slate-800">
+                <button onclick="switchTab('tab-barrenacion', document.querySelectorAll('.sub-nav-btn')[0])" class="top-tab-btn border-b-2 border-primary text-primary py-3 font-bold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                    <span class="material-symbols-outlined text-[18px]">straighten</span> 1. Barrenación y Detonación
+                </button>
+                <button onclick="switchTab('tab-acarreo', document.querySelectorAll('.sub-nav-btn')[1])" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                    <span class="material-symbols-outlined text-[18px]">agriculture</span> 2. Acarreo de Mineral
+                </button>
+                <button onclick="switchTab('tab-patio', document.querySelectorAll('.sub-nav-btn')[2])" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                    <span class="material-symbols-outlined text-[18px]">layers</span> 3. Patio e Inventario
+                </button>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 w-full relative">
+            <div class="w-full flex flex-col xl:flex-row gap-6">
+
+                <div class="flex-1">
+
+                    <div id="tab-barrenacion" class="tab-content active space-y-8">
+                        
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-6 py-4 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+                                <h3 class="text-base font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-primary">precision_manufacturing</span> Actividad: Acero y Brocas (Barrenación)</h3>
+                            </div>
+                            <div class="p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                    <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
+                                        <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest mb-2">Recursos Asignados</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-2.5 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded text-xs font-semibold text-slate-700 dark:text-slate-200 shadow-sm flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">engineering</span> RH</span>
+                                            <span class="px-2.5 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded text-xs font-semibold text-slate-700 dark:text-slate-200 shadow-sm">Máquinas de perforación</span>
+                                            <span class="px-2.5 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded text-xs font-semibold text-slate-700 dark:text-slate-200 shadow-sm">Bombas de Agua y Tubería</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
+                                        <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest mb-2">Insumos Críticos</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-2.5 py-1 bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 border border-orange-200 dark:border-orange-800 rounded text-xs font-bold shadow-sm">Acero y Brocas</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="text-xs font-bold text-slate-800 dark:text-white uppercase mb-3">KPIs y Datos Visualizados</h4>
+                                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3"><p class="text-[10px] text-slate-500 dark:text-slate-400">$/metro avanzado</p><p class="text-lg font-black text-slate-800 dark:text-white">$45.00</p></div>
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3"><p class="text-[10px] text-slate-500 dark:text-slate-400">Avance/turno</p><p class="text-lg font-black text-primary">18.5 mts</p></div>
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3"><p class="text-[10px] text-slate-500 dark:text-slate-400">$/Ton (Costo Eq)</p><p class="text-lg font-black text-slate-800 dark:text-white">$3.20</p></div>
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3"><p class="text-[10px] text-slate-500 dark:text-slate-400">Mantenimientos</p><p class="text-sm font-bold text-slate-800 dark:text-white mt-1">2 Preventivos</p></div>
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3"><p class="text-[10px] text-slate-500 dark:text-slate-400">Consumo Insumos</p><p class="text-sm font-bold text-slate-800 dark:text-white mt-1">12 Brocas</p></div>
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3 bg-success/10"><p class="text-[10px] text-slate-500 dark:text-slate-400">Var. vs Ppto</p><p class="text-base font-black text-success mt-1">-$1.20</p></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-6 py-4 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+                                <h3 class="text-base font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-danger">crisis_alert</span> Actividad: Detonación de Explosivos</h3>
+                            </div>
+                            <div class="p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                    <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
+                                        <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest mb-2">Recursos Asignados</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-2.5 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded text-xs font-semibold text-slate-700 dark:text-slate-200 shadow-sm flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">engineering</span> RH (Voladores)</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
+                                        <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest mb-2">Insumos Críticos</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-2 py-1 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800 rounded text-xs font-bold">Explosivo principal</span>
+                                            <span class="px-2 py-1 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded text-xs font-semibold">Sistemas de iniciación</span>
+                                            <span class="px-2 py-1 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded text-xs font-semibold">Multiplicador</span>
+                                            <span class="px-2 py-1 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded text-xs font-semibold">Cordón detonante</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="text-xs font-bold text-slate-800 dark:text-white uppercase mb-3">KPIs y Datos Visualizados</h4>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3"><p class="text-[10px] text-slate-500 dark:text-slate-400">$/Ton (Explosivos)</p><p class="text-xl font-black text-slate-800 dark:text-white">$8.50</p></div>
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3"><p class="text-[10px] text-slate-500 dark:text-slate-400">Consumo de Materiales</p><p class="text-base font-bold text-slate-800 dark:text-white mt-1">450 kg (Principal)</p></div>
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3 bg-danger/10"><p class="text-[10px] text-slate-500 dark:text-slate-400">Var. $ vs Ppto</p><p class="text-base font-black text-danger mt-1">+$0.30</p></div>
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3"><p class="text-[10px] text-slate-500 dark:text-slate-400"># Truenos vs Avance</p><p class="text-sm font-bold text-slate-800 dark:text-white mt-1">12 T = 18.5m (Zona Sur)</p></div>
+                                </div>
+                                
+                                <div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-100 dark:border-slate-700 p-4">
+                                    <p class="text-xs font-bold text-slate-600 dark:text-slate-400 mb-2">Relación: Truenos vs Avance (Por Zona)</p>
+                                    <div class="relative h-[200px] w-full"><canvas id="voladuraChart"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="tab-acarreo" class="tab-content space-y-6">
+                        
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-6 py-4 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+                                <h3 class="text-base font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-accent">agriculture</span> Actividad: Acarreo</h3>
+                            </div>
+                            <div class="p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                    <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
+                                        <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest mb-2">Recursos Asignados</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-2 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded text-xs font-bold text-slate-700 dark:text-slate-200">Camión BP</span>
+                                            <span class="px-2 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded text-xs font-bold text-slate-700 dark:text-slate-200">Scoop</span>
+                                            <span class="px-2 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded text-xs font-bold text-slate-700 dark:text-slate-200">Tiro</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
+                                        <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest mb-2">Insumos</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-2 py-1 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded text-xs font-semibold">Combustible</span>
+                                            <span class="px-2 py-1 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded text-xs font-semibold">Refacciones</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h4 class="text-xs font-bold text-slate-800 dark:text-white uppercase mb-3">Matriz Operativa de KPIs (Acarreo)</h4>
+                                <div class="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-lg">
+                                    <table class="w-full text-left data-dense">
+                                        <thead class="bg-slate-100 dark:bg-slate-900 text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-700">
+                                            <tr>
+                                                <th>Recurso / Equipo</th>
+                                                <th class="text-center">MTTR y MTBF</th>
+                                                <th class="text-right">Ton movidas</th>
+                                                <th class="text-right">Km recorridos</th>
+                                                <th class="text-center">Horas de uso</th>
+                                                <th class="text-center">Consumos de insumos</th>
+                                                <th class="text-center">Tiempos traslado</th>
+                                                <th class="text-center">Mantenimientos</th>
+                                                <th class="text-right">Variación $ vs Ppto</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-xs text-slate-700 dark:text-slate-300">
+                                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                                                <td class="font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-success"></span> Camión BP 01</td>
+                                                <td class="text-center font-mono">2.5h / <span class="text-success">150h</span></td>
+                                                <td class="text-right font-bold">450 t</td>
+                                                <td class="text-right">18.5 km</td>
+                                                <td class="text-center">6.5 hrs</td>
+                                                <td class="text-center">Combustible OK</td>
+                                                <td class="text-center">14 min</td>
+                                                <td class="text-center"><span class="bg-slate-200 dark:bg-slate-700 px-1 py-0.5 rounded text-[9px]">Preventivo</span></td>
+                                                <td class="text-right text-success font-bold">-$0.10</td>
+                                            </tr>
+                                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                                                <td class="font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-success"></span> Scoop 03</td>
+                                                <td class="text-center font-mono">1.2h / <span class="text-success">85h</span></td>
+                                                <td class="text-right font-bold">320 t</td>
+                                                <td class="text-right">8.2 km</td>
+                                                <td class="text-center">7.2 hrs</td>
+                                                <td class="text-center text-danger font-bold">+10% Diésel</td>
+                                                <td class="text-center">8 min</td>
+                                                <td class="text-center"><span class="text-slate-400 italic">Ninguno</span></td>
+                                                <td class="text-right text-danger font-bold">+$0.25</td>
+                                            </tr>
+                                            <tr class="bg-red-50/20 dark:bg-red-900/10">
+                                                <td class="font-bold text-danger flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-danger"></span> Tiro Central</td>
+                                                <td class="text-center font-mono font-bold">4.5h / <span class="text-danger">12h</span></td>
+                                                <td class="text-right font-bold text-danger">150 t</td>
+                                                <td class="text-right">2.0 km</td>
+                                                <td class="text-center text-danger font-bold">1.5 hrs</td>
+                                                <td class="text-center">-</td>
+                                                <td class="text-center font-bold">22 min</td>
+                                                <td class="text-center"><span class="bg-danger text-white px-1 py-0.5 rounded text-[9px]">Correctivo</span></td>
+                                                <td class="text-right text-danger font-bold">+$1.40</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="tab-patio" class="tab-content space-y-6">
+                        
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-6 py-4 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+                                <h3 class="text-base font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-primary">layers</span> Actividad: Inventario Patio</h3>
+                            </div>
+                            <div class="p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                    <div class="flex items-center gap-2 bg-slate-50 dark:bg-slate-900/50 p-2 rounded border border-slate-100 dark:border-slate-700"><span class="text-[10px] font-bold uppercase text-slate-500">Recursos:</span> <span class="text-xs font-semibold text-slate-800 dark:text-white">RH</span></div>
+                                    <div class="flex items-center gap-2 bg-slate-50 dark:bg-slate-900/50 p-2 rounded border border-slate-100 dark:border-slate-700"><span class="text-[10px] font-bold uppercase text-slate-500">Insumos:</span> <span class="text-xs font-semibold text-slate-800 dark:text-white">Sistema de medición</span></div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-xl p-4 relative">
+                                        <span class="absolute top-2 right-2 text-[9px] font-bold uppercase bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded">Zona Mineral: Veta Norte</span>
+                                        <div class="grid grid-cols-3 gap-2 mt-4 text-center">
+                                            <div><p class="text-[10px] text-slate-500 uppercase">Toneladas</p><p class="text-xl font-black text-slate-800 dark:text-white">450t</p></div>
+                                            <div><p class="text-[10px] text-slate-500 uppercase">Ley</p><p class="text-xl font-black text-slate-800 dark:text-white">2.4 g/t</p></div>
+                                            <div><p class="text-[10px] text-slate-500 uppercase">Valor</p><p class="text-xl font-black text-success">$45k</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-6 py-4 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+                                <h3 class="text-base font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-accent">local_shipping</span> Actividad: Flete Mina-Planta</h3>
+                            </div>
+                            <div class="p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                    <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl border border-slate-100 dark:border-slate-700">
+                                        <p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Recursos</p>
+                                        <p class="text-xs font-semibold text-slate-800 dark:text-white">Camiones, Choferes, Sist. monitoreo y rastreo</p>
+                                    </div>
+                                    <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl border border-slate-100 dark:border-slate-700">
+                                        <p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Insumos</p>
+                                        <p class="text-xs font-semibold text-slate-800 dark:text-white">Combustible, Mantenimiento</p>
+                                    </div>
+                                </div>
+                                <h4 class="text-xs font-bold text-slate-800 dark:text-white uppercase mb-3">Indicadores de Flete</h4>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3"><p class="text-[10px] text-slate-500 uppercase">Ton movidas</p><p class="text-lg font-black text-slate-800 dark:text-white">820 t</p></div>
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3"><p class="text-[10px] text-slate-500 uppercase">T. Traslado</p><p class="text-lg font-black text-slate-800 dark:text-white">15 min</p></div>
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3"><p class="text-[10px] text-slate-500 uppercase">$/ton</p><p class="text-lg font-black text-slate-800 dark:text-white">$2.10</p></div>
+                                    <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3 bg-success/10"><p class="text-[10px] text-slate-500 uppercase">Var $ vs Ppto</p><p class="text-lg font-black text-success">-$0.10</p></div>
+                                </div>
+                                <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
+                                    <p class="text-[10px] font-bold text-slate-500 uppercase mb-2">Registro de Salida y Llegada (En Vivo)</p>
+                                    <div class="flex justify-between items-center text-xs border-b border-slate-200 dark:border-slate-700 pb-1 mb-1">
+                                        <span class="font-bold dark:text-white">Camión 04 (35t)</span><span class="text-slate-600 dark:text-slate-400">Salida: 14:15 | Llegada Planta: <span class="text-success font-bold">14:32</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <aside class="w-full xl:w-80 flex-shrink-0 flex flex-col gap-6">
+                    
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col flex-1 h-[600px] transition-colors duration-300">
+                        <div class="px-5 py-4 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between sticky top-0 bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm rounded-t-2xl z-10 transition-colors duration-300">
+                            <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                                <span class="material-symbols-outlined text-danger animate-pulse">crisis_alert</span> Alertas Críticas
+                            </h3>
+                            <span class="text-[9px] bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 font-bold px-2 py-1 rounded transition-colors duration-300">Live feed</span>
+                        </div>
+                        
+                        <div class="p-4 space-y-4 overflow-y-auto flex-1">
+                            <div class="alert-item flex gap-3 p-3 rounded-xl bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-800/30 transition-colors duration-300">
+                                <div class="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/50 flex items-center justify-center text-danger shrink-0"><span class="material-symbols-outlined text-[16px]">report</span></div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800 dark:text-white">Paro Inesperado: Tiro Central</p>
+                                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">Se detectó falla en malacate. Acarreo detenido. MTTR activo.</p>
+                                    <p class="text-[9px] text-danger font-bold mt-1">Hace 2 minutos</p>
+                                </div>
+                            </div>
+
+                            <div class="alert-item flex gap-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-800/30 transition-colors duration-300" style="animation-delay: 0.2s;">
+                                <div class="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center text-amber-600 shrink-0"><span class="material-symbols-outlined text-[16px]">inventory</span></div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800 dark:text-white">Stock Insumo: Cordón Detonante</p>
+                                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">Inventario próximo a punto de reorden.</p>
+                                    <p class="text-[9px] text-amber-600 dark:text-amber-500 font-bold mt-1">Hace 15 minutos</p>
+                                </div>
+                            </div>
+
+                            <div class="alert-item flex gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-700/30 border border-slate-200 dark:border-slate-700 transition-colors duration-300" style="animation-delay: 0.4s;">
+                                <div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-success shrink-0"><span class="material-symbols-outlined text-[16px]">check_circle</span></div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800 dark:text-white">Flete: Llegada a Planta OK</p>
+                                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">Camión 02 reporta llegada en tiempo (14:18).</p>
+                                    <p class="text-[9px] text-slate-500 dark:text-slate-400 font-bold mt-1">Hace 1 hora</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </aside>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchElement('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+            themeIcon.textContent = 'light_mode';
+        } else {
+            htmlElement.classList.remove('dark');
+            themeIcon.textContent = 'dark_mode';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            const isDark = htmlElement.classList.contains('dark');
+            localStorage.theme = isDark ? 'dark' : 'light';
+            themeIcon.textContent = isDark ? 'light_mode' : 'dark_mode';
+            if(window.myChart) updateChartsTheme(isDark);
+        });
+
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            
+            document.querySelectorAll('.sub-nav-btn').forEach(nav => {
+                nav.classList.remove('text-primary', 'font-bold');
+                nav.classList.add('text-slate-400');
+            });
+            
+            document.querySelectorAll('.top-tab-btn').forEach(btn => {
+                btn.classList.remove('border-primary', 'text-primary');
+                btn.classList.add('border-transparent', 'text-slate-500', 'dark:text-slate-400');
+            });
+
+            if(el.classList.contains('sub-nav-btn')){
+                el.classList.remove('text-slate-400');
+                el.classList.add('text-primary', 'font-bold');
+                const index = Array.from(document.querySelectorAll('.sub-nav-btn')).indexOf(el);
+                const topBtn = document.querySelectorAll('.top-tab-btn')[index];
+                if(topBtn) {
+                    topBtn.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
+                    topBtn.classList.add('border-primary', 'text-primary');
+                }
+            } else {
+                el.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
+                el.classList.add('border-primary', 'text-primary');
+                const index = Array.from(document.querySelectorAll('.top-tab-btn')).indexOf(el);
+                const latBtn = document.querySelectorAll('.sub-nav-btn')[index];
+                if(latBtn) {
+                    latBtn.classList.remove('text-slate-400');
+                    latBtn.classList.add('text-primary', 'font-bold');
+                }
+            }
+            
+            if(tabId === 'tab-barrenacion') renderChart();
+        }
+
+        Chart.defaults.font.family = "'Poppins', sans-serif";
+        window.myChart = null;
+
+        function renderChart() {
+            const canvas = document.getElementById('voladuraChart');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            if(window.myChart) window.myChart.destroy();
+
+            const isDark = document.documentElement.classList.contains('dark');
+            const textColor = isDark ? '#94a3b8' : '#64748b'; 
+            const gridColor = isDark ? '#334155' : '#f1f5f9'; 
+
+            Chart.defaults.color = textColor;
+
+            const gradientLine = ctx.createLinearGradient(0, 0, 0, 250);
+            gradientLine.addColorStop(0, 'rgba(249, 115, 22, 0.5)');
+            gradientLine.addColorStop(1, 'rgba(249, 115, 22, 0.0)');
+
+            window.myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Veta Sur', 'Veta Norte', 'Nv 450', 'Nv 500', 'Explanada'],
+                    datasets: [
+                        {
+                            type: 'line',
+                            label: 'Metros Avanzados',
+                            data: [15, 12, 8, 18, 5],
+                            borderColor: '#f97316',
+                            backgroundColor: gradientLine,
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true,
+                            yAxisID: 'y',
+                            pointBackgroundColor: isDark ? '#0f172a' : '#fff',
+                            pointBorderColor: '#f97316',
+                            pointBorderWidth: 2,
+                            pointRadius: 4
+                        },
+                        {
+                            type: 'bar',
+                            label: 'Cantidad Truenos',
+                            data: [4, 3, 2, 5, 1],
+                            backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                            borderColor: '#3b82f6',
+                            borderWidth: 1,
+                            borderRadius: 4,
+                            barPercentage: 0.5,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: textColor } },
+                        y: { 
+                            type: 'linear', position: 'left', 
+                            title: { display: true, text: 'Avance (m)', color: '#f97316', font: { weight: 'bold' } },
+                            grid: { color: gridColor, borderDash: [4, 4] },
+                            ticks: { color: textColor }
+                        },
+                        y1: { 
+                            type: 'linear', position: 'right', 
+                            title: { display: true, text: 'No. Truenos', color: '#3b82f6', font: { weight: 'bold' } },
+                            grid: { drawOnChartArea: false },
+                            ticks: { color: textColor }
+                        }
+                    },
+                    plugins: { legend: { labels: { color: textColor, usePointStyle: true, boxWidth: 8 } } }
+                }
+            });
+        }
+
+        function updateChartsTheme() { renderChart(); }
+        setTimeout(() => { renderChart(); }, 100);
+    </script>
+</body>
+</html>
