@@ -105,7 +105,21 @@
         <span class="hidden lg:block ml-3 text-sm font-medium">Logística y Fletes</span>
     </a>
     
-    <a href="#" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
+    <div class="nav-group mt-2">
+        <button onclick="toggleMenu('menu-finanzas', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+            <div class="flex items-center">
+                <span class="material-symbols-outlined text-[20px]">request_quote</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Finanzas e Ingresos</span>
+            </div>
+            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+        </button>
+        <div id="menu-finanzas" class="submenu pl-11 space-y-1 mt-1">
+            <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">P&L y KPIs Estratégicos</a>
+            <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Facturación y CxC</a>
+        </div>
+    </div>
+
+    <a href="#" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
         <span class="material-symbols-outlined text-[20px]">build</span>
         <span class="hidden lg:block ml-3 text-sm font-medium">Mantenimiento</span>
     </a>
