@@ -79,29 +79,32 @@
             </a>
             
             <div class="nav-group mt-2">
-                <button onclick="window.location.href='operacion-mina.html'" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                <button onclick="toggleMenu('menu-mina', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
                     <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">landscape</span><span class="hidden lg:block ml-3 text-sm font-medium">Operación Mina</span></div>
                     <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
                 </button>
+                <div id="menu-mina" class="submenu pl-11 space-y-1 mt-1 mb-3">
+                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Barrenación y Detonación</a>
+                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Acarreo de Mineral</a>
+                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Patio e Inventario</a>
+                </div>
             </div>
 
             <div class="nav-group mt-2">
-                <button onclick="window.location.href='planta-calidad.html'" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                <button onclick="toggleMenu('menu-planta', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
                     <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">factory</span><span class="hidden lg:block ml-3 text-sm font-medium">Planta y Calidad</span></div>
                     <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
                 </button>
-            </div>
-
-            <div class="nav-group mt-2">
-                <button onclick="toggleMenu('menu-logistica', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg bg-info/20 text-info border-l-2 border-info shadow-md transition-colors">
-                    <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">local_shipping</span><span class="hidden lg:block ml-3 text-sm font-bold">Logística y Fletes</span></div>
-                    <span class="material-symbols-outlined text-[16px] nav-arrow open hidden lg:block">chevron_right</span>
-                </button>
-                <div id="menu-logistica" class="submenu open pl-11 space-y-1 mt-1 hidden lg:block mb-3">
-                    <button onclick="switchTab('tab-flota', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 font-bold text-info">Productividad de Flota</button>
-                    <button onclick="switchTab('tab-rastreo', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Rastreo y Salidas/Llegadas</button>
+                <div id="menu-planta" class="submenu pl-11 space-y-1 mt-1">
+                    <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Trituración y Molienda</a>
+                    <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Flotación, Jales y Lab</a>
+                    <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Concentrado y Embarques</a>
                 </div>
             </div>
+
+            <a href="logistica-fletes.html" class="flex items-center p-2.5 rounded-lg bg-primary/20 text-primary border-l-2 border-primary shadow-md transition-colors mt-2">
+                <span class="material-symbols-outlined text-[20px]">local_shipping</span><span class="hidden lg:block ml-3 text-sm font-bold">Logística y Fletes</span>
+            </a>
             
             <div class="nav-group mt-2">
                 <button onclick="toggleMenu('menu-finanzas', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
@@ -114,7 +117,7 @@
                 </div>
             </div>
 
-            <a href="#" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
+            <a href="mantenimiento.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
                 <span class="material-symbols-outlined text-[20px]">build</span><span class="hidden lg:block ml-3 text-sm font-medium">Mantenimiento</span>
             </a>
             
