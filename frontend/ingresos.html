@@ -119,14 +119,30 @@
         </div>
     </div>
     
-    <a href="mantenimiento.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
-        <span class="material-symbols-outlined text-[20px]">build</span>
-        <span class="hidden lg:block ml-3 text-sm font-medium">Mantenimiento</span>
-    </a>
-    
-    <a href="ambiental.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
-        <span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>
-        <span class="hidden lg:block ml-3 text-sm font-medium">HSE y Ambiental</span>
+    <div class="nav-group mt-2">
+        <button onclick="toggleMenu('menu-mtto', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+            <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">build</span><span class="hidden lg:block ml-3 text-sm font-medium">Mantenimiento</span></div>
+            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+        </button>
+        <div id="menu-mtto" class="submenu pl-11 space-y-1 mt-1 mb-3">
+            <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Estado de Flota y Preventivos</a>
+            <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Correctivos y Órdenes (OT)</a>
+            <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Eficiencia Mecánica (MTBF/TR)</a>
+        </div>
+    </div>
+    <div class="nav-group mt-2">
+        <button onclick="toggleMenu('menu-hse', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+            <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="hidden lg:block ml-3 text-sm font-medium">HSE y Ambiental</span></div>
+            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+        </button>
+        <div id="menu-hse" class="submenu pl-11 space-y-1 mt-1 mb-3">
+            <a href="ambiental.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Certificaciones y NOMs</a>
+            <a href="ambiental.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Seguridad Industrial (TRIR)</a>
+        </div>
+    </div>
+    <a href="grantt.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
+        <span class="material-symbols-outlined text-[20px]">view_timeline</span>
+        <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos &amp; Gantt</span>
     </a>
     <a href="alertas.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
         <span class="material-symbols-outlined text-[20px]">emergency</span>
