@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -58,6 +61,14 @@
         .nav-arrow.open { transform: rotate(90deg); }
         .sub-arrow { transition: transform 0.3s; display: inline-block; }
         .sub-arrow.open { transform: rotate(90deg); }
+
+        /* Filter bar dark/light mode */
+        .pc-filter-bar { display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 12px;background:#f8fafc;border-bottom:1px solid #e2e8f0;transition:background .3s,border-color .3s; }
+        .dark .pc-filter-bar { background:#1e293b;border-bottom-color:#334155; }
+        .pc-filter-bar input,.pc-filter-bar select { background:#fff;border-color:#e2e8f0;color:#475569; }
+        .dark .pc-filter-bar input,.dark .pc-filter-bar select { background:#0f172a;border-color:#334155;color:#cbd5e1; }
+        .pc-filter-footer { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:6px 12px;border-top:1px solid #e2e8f0;background:#f8fafc;transition:background .3s,border-color .3s; }
+        .dark .pc-filter-footer { background:#1e293b;border-top-color:#334155; }
     </style>
 </head>
 <body class="text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-950 flex h-screen overflow-hidden transition-colors duration-300">
@@ -304,7 +315,7 @@
                             </div>
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left data-dense">
-                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 dark:text-slate-400 uppercase border-b border-slate-200 dark:border-slate-700">
+                                    <thead id="tbl-planta-trituracion-head" class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 dark:text-slate-400 uppercase border-b border-slate-200 dark:border-slate-700">
                                         <tr>
                                             <th>Equipo</th><th class="text-center">Disp.</th><th class="text-center">Ton/hr (Real vs Plan)</th><th class="text-center">MTBF</th><th class="text-center">MTTR</th><th class="text-center">Mtto. Turno</th>
                                         </tr>
@@ -483,7 +494,7 @@
                                 </div>
                                 <div class="overflow-x-auto">
                                     <table class="w-full text-left data-dense">
-                                        <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                        <thead id="tbl-planta-odc-head" class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
                                             <tr><th>No. ODC</th><th>Proveedor</th><th>Concepto</th><th class="text-center">Monto</th><th class="text-center">Estatus</th></tr>
                                         </thead>
                                         <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
@@ -569,7 +580,7 @@
                             </div>
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left data-dense">
-                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                    <thead id="tbl-planta-inventario-head" class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
                                         <tr><th>Hora</th><th>Material</th><th>Tipo</th><th class="text-center">Cantidad</th><th>Responsable</th></tr>
                                     </thead>
                                     <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
@@ -613,7 +624,7 @@
                                 </div>
                                 <div class="overflow-x-auto">
                                     <table class="w-full text-left data-dense">
-                                        <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                        <thead id="tbl-planta-maquinaria-head" class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
                                             <tr><th>Equipo</th><th class="text-center">Disp.</th><th class="text-center">Hrs Operadas</th><th class="text-center">Consumo Insumo</th></tr>
                                         </thead>
                                         <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
@@ -643,7 +654,7 @@
                             </div>
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left data-dense">
-                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                    <thead id="tbl-planta-insumos-mtto-head" class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
                                         <tr><th>Insumo</th><th class="text-center">Consumo Turno</th><th class="text-center">Stock Actual</th><th class="text-center">Plan Mensual</th><th class="text-center">% Cumpl.</th></tr>
                                     </thead>
                                     <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
@@ -743,7 +754,7 @@
                             </div>
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left data-dense">
-                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                    <thead id="tbl-planta-ambiental-head" class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
                                         <tr><th>Parámetro</th><th class="text-center">Valor Medido</th><th class="text-center">Límite NOM</th><th class="text-center">Estatus</th><th>Fecha</th></tr>
                                     </thead>
                                     <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
@@ -789,7 +800,7 @@
                             </div>
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left data-dense">
-                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                    <thead id="tbl-planta-energia-head" class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
                                         <tr><th>Circuito</th><th class="text-center">MW/h</th><th class="text-center">kWh/Ton</th><th class="text-center">Plan kWh/t</th><th class="text-center">Var.</th></tr>
                                     </thead>
                                     <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
@@ -1035,6 +1046,163 @@
             });
         }
         function updateChartsTheme() { renderChart(); }
+
+        // ================================================================
+        //  Planta y Calidad — filter bars + PDF/Excel export for all tables
+        // ================================================================
+        const PC_TABLE_IDS = [
+            { id: 'tbl-planta-trituracion',  head: 'tbl-planta-trituracion-head',  label: 'Circuito Trituración' },
+            { id: 'tbl-planta-odc',          head: 'tbl-planta-odc-head',          label: 'Órdenes de Compra ODC' },
+            { id: 'tbl-planta-inventario',   head: 'tbl-planta-inventario-head',   label: 'Movimientos Inventario' },
+            { id: 'tbl-planta-maquinaria',   head: 'tbl-planta-maquinaria-head',   label: 'Disponibilidad Maquinaria' },
+            { id: 'tbl-planta-insumos-mtto', head: 'tbl-planta-insumos-mtto-head', label: 'Consumo Insumos Mtto' },
+            { id: 'tbl-planta-ambiental',    head: 'tbl-planta-ambiental-head',    label: 'Monitoreos Ambientales' },
+            { id: 'tbl-planta-energia',      head: 'tbl-planta-energia-head',      label: 'Consumo Energía Circuitos' },
+        ];
+
+        function initPcTableTools() {
+            PC_TABLE_IDS.forEach(({ id, head, label }) => {
+                const thead = document.getElementById(head);
+                if (!thead) return;
+                const table = thead.closest('table');
+                const tbody = table.querySelector('tbody');
+                tbody.id = id;
+                const wrapper = table.parentElement;
+                const totalRows = tbody.querySelectorAll('tr').length;
+                const cols = Array.from(thead.querySelectorAll('th')).map(th => th.textContent.trim());
+                const colOpts = cols.map((c, i) => `<option value="${i}">${c}</option>`).join('');
+
+                const fb = document.createElement('div');
+                fb.className = 'pc-filter-bar';
+                fb.innerHTML = `
+                    <div style="position:relative;flex:1;min-width:160px;max-width:260px">
+                        <span class="material-symbols-outlined" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:14px;color:#94a3b8;pointer-events:none">search</span>
+                        <input type="text" id="${id}-search" placeholder="Buscar en tabla…"
+                            oninput="applyPcFilters('${id}')"
+                            style="width:100%;font-size:11px;padding:5px 8px 5px 26px;border-radius:6px;border:1px solid;box-sizing:border-box;outline:none">
+                    </div>
+                    <select id="${id}-col" onchange="updatePcValDropdown('${id}')"
+                        style="font-size:11px;border:1px solid;border-radius:6px;padding:5px 10px;outline:none;cursor:pointer">
+                        <option value="">Filtrar por columna…</option>
+                        ${colOpts}
+                    </select>
+                    <select id="${id}-val" onchange="applyPcFilters('${id}')" disabled
+                        style="font-size:11px;border:1px solid;border-radius:6px;padding:5px 10px;outline:none;cursor:pointer;min-width:150px">
+                        <option value="">Todos los valores</option>
+                    </select>
+                    <button onclick="clearPcFilter('${id}')" style="font-size:10px;font-weight:700;color:#94a3b8;display:flex;align-items:center;gap:2px;cursor:pointer;background:none;border:none;white-space:nowrap" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">
+                        <span class="material-symbols-outlined" style="font-size:13px">filter_alt_off</span> Limpiar
+                    </button>`;
+                wrapper.parentElement.insertBefore(fb, wrapper);
+
+                const ft = document.createElement('div');
+                ft.className = 'pc-filter-footer';
+                ft.innerHTML = `
+                    <p id="${id}-count" style="font-size:10px;color:#94a3b8">Mostrando ${totalRows} de ${totalRows} registros</p>
+                    <div style="display:flex;gap:8px">
+                        <button onclick="exportPcExcel('${id}','${label}')" style="display:flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:#059669;border:1px solid #a7f3d0;border-radius:8px;padding:4px 10px;background:transparent;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#ecfdf5'" onmouseout="this.style.background='transparent'">
+                            <span class="material-symbols-outlined" style="font-size:14px">table_view</span> Excel
+                        </button>
+                        <button onclick="exportPcPDF('${id}','${label}')" style="display:flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:#ef4444;border:1px solid #fca5a5;border-radius:8px;padding:4px 10px;background:transparent;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='transparent'">
+                            <span class="material-symbols-outlined" style="font-size:14px">picture_as_pdf</span> PDF
+                        </button>
+                    </div>`;
+                wrapper.insertAdjacentElement('afterend', ft);
+            });
+        }
+
+        function updatePcValDropdown(id) {
+            const colSel = document.getElementById(`${id}-col`);
+            const valSel = document.getElementById(`${id}-val`);
+            const colIdx = colSel.value;
+            valSel.innerHTML = '<option value="">Todos los valores</option>';
+            valSel.disabled = colIdx === '';
+            if (colIdx === '') return;
+            const rows = document.querySelectorAll(`#${id} tr`);
+            const vals = new Set();
+            rows.forEach(r => {
+                const cell = r.cells[parseInt(colIdx)];
+                if (cell) vals.add(cell.textContent.trim());
+            });
+            [...vals].sort().forEach(v => {
+                const o = document.createElement('option');
+                o.value = v; o.textContent = v;
+                valSel.appendChild(o);
+            });
+        }
+
+        function applyPcFilters(id) {
+            const search = (document.getElementById(`${id}-search`)?.value || '').toLowerCase();
+            const colIdx = document.getElementById(`${id}-col`)?.value;
+            const colVal = (document.getElementById(`${id}-val`)?.value || '').toLowerCase();
+            const rows = document.querySelectorAll(`#${id} tr`);
+            let shown = 0;
+            rows.forEach(r => {
+                const matchSearch = !search || r.textContent.toLowerCase().includes(search);
+                let matchCol = true;
+                if (colIdx !== '' && colVal) {
+                    const cell = r.cells[parseInt(colIdx)];
+                    matchCol = cell ? cell.textContent.trim().toLowerCase() === colVal : false;
+                }
+                const vis = matchSearch && matchCol;
+                r.style.display = vis ? '' : 'none';
+                if (vis) shown++;
+            });
+            const cnt = document.getElementById(`${id}-count`);
+            if (cnt) cnt.textContent = `Mostrando ${shown} de ${rows.length} registros`;
+        }
+
+        function clearPcFilter(id) {
+            const s = document.getElementById(`${id}-search`);
+            const c = document.getElementById(`${id}-col`);
+            const v = document.getElementById(`${id}-val`);
+            if (s) s.value = '';
+            if (c) c.value = '';
+            if (v) { v.innerHTML = '<option value="">Todos los valores</option>'; v.disabled = true; }
+            applyPcFilters(id);
+        }
+
+        function exportPcPDF(id, title) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'landscape', format: 'a4' });
+            doc.setFontSize(14); doc.setFont('helvetica', 'bold');
+            doc.text(`MinaOS — ${title}`, 14, 15);
+            doc.setFontSize(9); doc.setFont('helvetica', 'normal');
+            doc.text(`Exportado: ${new Date().toLocaleDateString('es-MX')}`, 14, 22);
+            const table = document.getElementById(id)?.closest('table');
+            if (!table) return;
+            const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+            const rows = Array.from(document.querySelectorAll(`#${id} tr`))
+                .filter(r => r.style.display !== 'none')
+                .map(r => Array.from(r.cells).map(c => c.textContent.trim()));
+            doc.autoTable({ head: [headers], body: rows, startY: 27, styles: { fontSize: 8, cellPadding: 3 }, headStyles: { fillColor: [249, 115, 22], textColor: 255, fontStyle: 'bold' }, alternateRowStyles: { fillColor: [248, 250, 252] } });
+            doc.save(`${title.replace(/\s+/g, '-')}.pdf`);
+            _pcToast('PDF descargado', 'picture_as_pdf', '#ef4444');
+        }
+
+        function exportPcExcel(id, title) {
+            const table = document.getElementById(id)?.closest('table');
+            if (!table) return;
+            const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+            const rows = Array.from(document.querySelectorAll(`#${id} tr`))
+                .filter(r => r.style.display !== 'none')
+                .map(r => Array.from(r.cells).map(c => c.textContent.trim()));
+            const ws = XLSX.utils.aoa_to_sheet([headers, ...rows]);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, title.substring(0, 31));
+            XLSX.writeFile(wb, `${title.replace(/\s+/g, '-')}.xlsx`);
+            _pcToast('Excel descargado', 'table_view', '#059669');
+        }
+
+        function _pcToast(msg, icon, color) {
+            const t = document.createElement('div');
+            t.style.cssText = `position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;align-items:center;gap:8px;background:#1e293b;color:#f1f5f9;font-size:12px;font-weight:700;padding:10px 16px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.3);border-left:4px solid ${color};animation:slideIn .3s ease`;
+            t.innerHTML = `<span class="material-symbols-outlined" style="font-size:16px;color:${color}">${icon}</span>${msg}`;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', initPcTableTools);
     </script>
 </body>
 </html>
