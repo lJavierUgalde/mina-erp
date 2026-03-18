@@ -99,10 +99,10 @@
                     <a href="operacion-mina.html?mod=mod-hse" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Cumplimiento Ambiental/Seg.</a>
                     <a href="operacion-mina.html?mod=mod-inv" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Inventarios</a>
                     <a href="operacion-mina.html?mod=mod-energia" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Energía</a>
-                    <a href="operacion-mina.html?mod=mod-mtto" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Mtto</a>
+                    <a href="operacion-mina.html?mod=mod-mtto" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Mantenimiento</a>
                     <a href="operacion-mina.html?mod=mod-kpis" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">KPIs Op</a>
                     <a href="operacion-mina.html?mod=mod-compras" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Compras</a>
-                    <a href="operacion-mina.html?mod=mod-rh" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">RH</a>
+                    <a href="operacion-mina.html?mod=mod-rh" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Recursos Humanos</a>
                 </div>
             </div>
 
@@ -116,131 +116,13 @@
                 </button>
                 <div id="menu-planta" class="submenu open pl-4 space-y-1 mt-1 mb-3">
 
-                    <!-- Compras -->
-                    <button onclick="toggleSubMenu('sub-compras', this)" class="sub-nav-btn w-full text-left flex items-center justify-between text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">
-                        <span>Compras</span><span class="material-symbols-outlined text-[13px] sub-arrow mr-1">chevron_right</span>
-                    </button>
-                    <div id="sub-compras" class="sub-submenu pl-5 space-y-0.5">
-                        <button onclick="switchTab('tab-odc', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
-                            <span>ODC</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
-                        </button>
-                        <div class="pl-3 space-y-0.5">
-                            <button onclick="switchTab('tab-facturacion', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Facturación</button>
-                        </div>
-                        <button onclick="switchTab('tab-cxp', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">CxP</button>
-                    </div>
-
-                    <!-- Inventarios -->
-                    <button onclick="toggleSubMenu('sub-inventarios', this)" class="sub-nav-btn w-full text-left flex items-center justify-between text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">
-                        <span>Inventarios</span><span class="material-symbols-outlined text-[13px] sub-arrow mr-1">chevron_right</span>
-                    </button>
-                    <div id="sub-inventarios" class="sub-submenu pl-5 space-y-0.5">
-                        <button onclick="switchTab('tab-inv-concentrado', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Inventario Concentrado</button>
-                        <button onclick="switchTab('tab-inv-insumos', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Inventario Insumos</button>
-                        <button onclick="switchTab('tab-inv-brena', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Inventario Breña <span class="text-[9px] text-slate-500 ml-1">→ Control Calidad</span></button>
-                    </div>
-
-                    <!-- Mantenimiento -->
-                    <button onclick="toggleSubMenu('sub-mtto', this)" class="sub-nav-btn w-full text-left flex items-center justify-between text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">
-                        <span>Mantenimiento</span><span class="material-symbols-outlined text-[13px] sub-arrow mr-1">chevron_right</span>
-                    </button>
-                    <div id="sub-mtto" class="sub-submenu pl-5 space-y-0.5">
-                        <button onclick="switchTab('tab-mtto-insumos', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Consumo de Insumos</button>
-                        <button onclick="switchTab('tab-mtto-maquinaria', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
-                            <span>Uso de Maquinaria/Transporte</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
-                        </button>
-                        <div class="pl-3 space-y-0.5">
-                            <button onclick="switchTab('tab-mtto-disp', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Disponibilidad</button>
-                            <button onclick="switchTab('tab-mtto-consumo', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Consumo de Insumos</button>
-                        </div>
-                        <button onclick="switchTab('tab-mtto-correctivos', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Mant. Correctivos</button>
-                        <button onclick="switchTab('tab-mtto-personal', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Personal/Turno</button>
-                        <button onclick="switchTab('tab-mtto-eficiencia', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Eficiencia Mecánica</button>
-                        <button onclick="switchTab('tab-mtto-equipos', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Disponibilidad de Equipos</button>
-                        <button onclick="switchTab('tab-mtto-preventivo', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
-                            <span>Plan Mant. Preventivo</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
-                        </button>
-                        <div class="pl-3 space-y-0.5">
-                            <button onclick="switchTab('tab-mtto-cumplimiento', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Cumplimiento de Plan</button>
-                        </div>
-                    </div>
-
-                    <!-- RH -->
-                    <button onclick="toggleSubMenu('sub-rh', this)" class="sub-nav-btn w-full text-left flex items-center justify-between text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">
-                        <span>RH</span><span class="material-symbols-outlined text-[13px] sub-arrow mr-1">chevron_right</span>
-                    </button>
-                    <div id="sub-rh" class="sub-submenu pl-5 space-y-0.5">
-                        <button onclick="switchTab('tab-rh-nomina', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Nómina</button>
-                        <button onclick="switchTab('tab-rh-incidentes', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
-                            <span>Incidentes/Seguridad</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
-                        </button>
-                        <div class="pl-3 space-y-0.5">
-                            <button onclick="switchTab('tab-rh-ltri', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">LTRI</button>
-                            <button onclick="switchTab('tab-rh-trir', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">TRIR</button>
-                        </div>
-                        <button onclick="switchTab('tab-rh-asistencia', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Asistencia</button>
-                    </div>
-
-                    <!-- KPIs Op -->
-                    <button onclick="toggleSubMenu('sub-kpis', this)" class="sub-nav-btn w-full text-left flex items-center justify-between text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">
-                        <span>KPIs Op</span><span class="material-symbols-outlined text-[13px] sub-arrow mr-1">chevron_right</span>
-                    </button>
-                    <div id="sub-kpis" class="sub-submenu pl-5 space-y-0.5">
-                        <button onclick="toggleSubMenu('sub-kpi-lab', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
-                            <span>Laboratorio</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
-                        </button>
-                        <div id="sub-kpi-lab" class="sub-submenu pl-3 space-y-0.5">
-                            <button onclick="switchTab('tab-lab-mtto', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Mantenimiento</button>
-                            <button onclick="switchTab('tab-lab-ensaye', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Ensaye</button>
-                            <button onclick="switchTab('tab-lab-reactivos', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Consumo Reactivo/Material</button>
-                        </div>
-                        <button onclick="toggleSubMenu('sub-kpi-trit', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
-                            <span>Trituración</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
-                        </button>
-                        <div id="sub-kpi-trit" class="sub-submenu pl-3 space-y-0.5">
-                            <button onclick="switchTab('tab-trit-inv-finos', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Inventario Finos</button>
-                            <button onclick="switchTab('tab-trit-mtbf', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">MTBF y MTBR</button>
-                            <button onclick="switchTab('tab-trit-disp', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Disponibilidad</button>
-                            <button onclick="switchTab('tab-molienda', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Ton/hr → Real vs Plan</button>
-                        </div>
-                        <button onclick="toggleSubMenu('sub-kpi-mol', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
-                            <span>Molienda (3)</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
-                        </button>
-                        <div id="sub-kpi-mol" class="sub-submenu pl-3 space-y-0.5">
-                            <button onclick="switchTab('tab-molienda', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">MTBF y MTBR</button>
-                            <button onclick="switchTab('tab-molienda', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Disponibilidad</button>
-                            <button onclick="switchTab('tab-molienda', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Ton/hr</button>
-                            <button onclick="switchTab('tab-molienda', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Real vs Plan</button>
-                            <button onclick="switchTab('tab-molienda', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Consumo de Bola</button>
-                        </div>
-                        <button onclick="toggleSubMenu('sub-kpi-flot', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
-                            <span>Flotación</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
-                        </button>
-                        <div id="sub-kpi-flot" class="sub-submenu pl-3 space-y-0.5">
-                            <button onclick="switchTab('tab-flotacion', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Personal Enc. / Turno</button>
-                            <button onclick="switchTab('tab-flotacion', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Disponibilidad por Banco</button>
-                            <button onclick="switchTab('tab-flotacion', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Ensayes → Balance</button>
-                            <button onclick="switchTab('tab-flotacion', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Consumo de Reactivos</button>
-                            <button onclick="switchTab('tab-flotacion', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Disp. Agua → % Tanques</button>
-                        </div>
-                        <button onclick="toggleSubMenu('sub-kpi-conc', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
-                            <span>Concentrado</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
-                        </button>
-                        <div id="sub-kpi-conc" class="sub-submenu pl-3 space-y-0.5">
-                            <button onclick="switchTab('tab-embarque', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Calidad (Humedad)</button>
-                            <button onclick="switchTab('tab-embarque', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Cantidad Piletas</button>
-                            <button onclick="switchTab('tab-embarque', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Ley Concentrado Calc.</button>
-                            <button onclick="switchTab('tab-embarque', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Cantidad en Plancha → Embarque</button>
-                        </div>
-                        <button onclick="toggleSubMenu('sub-kpi-jales', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
-                            <span>Presa de Jales</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
-                        </button>
-                        <div id="sub-kpi-jales" class="sub-submenu pl-3 space-y-0.5">
-                            <button onclick="switchTab('tab-flotacion', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">ID Zona → Capacidad x Zona</button>
-                        </div>
-                    </div>
-
-                    <!-- Cumplimiento Ambiental & Energía -->
+                    <button onclick="switchTab('tab-compras-main', this)" class="sub-nav-btn w-full text-left text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">Compras</button>
+                    <button onclick="switchTab('tab-inventarios-main', this)" class="sub-nav-btn w-full text-left text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">Inventarios</button>
+                    <button onclick="switchTab('tab-molienda', this)" class="sub-nav-btn w-full text-left text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">Trituración y Molienda</button>
+                    <button onclick="switchTab('tab-flotacion', this)" class="sub-nav-btn w-full text-left text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">Flotación y Jales</button>
+                    <button onclick="switchTab('tab-embarque', this)" class="sub-nav-btn w-full text-left text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">Concentrado y Embarques</button>
+                    <button onclick="switchTab('tab-mtto-main', this)" class="sub-nav-btn w-full text-left text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">Mantenimiento</button>
+                    <button onclick="switchTab('tab-rh-main', this)" class="sub-nav-btn w-full text-left text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">Recursos Humanos</button>
                     <button onclick="switchTab('tab-ambiental', this)" class="sub-nav-btn w-full text-left text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">Cumplimiento Ambiental</button>
                     <button onclick="switchTab('tab-energia', this)" class="sub-nav-btn w-full text-left text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">Energía</button>
                 </div>
@@ -1025,16 +907,22 @@
     if (targetArrow) targetArrow.classList.toggle('open');
 }
 
-        // Toggle sub-submenus in sidebar
+        // Toggle sub-submenus in sidebar (solo cierra hermanos en el mismo nivel)
         function toggleSubMenu(menuId, btn) {
             const targetMenu = document.getElementById(menuId);
             const targetArrow = btn.querySelector('.sub-arrow');
             const isOpen = targetMenu.classList.contains('open');
-            // Close siblings first
-            btn.closest('.submenu').querySelectorAll('.sub-submenu').forEach(m => {
-                m.classList.remove('open');
-                const a = m.previousElementSibling && m.previousElementSibling.querySelector('.sub-arrow');
-                if(a) a.classList.remove('open');
+            // Solo cierra .sub-submenu que son hijos DIRECTOS del contenedor del botón
+            const parentEl = btn.parentElement;
+            parentEl.querySelectorAll(':scope > .sub-submenu').forEach(m => {
+                if(m.id !== menuId) {
+                    m.classList.remove('open');
+                    const prevBtn = m.previousElementSibling;
+                    if(prevBtn) {
+                        const a = prevBtn.querySelector('.sub-arrow');
+                        if(a) a.classList.remove('open');
+                    }
+                }
             });
             if(!isOpen) {
                 targetMenu.classList.add('open');
@@ -1065,6 +953,19 @@
             if(el && el.classList && el.classList.contains('top-tab-btn')) {
                 el.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
                 el.classList.add('border-primary', 'text-primary', 'dark:text-primary');
+            }
+
+            // Actualizar estado activo de los botones del sidebar
+            document.querySelectorAll('#menu-planta .sub-nav-btn').forEach(b => {
+                b.classList.remove('text-white', 'font-semibold');
+                const oc = b.getAttribute('onclick') || '';
+                if(!oc.startsWith('toggleSubMenu')) {
+                    if(!b.classList.contains('text-slate-500')) b.classList.add('text-slate-400');
+                }
+            });
+            if(el && el.classList && el.classList.contains('sub-nav-btn')) {
+                el.classList.remove('text-slate-400', 'text-slate-500');
+                el.classList.add('text-white', 'font-semibold');
             }
 
             if(tabId === 'tab-flotacion') renderChart();
