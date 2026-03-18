@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinaOS - Historial de Reportes</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: { 
+                        primary: '#f97316', secondary: '#0f172a',
+                        accent: '#3b82f6', success: '#10b981', danger: '#ef4444',
+                        warning: '#f59e0b', info: '#0ea5e9', mtto: '#0d9488',
+                        proyecto: '#6366f1', reporte: '#8b5cf6' /* Violeta para Reportes */
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+
+        .card-gradient { background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); }
+        .dark .card-gradient { background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%); }
+
+        .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .submenu.open { max-height: 500px; }
+        .nav-arrow { transition: transform 0.3s; }
+        .nav-arrow.open { transform: rotate(90deg); }
+
+        /* Estilo activo para los botones de filtro */
+        .filter-btn.active {
+            background-color: #8b5cf6; /* Violeta */
+            color: #fff;
+            border-color: #8b5cf6;
+        }
+        .dark .filter-btn.active {
+            background-color: #8b5cf6;
+            color: #fff;
+            border-color: #8b5cf6;
+        }
+        .row-hidden { display: none; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.25s ease-out forwards; }
+    </style>
+</head>
+<body class="text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-950 flex h-screen overflow-hidden transition-colors duration-300">
+
+    <aside class="w-16 lg:w-64 bg-secondary text-slate-300 flex flex-col border-r border-slate-800 dark:border-slate-800/50 shrink-0 z-20 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-reporte/20 to-transparent opacity-50 pointer-events-none"></div>
+        <div class="h-16 flex items-center px-5 border-b border-slate-800/80 relative z-10">
+            <div class="w-8 h-8 bg-gradient-to-tr from-primary to-orange-400 rounded flex items-center justify-center text-white shadow-[0_0_10px_rgba(249,115,22,0.5)]">
+                <span class="material-symbols-outlined text-[20px]">diamond</span>
+            </div>
+            <div class="hidden lg:block ml-3">
+                <h1 class="font-bold text-white text-sm tracking-wide leading-none">MinaOS</h1>
+                <p class="text-[9px] text-primary font-bold tracking-widest uppercase mt-0.5">Enterprise</p>
+            </div>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 relative z-10">
+            
+            <a href="index.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
+                <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Dashboard Maestro</span>
+            </a>
+
+            <a href="alertas.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
+                <span class="material-symbols-outlined text-[20px]">emergency</span>
+                <span class="hidden lg:block ml-3 text-sm font-bold">Alertas Live (Crítico)</span>
+            </a>
+
+            <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">Operaciones</p>
+            <div class="nav-group">
+                <button onclick="toggleMenu('menu-mina', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">landscape</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Operación Mina</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-mina" class="submenu pl-11 space-y-1 mt-1 mb-3">
+                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Barrenación y Detonación</a>
+                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Acarreo de Mineral</a>
+                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Patio e Inventario</a>
+                </div>
+            </div>
+
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-planta', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">factory</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Planta y Calidad</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-planta" class="submenu pl-11 space-y-1 mt-1">
+                    <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Trituración y Molienda</a>
+                    <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Flotación, Jales y Lab</a>
+                    <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Concentrado y Embarques</a>
+                </div>
+            </div>
+
+            <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">Suministro & Finanzas</p>
+            <a href="logistica-fletes.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
+                <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Logística y Fletes</span>
+            </a>
+            
+            <a href="inventario.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
+                <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Inventarios</span>
+            </a>
+
+            <a href="compras.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
+                <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Compras y ODC</span>
+            </a>
+
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-finanzas', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">request_quote</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Finanzas e Ingresos</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-finanzas" class="submenu pl-11 space-y-1 mt-1">
+                    <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">P&L y KPIs Estratégicos</a>
+                    <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Facturación y CxC</a>
+                </div>
+            </div>
+            
+            <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">Admin & Soporte</p>
+            <a href="energia.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
+                <span class="material-symbols-outlined text-[20px]">electric_bolt</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Energía</span>
+            </a>
+
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-mtto', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">build</span><span class="hidden lg:block ml-3 text-sm font-medium">Mantenimiento</span></div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-mtto" class="submenu pl-11 space-y-1 mt-1 mb-3">
+                    <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Estado de Flota y Preventivos</a>
+                    <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Correctivos y Órdenes (OT)</a>
+                    <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Eficiencia Mecánica (MTBF/TR)</a>
+                </div>
+            </div>
+
+            <a href="rh.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
+                <span class="material-symbols-outlined text-[20px]">badge</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Recursos Humanos</span>
+            </a>
+
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-hse', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="hidden lg:block ml-3 text-sm font-medium">HSE y Ambiental</span></div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-hse" class="submenu pl-11 space-y-1 mt-1 mb-3">
+                    <a href="ambiental.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Certificaciones y NOMs</a>
+                    <a href="ambiental.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Seguridad Industrial (TRIR)</a>
+                </div>
+            </div>
+
+            <a href="grantt.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
+                <span class="material-symbols-outlined text-[20px]">view_timeline</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos & Gantt</span>
+            </a>
+
+            <a href="reportes.html" class="flex items-center p-2.5 rounded-lg bg-reporte/20 text-reporte border-l-2 border-reporte shadow-md transition-colors mt-1 mb-4">
+                <span class="material-symbols-outlined text-[20px]">description</span>
+                <span class="hidden lg:block ml-3 text-sm font-bold">Reportes e Informes</span>
+            </a>
+        </nav>
+    </aside>
+
+    <div class="flex-1 flex flex-col h-full overflow-hidden bg-slate-100/50 dark:bg-slate-950/50">
+
+        <header class="h-16 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-6 md:px-8 shrink-0 z-10 sticky top-0 transition-colors duration-300">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-reporte text-2xl">description</span>
+                <div>
+                    <h2 class="text-xl font-black text-slate-900 dark:text-white">Historial de Reportes</h2>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mt-0.5">Gestión y Descarga de Informes</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="openGenerateModal()" class="hidden md:flex items-center gap-2 bg-reporte hover:bg-violet-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors shadow-sm shadow-reporte/30">
+                    <span class="material-symbols-outlined text-[16px]">add</span>
+                    Generar Reporte
+                </button>
+                <button id="theme-toggle" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shadow-sm">
+                    <span id="theme-icon" class="material-symbols-outlined text-[20px]">dark_mode</span>
+                </button>
+                <div class="h-10 w-10 rounded-full bg-gradient-to-br from-slate-700 to-slate-900 text-white flex items-center justify-center font-bold text-sm shadow-md border-2 border-white dark:border-slate-800">DG</div>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 w-full">
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm flex items-center justify-between transition-colors">
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Total Reportes</p>
+                        <h3 class="text-3xl font-black text-slate-800 dark:text-white">241</h3>
+                    </div>
+                    <span class="material-symbols-outlined text-4xl text-slate-300 dark:text-slate-600">folder_open</span>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm flex items-center justify-between transition-colors border-l-4 border-l-success">
+                    <div>
+                        <p class="text-[10px] font-bold text-success uppercase tracking-widest mb-1">Disponibles</p>
+                        <h3 class="text-3xl font-black text-success">238</h3>
+                    </div>
+                    <span class="material-symbols-outlined text-4xl text-success/30">task_alt</span>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm flex items-center justify-between transition-colors border-l-4 border-l-amber-500">
+                    <div>
+                        <p class="text-[10px] font-bold text-amber-500 uppercase tracking-widest mb-1">En Proceso</p>
+                        <h3 class="text-3xl font-black text-amber-500">3</h3>
+                    </div>
+                    <span class="material-symbols-outlined text-4xl text-amber-500/30">autorenew</span>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm flex items-center justify-between transition-colors border-l-4 border-l-reporte">
+                    <div>
+                        <p class="text-[10px] font-bold text-reporte uppercase tracking-widest mb-1">Generados Este Mes</p>
+                        <h3 class="text-3xl font-black text-reporte">21</h3>
+                    </div>
+                    <span class="material-symbols-outlined text-4xl text-reporte/30">calendar_month</span>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden transition-colors">
+
+                <div class="p-5 border-b border-slate-100 dark:border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <h3 class="text-base font-bold text-slate-800 dark:text-white">Documentos Disponibles</h3>
+                    <div class="flex flex-wrap items-center gap-4">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <button class="filter-btn active text-[11px] font-bold px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" data-filter="todos" onclick="setFilter('todos', this)">TODOS</button>
+                            <button class="filter-btn text-[11px] font-bold px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" data-filter="operativo" onclick="setFilter('operativo', this)">OPERATIVO</button>
+                            <button class="filter-btn text-[11px] font-bold px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" data-filter="kpis" onclick="setFilter('kpis', this)">KPIS</button>
+                            <button class="filter-btn text-[11px] font-bold px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" data-filter="costos" onclick="setFilter('costos', this)">COSTOS</button>
+                            <button class="filter-btn text-[11px] font-bold px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" data-filter="mantenimiento" onclick="setFilter('mantenimiento', this)">MANTENIMIENTO</button>
+                        </div>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-[16px] text-slate-400">search</span>
+                            <input id="search-input" type="text" placeholder="Buscar reporte..." oninput="applyFilters()" class="pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-reporte w-48 transition-colors">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-700">
+                                <th class="px-5 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest">ID</th>
+                                <th class="px-5 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest">Nombre</th>
+                                <th class="px-5 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center">Tipo</th>
+                                <th class="px-5 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center">Fecha</th>
+                                <th class="px-5 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center">Tamaño</th>
+                                <th class="px-5 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest">Generado Por</th>
+                                <th class="px-5 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center">Estado</th>
+                                <th class="px-5 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reportes-body" class="divide-y divide-slate-100 dark:divide-slate-700/50">
+
+                            <tr class="report-row hover:bg-slate-50 dark:hover:bg-slate-700/40 transition-colors fade-in" data-tipo="operativo" data-nombre="Reporte Operativo Diario 03 Mar 2026">
+                                <td class="px-5 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap">RPT-0241</td>
+                                <td class="px-5 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0">
+                                            <span class="material-symbols-outlined text-blue-500 text-[18px]">bar_chart</span>
+                                        </div>
+                                        <span class="text-sm font-semibold text-slate-800 dark:text-white">Reporte Operativo Diario — 03 Mar 2026</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-4 text-center"><span class="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-[9px] font-bold px-2 py-1 rounded border border-blue-200 dark:border-blue-800 uppercase">Operativo</span></td>
+                                <td class="px-5 py-4 text-xs text-center text-slate-600 dark:text-slate-400 whitespace-nowrap">03/03/2026</td>
+                                <td class="px-5 py-4 text-xs text-center text-slate-600 dark:text-slate-400 font-mono">2.4 MB</td>
+                                <td class="px-5 py-4 text-xs font-semibold text-slate-700 dark:text-slate-300">Sistema</td>
+                                <td class="px-5 py-4 text-center"><span class="bg-success/10 text-success border border-success/20 text-[9px] font-bold px-2 py-1 rounded uppercase">Disponible</span></td>
+                                <td class="px-5 py-4">
+                                    <div class="flex items-center justify-center gap-2">
+                                        <button onclick="descargarReporte('RPT-0241','pdf')" title="Descargar PDF" class="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/40 flex items-center justify-center transition-colors">
+                                            <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                        </button>
+                                        <button onclick="descargarReporte('RPT-0241','excel')" title="Descargar Excel" class="w-8 h-8 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/40 flex items-center justify-center transition-colors">
+                                            <span class="material-symbols-outlined text-[16px]">table_view</span>
+                                        </button>
+                                        <button onclick="verReporte('RPT-0241')" title="Ver detalles" class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-600 flex items-center justify-center transition-colors">
+                                            <span class="material-symbols-outlined text-[16px]">visibility</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="report-row hover:bg-slate-50 dark:hover:bg-slate-700/40 transition-colors fade-in" data-tipo="kpis" data-nombre="Reporte Semanal KPIs S8 2026">
+                                <td class="px-5 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap">RPT-0240</td>
+                                <td class="px-5 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0">
+                                            <span class="material-symbols-outlined text-emerald-500 text-[18px]">trending_up</span>
+                                        </div>
+                                        <span class="text-sm font-semibold text-slate-800 dark:text-white">Reporte Semanal KPIs — S8 2026</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-4 text-center"><span class="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-[9px] border border-emerald-200 dark:border-emerald-800 font-bold px-2 py-1 rounded uppercase">KPIs</span></td>
+                                <td class="px-5 py-4 text-xs text-center text-slate-600 dark:text-slate-400 whitespace-nowrap">01/03/2026</td>
+                                <td class="px-5 py-4 text-xs text-center text-slate-600 dark:text-slate-400 font-mono">5.1 MB</td>
+                                <td class="px-5 py-4 text-xs font-semibold text-slate-700 dark:text-slate-300">Ana R.</td>
+                                <td class="px-5 py-4 text-center"><span class="bg-success/10 text-success border border-success/20 text-[9px] font-bold px-2 py-1 rounded uppercase">Disponible</span></td>
+                                <td class="px-5 py-4">
+                                    <div class="flex items-center justify-center gap-2">
+                                        <button onclick="descargarReporte('RPT-0240','pdf')" title="Descargar PDF" class="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/40 flex items-center justify-center transition-colors">
+                                            <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                        </button>
+                                        <button onclick="descargarReporte('RPT-0240','excel')" title="Descargar Excel" class="w-8 h-8 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/40 flex items-center justify-center transition-colors">
+                                            <span class="material-symbols-outlined text-[16px]">table_view</span>
+                                        </button>
+                                        <button onclick="verReporte('RPT-0240')" title="Ver detalles" class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-600 flex items-center justify-center transition-colors">
+                                            <span class="material-symbols-outlined text-[16px]">visibility</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="report-row hover:bg-slate-50 dark:hover:bg-slate-700/40 transition-colors fade-in" data-tipo="costos" data-nombre="Informe de Costos Febrero 2026">
+                                <td class="px-5 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap">RPT-0239</td>
+                                <td class="px-5 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0">
+                                            <span class="material-symbols-outlined text-amber-500 text-[18px]">attach_money</span>
+                                        </div>
+                                        <span class="text-sm font-semibold text-slate-800 dark:text-white">Informe de Costos — Febrero 2026</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-4 text-center"><span class="bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-[9px] border border-amber-200 dark:border-amber-800 font-bold px-2 py-1 rounded uppercase">Costos</span></td>
+                                <td class="px-5 py-4 text-xs text-center text-slate-600 dark:text-slate-400 whitespace-nowrap">28/02/2026</td>
+                                <td class="px-5 py-4 text-xs text-center text-slate-600 dark:text-slate-400 font-mono">4.8 MB</td>
+                                <td class="px-5 py-4 text-xs font-semibold text-slate-700 dark:text-slate-300">Sistema</td>
+                                <td class="px-5 py-4 text-center"><span class="bg-success/10 text-success border border-success/20 text-[9px] font-bold px-2 py-1 rounded uppercase">Disponible</span></td>
+                                <td class="px-5 py-4">
+                                    <div class="flex items-center justify-center gap-2">
+                                        <button onclick="descargarReporte('RPT-0239','pdf')" title="Descargar PDF" class="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/40 flex items-center justify-center transition-colors">
+                                            <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                        </button>
+                                        <button onclick="descargarReporte('RPT-0239','excel')" title="Descargar Excel" class="w-8 h-8 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/40 flex items-center justify-center transition-colors">
+                                            <span class="material-symbols-outlined text-[16px]">table_view</span>
+                                        </button>
+                                        <button onclick="verReporte('RPT-0239')" title="Ver detalles" class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-600 flex items-center justify-center transition-colors">
+                                            <span class="material-symbols-outlined text-[16px]">visibility</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="report-row hover:bg-slate-50 dark:hover:bg-slate-700/40 transition-colors fade-in" data-tipo="mantenimiento" data-nombre="Reporte de Mantenimiento Feb 2026">
+                                <td class="px-5 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap">RPT-0238</td>
+                                <td class="px-5 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-lg bg-mtto/10 flex items-center justify-center shrink-0">
+                                            <span class="material-symbols-outlined text-mtto text-[18px]">build</span>
+                                        </div>
+                                        <span class="text-sm font-semibold text-slate-800 dark:text-white">Reporte de Mantenimiento — Feb 2026</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-4 text-center"><span class="bg-mtto/10 dark:bg-mtto/20 text-mtto border border-mtto/30 text-[9px] font-bold px-2 py-1 rounded uppercase">Mantenimiento</span></td>
+                                <td class="px-5 py-4 text-xs text-center text-slate-600 dark:text-slate-400 whitespace-nowrap">28/02/2026</td>
+                                <td class="px-5 py-4 text-xs text-center text-slate-600 dark:text-slate-400 font-mono">3.2 MB</td>
+                                <td class="px-5 py-4 text-xs font-semibold text-slate-700 dark:text-slate-300">Luis M.</td>
+                                <td class="px-5 py-4 text-center"><span class="bg-success/10 text-success border border-success/20 text-[9px] font-bold px-2 py-1 rounded uppercase">Disponible</span></td>
+                                <td class="px-5 py-4">
+                                    <div class="flex items-center justify-center gap-2">
+                                        <button onclick="descargarReporte('RPT-0238','pdf')" title="Descargar PDF" class="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/40 flex items-center justify-center transition-colors">
+                                            <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                        </button>
+                                        <button onclick="descargarReporte('RPT-0238','excel')" title="Descargar Excel" class="w-8 h-8 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/40 flex items-center justify-center transition-colors">
+                                            <span class="material-symbols-outlined text-[16px]">table_view</span>
+                                        </button>
+                                        <button onclick="verReporte('RPT-0238')" title="Ver detalles" class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-600 flex items-center justify-center transition-colors">
+                                            <span class="material-symbols-outlined text-[16px]">visibility</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="report-row hover:bg-slate-50 dark:hover:bg-slate-700/40 transition-colors fade-in bg-slate-50/50 dark:bg-slate-900/20" data-tipo="costos" data-nombre="Presupuesto vs Real Marzo 2026">
+                                <td class="px-5 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap">RPT-0235</td>
+                                <td class="px-5 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0">
+                                            <span class="material-symbols-outlined text-amber-500 text-[18px]">attach_money</span>
+                                        </div>
+                                        <span class="text-sm font-semibold text-slate-800 dark:text-white">Presupuesto vs Real — Marzo 2026</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-4 text-center"><span class="bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-[9px] border border-amber-200 dark:border-amber-800 font-bold px-2 py-1 rounded uppercase">Costos</span></td>
+                                <td class="px-5 py-4 text-xs text-center text-slate-600 dark:text-slate-400 whitespace-nowrap">17/03/2026</td>
+                                <td class="px-5 py-4 text-xs text-center text-slate-600 dark:text-slate-400 font-mono">—</td>
+                                <td class="px-5 py-4 text-xs font-semibold text-slate-700 dark:text-slate-300">Sistema</td>
+                                <td class="px-5 py-4 text-center">
+                                    <span class="bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 text-[9px] font-bold px-2 py-1 border border-amber-200 dark:border-amber-800 rounded flex items-center justify-center gap-1 w-max mx-auto uppercase">
+                                        <span class="material-symbols-outlined text-[12px] animate-spin">autorenew</span> En Proceso
+                                    </span>
+                                </td>
+                                <td class="px-5 py-4 text-center">
+                                    <span class="text-[10px] text-slate-400 italic">Generando...</span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="px-5 py-3 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                    <span id="row-count">Mostrando 5 reportes</span>
+                    <div class="flex items-center gap-1">
+                        <button class="w-7 h-7 rounded flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors disabled:opacity-30" disabled>
+                            <span class="material-symbols-outlined text-[16px]">chevron_left</span>
+                        </button>
+                        <span class="px-2 font-bold text-slate-700 dark:text-slate-300">1</span>
+                        <button class="w-7 h-7 rounded flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="generate-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 w-full max-w-md transition-colors">
+            <div class="flex items-center justify-between p-6 border-b border-slate-100 dark:border-slate-700">
+                <h3 class="text-lg font-black text-slate-800 dark:text-white">Generar Nuevo Reporte</h3>
+                <button onclick="closeGenerateModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">close</span>
+                </button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">Tipo de Reporte</label>
+                    <select id="modal-tipo" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:border-reporte dark:text-white transition-colors">
+                        <option value="">Seleccionar tipo...</option>
+                        <option value="operativo">Operativo</option>
+                        <option value="kpis">KPIs</option>
+                        <option value="costos">Costos</option>
+                        <option value="mantenimiento">Mantenimiento</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">Período</label>
+                    <select class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:border-reporte dark:text-white transition-colors">
+                        <option>Hoy</option>
+                        <option>Esta semana</option>
+                        <option>Este mes</option>
+                        <option>Mes anterior</option>
+                        <option>Rango personalizado</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">Formato de Descarga</label>
+                    <div class="flex gap-3">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="fmt-pdf" checked class="accent-reporte w-4 h-4">
+                            <span class="text-sm text-slate-700 dark:text-slate-300 flex items-center gap-1">
+                                <span class="material-symbols-outlined text-red-500 text-[16px]">picture_as_pdf</span> PDF
+                            </span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="fmt-excel" checked class="accent-reporte w-4 h-4">
+                            <span class="text-sm text-slate-700 dark:text-slate-300 flex items-center gap-1">
+                                <span class="material-symbols-outlined text-green-600 text-[16px]">table_view</span> Excel
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-3 p-6 pt-0">
+                <button onclick="closeGenerateModal()" class="flex-1 px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">Cancelar</button>
+                <button onclick="generarReporte()" class="flex-1 px-4 py-2.5 rounded-lg bg-reporte hover:bg-violet-600 text-white text-sm font-bold transition-colors flex items-center justify-center gap-2 shadow-md shadow-reporte/30">
+                    <span class="material-symbols-outlined text-[16px]">rocket_launch</span> Generar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 w-full max-w-sm transition-colors">
+            <div class="flex items-center justify-between p-6 border-b border-slate-100 dark:border-slate-700">
+                <h3 class="text-base font-black text-slate-800 dark:text-white">Detalle del Reporte</h3>
+                <button onclick="closeViewModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">close</span>
+                </button>
+            </div>
+            <div id="view-modal-body" class="p-6 space-y-3 text-sm text-slate-700 dark:text-slate-300"></div>
+            <div class="flex gap-3 p-6 pt-0">
+                <button onclick="closeViewModal()" class="flex-1 px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">Cerrar</button>
+                <button onclick="descargarReporte(window._currentReporte,'pdf')" class="flex-1 px-4 py-2.5 rounded-lg bg-red-500 hover:bg-red-600 text-white text-sm font-bold transition-colors flex items-center justify-center gap-2 shadow-sm">
+                    <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span> PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden transition-opacity duration-300">
+        <div class="bg-slate-900 dark:bg-slate-700 text-white text-sm font-semibold px-5 py-3 rounded-xl shadow-xl flex items-center gap-2 border border-slate-700 dark:border-slate-600">
+            <span id="toast-icon" class="material-symbols-outlined text-[18px]">check_circle</span>
+            <span id="toast-msg"></span>
+        </div>
+    </div>
+
+    <script>
+        const REPORTES_DATA = {
+            'RPT-0241': { nombre: 'Reporte Operativo Diario — 03 Mar 2026', tipo: 'Operativo', fecha: '03/03/2026 23:59', tamano: '2.4 MB', autor: 'Sistema', estado: 'Disponible' },
+            'RPT-0240': { nombre: 'Reporte Semanal KPIs — S8 2026', tipo: 'KPIs', fecha: '01/03/2026 08:00', tamano: '5.1 MB', autor: 'Ana R.', estado: 'Disponible' },
+            'RPT-0239': { nombre: 'Informe de Costos — Febrero 2026', tipo: 'Costos', fecha: '28/02/2026 18:00', tamano: '4.8 MB', autor: 'Sistema', estado: 'Disponible' },
+            'RPT-0238': { nombre: 'Reporte de Mantenimiento — Feb 2026', tipo: 'Mantenimiento', fecha: '28/02/2026 17:30', tamano: '3.2 MB', autor: 'Luis M.', estado: 'Disponible' },
+            'RPT-0237': { nombre: 'Ranking de Equipos — Semana 8', tipo: 'Operativo', fecha: '02/03/2026 09:15', tamano: '1.9 MB', autor: 'Sistema', estado: 'Disponible' },
+            'RPT-0236': { nombre: 'KPIs Enero 2026 — Resumen Ejecutivo', tipo: 'KPIs', fecha: '01/02/2026 07:00', tamano: '6.3 MB', autor: 'Ana R.', estado: 'Disponible' },
+            'RPT-0235': { nombre: 'Presupuesto vs Real — Marzo 2026', tipo: 'Costos', fecha: '17/03/2026 14:00', tamano: '—', autor: 'Sistema', estado: 'En Proceso' },
+        };
+
+        // --- Sidebar Menu Logic ---
+        function toggleMenu(menuId, btn) {
+            const targetMenu = document.getElementById(menuId);
+            const targetArrow = btn.querySelector('.nav-arrow');
+            
+            document.querySelectorAll('.submenu').forEach(menu => {
+                if (menu.id !== menuId) {
+                    menu.classList.remove('open');
+                    const arrow = menu.parentElement.querySelector('.nav-arrow');
+                    if (arrow) arrow.classList.remove('open');
+                }
+            });
+
+            targetMenu.classList.toggle('open');
+            if (targetArrow) targetArrow.classList.toggle('open');
+        }
+
+        // --- Dark Mode Logic ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+            themeIcon.textContent = 'light_mode';
+        } else {
+            htmlElement.classList.remove('dark');
+            themeIcon.textContent = 'dark_mode';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            const isDark = htmlElement.classList.contains('dark');
+            localStorage.theme = isDark ? 'dark' : 'light';
+            themeIcon.textContent = isDark ? 'light_mode' : 'dark_mode';
+        });
+
+        // --- Filtros de Reportes ---
+        let currentFilter = 'todos';
+
+        function setFilter(tipo, btn) {
+            currentFilter = tipo;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const q = document.getElementById('search-input').value.toLowerCase();
+            const rows = document.querySelectorAll('.report-row');
+            let visible = 0;
+            rows.forEach(row => {
+                const tipo = row.dataset.tipo;
+                const nombre = row.dataset.nombre.toLowerCase();
+                const matchTipo = currentFilter === 'todos' || tipo === currentFilter;
+                const matchSearch = nombre.includes(q);
+                if (matchTipo && matchSearch) {
+                    row.classList.remove('row-hidden');
+                    visible++;
+                } else {
+                    row.classList.add('row-hidden');
+                }
+            });
+            document.getElementById('row-count').textContent = `Mostrando ${visible} reporte${visible !== 1 ? 's' : ''}`;
+        }
+
+        // --- Descargas ---
+        function descargarReporte(id, formato) {
+            const r = REPORTES_DATA[id];
+            if (!r || r.estado === 'En Proceso') {
+                showToast('El reporte aún está en proceso.', 'warning', 'warning');
+                return;
+            }
+            const ext = formato === 'pdf' ? 'PDF' : 'Excel';
+            showToast(`Descargando ${id} en formato ${ext}...`, 'download', 'success');
+        }
+
+        // --- Ver detalles (Modal) ---
+        function verReporte(id) {
+            const r = REPORTES_DATA[id];
+            if (!r) return;
+            window._currentReporte = id;
+            document.getElementById('view-modal-body').innerHTML = `
+                <div class="space-y-3">
+                    <div class="flex justify-between border-b border-slate-100 dark:border-slate-700 pb-2"><span class="font-bold text-slate-500 dark:text-slate-400">ID:</span><span class="font-mono font-bold">${id}</span></div>
+                    <div class="flex justify-between border-b border-slate-100 dark:border-slate-700 pb-2"><span class="font-bold text-slate-500 dark:text-slate-400">Nombre:</span><span class="text-right max-w-[60%] font-semibold">${r.nombre}</span></div>
+                    <div class="flex justify-between border-b border-slate-100 dark:border-slate-700 pb-2"><span class="font-bold text-slate-500 dark:text-slate-400">Tipo:</span><span class="uppercase text-[10px] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded font-bold">${r.tipo}</span></div>
+                    <div class="flex justify-between border-b border-slate-100 dark:border-slate-700 pb-2"><span class="font-bold text-slate-500 dark:text-slate-400">Fecha:</span><span>${r.fecha}</span></div>
+                    <div class="flex justify-between border-b border-slate-100 dark:border-slate-700 pb-2"><span class="font-bold text-slate-500 dark:text-slate-400">Tamaño:</span><span class="font-mono">${r.tamano}</span></div>
+                    <div class="flex justify-between border-b border-slate-100 dark:border-slate-700 pb-2"><span class="font-bold text-slate-500 dark:text-slate-400">Autor:</span><span>${r.autor}</span></div>
+                    <div class="flex justify-between pb-1"><span class="font-bold text-slate-500 dark:text-slate-400">Estado:</span><span class="${r.estado === 'Disponible' ? 'text-success' : 'text-amber-500'} font-bold uppercase text-[10px] px-2 py-0.5 rounded bg-slate-50 dark:bg-slate-900 border ${r.estado === 'Disponible' ? 'border-success/30' : 'border-amber-500/30'}">${r.estado}</span></div>
+                </div>
+            `;
+            document.getElementById('view-modal').classList.remove('hidden');
+        }
+        function closeViewModal() { document.getElementById('view-modal').classList.add('hidden'); }
+
+        // --- Generar modal ---
+        function openGenerateModal() { document.getElementById('generate-modal').classList.remove('hidden'); }
+        function closeGenerateModal() { document.getElementById('generate-modal').classList.add('hidden'); }
+        function generarReporte() {
+            const tipo = document.getElementById('modal-tipo').value;
+            if (!tipo) { showToast('Selecciona un tipo de reporte.', 'info', 'warning'); return; }
+            closeGenerateModal();
+            showToast('Reporte en cola de generación. Disponible en breve.', 'rocket_launch', 'success');
+        }
+
+        // --- Toast ---
+        function showToast(msg, icon = 'check_circle', type = 'success') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            document.getElementById('toast-icon').textContent = icon;
+            toast.querySelector('div').className = `${type === 'success' ? 'bg-success' : (type === 'warning' ? 'bg-amber-500' : 'bg-slate-800')} text-white text-sm font-semibold px-5 py-3 rounded-xl shadow-xl flex items-center gap-2 border border-slate-700 dark:border-slate-600`;
+            toast.classList.remove('hidden');
+            clearTimeout(window._toastTimeout);
+            window._toastTimeout = setTimeout(() => toast.classList.add('hidden'), 3000);
+        }
+
+        // Cerrar modales con Escape
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                closeGenerateModal();
+                closeViewModal();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="es" class="light">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MinaOS - Logística y Fletes</title>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
@@ -16,7 +19,7 @@
             theme: {
                 extend: {
                     fontFamily: { sans: ['Poppins', 'sans-serif'] },
-                    colors: { 
+                    colors: {
                         primary: '#f97316', secondary: '#0f172a',
                         accent: '#3b82f6', success: '#10b981', danger: '#ef4444',
                         info: '#0ea5e9'
@@ -26,45 +29,124 @@
         }
     </script>
     <style>
-        body { font-family: 'Poppins', sans-serif; }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .dark ::-webkit-scrollbar-thumb { background: #475569; }
-        
-        .card-gradient { background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); }
-        .dark .card-gradient { background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%); }
-        
-        .data-dense th, .data-dense td { padding: 0.5rem 0.75rem; font-size: 0.75rem; }
-        
-        .tab-content { display: none; opacity: 0; transform: translateY(5px); transition: all 0.3s ease; }
-        .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
-        
-        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-        .alert-item { animation: slideIn 0.4s ease-out forwards; }
-        
-        .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .submenu.open { max-height: 500px; }
-        .nav-arrow { transition: transform 0.3s; }
-        .nav-arrow.open { transform: rotate(90deg); }
-        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+
+        .card-gradient {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+        }
+
+        .dark .card-gradient {
+            background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+        }
+
+        .data-dense th,
+        .data-dense td {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(5px);
+            transition: all 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .alert-item {
+            animation: slideIn 0.4s ease-out forwards;
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .submenu.open {
+            max-height: 500px;
+        }
+
+        .nav-arrow {
+            transition: transform 0.3s;
+        }
+
+        .nav-arrow.open {
+            transform: rotate(90deg);
+        }
+
         /* Animación para el radar GPS */
         @keyframes radarPing {
-            0% { transform: scale(0.5); opacity: 1; }
-            100% { transform: scale(2.5); opacity: 0; }
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+            }
         }
+
         .gps-ping::after {
-            content: ''; position: absolute; inset: 0; border-radius: 50%;
-            background-color: currentColor; animation: radarPing 2s infinite ease-out;
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background-color: currentColor;
+            animation: radarPing 2s infinite ease-out;
         }
     </style>
 </head>
-<body class="text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-950 flex h-screen overflow-hidden transition-colors duration-300">
 
-    <aside class="w-16 lg:w-64 bg-secondary text-slate-300 flex flex-col border-r border-slate-800 dark:border-slate-800/50 shrink-0 z-20 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-info/20 to-transparent opacity-50 pointer-events-none"></div>
+<body
+    class="text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-950 flex h-screen overflow-hidden transition-colors duration-300">
+
+    <aside
+        class="w-16 lg:w-64 bg-secondary text-slate-300 flex flex-col border-r border-slate-800 dark:border-slate-800/50 shrink-0 z-20 relative overflow-hidden">
+        <div
+            class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-info/20 to-transparent opacity-50 pointer-events-none">
+        </div>
         <div class="h-16 flex items-center px-5 border-b border-slate-800/80 relative z-10">
-            <div class="w-8 h-8 bg-gradient-to-tr from-primary to-orange-400 rounded flex items-center justify-center text-white shadow-[0_0_10px_rgba(249,115,22,0.5)]">
+            <div
+                class="w-8 h-8 bg-gradient-to-tr from-primary to-orange-400 rounded flex items-center justify-center text-white shadow-[0_0_10px_rgba(249,115,22,0.5)]">
                 <span class="material-symbols-outlined text-[20px]">diamond</span>
             </div>
             <div class="hidden lg:block ml-3">
@@ -74,117 +156,237 @@
         </div>
 
         <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 relative z-10">
-    
-    <a href="index.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
-        <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
-        <span class="hidden lg:block ml-3 text-sm font-medium">Dashboard Maestro</span>
-    </a>
-    
-    <div class="nav-group mt-2">
-        <button onclick="toggleMenu('menu-mina', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-            <div class="flex items-center">
-                <span class="material-symbols-outlined text-[20px]">landscape</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Operación Mina</span>
-            </div>
-            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-        </button>
-        <div id="menu-mina" class="submenu pl-11 space-y-1 mt-1 mb-3">
-            <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Barrenación y Detonación</a>
-            <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Acarreo de Mineral</a>
-            <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Patio e Inventario</a>
-        </div>
-    </div>
 
-    <div class="nav-group mt-2">
-        <button onclick="toggleMenu('menu-planta', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-            <div class="flex items-center">
-                <span class="material-symbols-outlined text-[20px]">factory</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Planta y Calidad</span>
-            </div>
-            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-        </button>
-        <div id="menu-planta" class="submenu pl-11 space-y-1 mt-1">
-            <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Trituración y Molienda</a>
-            <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Flotación, Jales y Lab</a>
-            <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Concentrado y Embarques</a>
-        </div>
-    </div>
+            <a href="index.html"
+                class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
+                <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Dashboard Maestro</span>
+            </a>
 
-    <a href="logistica-fletes.html" class="flex items-center p-2.5 rounded-lg bg-primary/20 text-primary border-l-2 border-primary shadow-md transition-colors mt-2">
-        <span class="material-symbols-outlined text-[20px]">local_shipping</span>
-        <span class="hidden lg:block ml-3 text-sm font-bold">Logística y Fletes</span>
-    </a>
-    
-    <div class="nav-group mt-2">
-        <button onclick="toggleMenu('menu-finanzas', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-            <div class="flex items-center">
-                <span class="material-symbols-outlined text-[20px]">request_quote</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Finanzas e Ingresos</span>
+            <a href="alertas.html"
+                class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
+                <span class="material-symbols-outlined text-[20px]">emergency</span>
+                <span class="hidden lg:block ml-3 text-sm font-bold">Alertas Live (Crítico)</span>
+            </a>
+
+            <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">
+                Operaciones</p>
+            <div class="nav-group">
+                <button onclick="toggleMenu('menu-mina', this)"
+                    class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">landscape</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Operación Mina</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-mina" class="submenu pl-11 space-y-1 mt-1 mb-3">
+                    <a href="operacion-mina.html"
+                        class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Barrenación y
+                        Detonación</a>
+                    <a href="operacion-mina.html"
+                        class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Acarreo de
+                        Mineral</a>
+                    <a href="operacion-mina.html"
+                        class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Patio e
+                        Inventario</a>
+                </div>
             </div>
-            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-        </button>
-        <div id="menu-finanzas" class="submenu pl-11 space-y-1 mt-1">
-            <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">P&L y KPIs Estratégicos</a>
-            <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Facturación y CxC</a>
+
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-planta', this)"
+                    class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">factory</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Planta y Calidad</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-planta" class="submenu pl-11 space-y-1 mt-1">
+                    <a href="planta-calidad.html"
+                        class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Trituración y
+                        Molienda</a>
+                    <a href="planta-calidad.html"
+                        class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Flotación, Jales
+                        y Lab</a>
+                    <a href="planta-calidad.html"
+                        class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Concentrado y
+                        Embarques</a>
+                </div>
+            </div>
+
+            <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">
+                Suministro & Finanzas</p>
+
+            <a href="logistica-fletes.html"
+                class="flex items-center p-2.5 rounded-lg bg-primary/20 text-primary border-l-2 border-primary shadow-md transition-colors mt-2">
+                <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+                <span class="hidden lg:block ml-3 text-sm font-bold">Logística y Fletes</span>
+            </a>
+
+            <a href="inventario.html"
+                class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
+                <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Inventarios</span>
+            </a>
+
+            <a href="compras.html"
+                class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
+                <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Compras y ODC</span>
+            </a>
+
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-finanzas', this)"
+                    class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">request_quote</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Finanzas e Ingresos</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-finanzas" class="submenu pl-11 space-y-1 mt-1">
+                    <a href="ingresos.html"
+                        class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">P&L y KPIs
+                        Estratégicos</a>
+                    <a href="ingresos.html"
+                        class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Facturación y
+                        CxC</a>
+                </div>
+            </div>
+
+            <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">
+                Admin & Soporte</p>
+            <a href="energia.html"
+                class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
+                <span class="material-symbols-outlined text-[20px]">electric_bolt</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Energía</span>
+            </a>
+
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-mtto', this)"
+                    class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">build</span><span
+                            class="hidden lg:block ml-3 text-sm font-medium">Mantenimiento</span></div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-mtto" class="submenu pl-11 space-y-1 mt-1 mb-3">
+                    <a href="mantenimiento.html"
+                        class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Estado de Flota y
+                        Preventivos</a>
+                    <a href="mantenimiento.html"
+                        class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Correctivos y
+                        Órdenes (OT)</a>
+                    <a href="mantenimiento.html"
+                        class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Eficiencia
+                        Mecánica (MTBF/TR)</a>
+                </div>
+            </div>
+
+            <a href="rh.html"
+                class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
+                <span class="material-symbols-outlined text-[20px]">badge</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Recursos Humanos</span>
+            </a>
+
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-hse', this)"
+                    class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center"><span
+                            class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span
+                            class="hidden lg:block ml-3 text-sm font-medium">HSE y Ambiental</span></div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-hse" class="submenu pl-11 space-y-1 mt-1 mb-3">
+                    <a href="ambiental.html"
+                        class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Certificaciones y
+                        NOMs</a>
+                    <a href="ambiental.html"
+                        class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Seguridad
+                        Industrial (TRIR)</a>
+                </div>
+            </div>
+
+            <a href="grantt.html"
+                class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
+                <span class="material-symbols-outlined text-[20px]">view_timeline</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos & Gantt</span>
+            </a>
+
+            <a href="reportes.html"
+                class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1 mb-4">
+                <span class="material-symbols-outlined text-[20px]">description</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Reportes</span>
+            </a>
+        </nav>
+        <!-- Perfil: sección inferior del sidebar -->
+        <div class="relative z-10 border-t border-slate-800 p-3 shrink-0" id="profile-section">
+            <button onclick="toggleProfileMenu()"
+                class="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 group">
+                <div
+                    class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-orange-400 flex items-center justify-center text-white font-bold text-xs shrink-0">
+                    AD</div>
+                <div class="hidden lg:flex flex-1 flex-col text-left min-w-0">
+                    <p class="text-xs font-semibold text-white leading-none truncate">Admin Usuario</p>
+                    <p class="text-[10px] text-slate-400 mt-0.5">Superintendente</p>
+                </div>
+                <span
+                    class="material-symbols-outlined text-[18px] hidden lg:block text-slate-400 group-hover:text-white transition-all"
+                    id="gear-icon">settings</span>
+            </button>
+            <div id="profile-menu"
+                class="hidden absolute bottom-full left-0 right-0 bg-slate-800 border border-slate-700/80 rounded-xl shadow-2xl overflow-hidden z-[100]"
+                style="margin-bottom:4px">
+                <button onclick="openProfileModal('modal-perfil')"
+                    class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700/80 transition-colors text-slate-200">
+                    <span class="material-symbols-outlined text-[20px] text-primary">account_circle</span>
+                    <span class="hidden lg:block text-sm font-medium">Mi Perfil</span>
+                </button>
+                <div class="h-px bg-slate-700/50 mx-3"></div>
+                <button onclick="openProfileModal('modal-turno')"
+                    class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700/80 transition-colors text-slate-200">
+                    <span class="material-symbols-outlined text-[20px] text-accent">more_time</span>
+                    <span class="hidden lg:block text-sm font-medium">Mi Turno</span>
+                </button>
+            </div>
         </div>
-    </div>
-    
-    <div class="nav-group mt-2">
-        <button onclick="toggleMenu('menu-mtto', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-            <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">build</span><span class="hidden lg:block ml-3 text-sm font-medium">Mantenimiento</span></div>
-            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-        </button>
-        <div id="menu-mtto" class="submenu pl-11 space-y-1 mt-1 mb-3">
-            <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Estado de Flota y Preventivos</a>
-            <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Correctivos y Órdenes (OT)</a>
-            <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Eficiencia Mecánica (MTBF/TR)</a>
-        </div>
-    </div>
-    <div class="nav-group mt-2">
-        <button onclick="toggleMenu('menu-hse', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-            <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="hidden lg:block ml-3 text-sm font-medium">HSE y Ambiental</span></div>
-            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-        </button>
-        <div id="menu-hse" class="submenu pl-11 space-y-1 mt-1 mb-3">
-            <a href="ambiental.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Certificaciones y NOMs</a>
-            <a href="ambiental.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Seguridad Industrial (TRIR)</a>
-        </div>
-    </div>
-    <a href="grantt.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
-        <span class="material-symbols-outlined text-[20px]">view_timeline</span>
-        <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos &amp; Gantt</span>
-    </a>
-    <a href="alertas.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
-        <span class="material-symbols-outlined text-[20px]">emergency</span>
-        <span class="hidden lg:block ml-3 text-sm font-medium">Alertas Live</span>
-    </a>
-</nav>
     </aside>
 
     <div class="flex-1 flex flex-col h-full overflow-hidden bg-slate-100/50 dark:bg-slate-950/50">
-        
-        <header class="h-16 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-6 md:px-8 shrink-0 z-10 sticky top-0 transition-colors duration-300">
+
+        <header
+            class="h-16 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-6 md:px-8 shrink-0 z-10 sticky top-0 transition-colors duration-300">
             <div>
-                <h2 class="text-xl font-black text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Control de Logística y Fletes</h2>
-                <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mt-0.5">Gestión de Embarques y Monitoreo de Flota</p>
+                <h2
+                    class="text-xl font-black text-slate-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
+                    Control de Logística y Fletes</h2>
+                <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mt-0.5">
+                    Gestión de Embarques y Monitoreo de Flota</p>
             </div>
             <div class="flex items-center gap-4">
-                <button id="theme-toggle" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shadow-sm">
+                <button id="theme-toggle"
+                    class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shadow-sm">
                     <span id="theme-icon" class="material-symbols-outlined text-[20px]">dark_mode</span>
                 </button>
-                <select class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold rounded-lg px-3 py-2 shadow-sm focus:border-info outline-none dark:text-white transition-colors duration-300">
-                    <option>Hoy (En curso)</option><option>Semana Actual</option>
+                <select
+                    class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold rounded-lg px-3 py-2 shadow-sm focus:border-info outline-none dark:text-white transition-colors duration-300">
+                    <option>Hoy (En curso)</option>
+                    <option>Semana Actual</option>
                 </select>
             </div>
         </header>
 
-        <div class="px-6 md:px-8 flex gap-6 overflow-x-auto bg-white/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 shrink-0">
-            <button onclick="switchTab('tab-flota', document.querySelectorAll('.sub-nav-btn')[0])" class="top-tab-btn border-b-2 border-info text-info py-3 font-bold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+        <div
+            class="px-6 md:px-8 flex gap-6 overflow-x-auto bg-white/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 shrink-0">
+            <button onclick="switchTab('tab-flota', document.querySelectorAll('.sub-nav-btn')[0])"
+                class="top-tab-btn border-b-2 border-info text-info py-3 font-bold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
                 <span class="material-symbols-outlined text-[18px]">assessment</span> Productividad de Flota
             </button>
-            <button onclick="switchTab('tab-rastreo', document.querySelectorAll('.sub-nav-btn')[1])" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
-                <span class="material-symbols-outlined text-[18px]">my_location</span> Rastreo y Rutas
+            <button onclick="switchTab('tab-rastreo', this)"
+                class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                <span class="material-symbols-outlined text-[18px]">format_list_numbered</span> Bitácora en Vivo
             </button>
+
         </div>
 
         <main class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 w-full relative">
@@ -193,53 +395,87 @@
                 <div class="flex-1">
 
                     <div id="tab-flota" class="tab-content active space-y-6 lg:space-y-8">
-                        
+
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-info">
-                                <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Camiones Disponibles</p>
+                            <div
+                                class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-info">
+                                <p
+                                    class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">
+                                    Camiones Disponibles</p>
                                 <div class="flex items-end gap-2">
                                     <h3 class="text-3xl font-black text-slate-800 dark:text-white">12</h3>
                                     <p class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-1">/ 15 Flota</p>
                                 </div>
-                                <p class="text-[10px] text-danger font-bold mt-1 bg-danger/10 px-1.5 py-0.5 rounded w-max">3 En Taller (Mtto)</p>
+                                <p
+                                    class="text-[10px] text-danger font-bold mt-1 bg-danger/10 px-1.5 py-0.5 rounded w-max">
+                                    3 En Taller (Mtto)</p>
                             </div>
-                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-success">
-                                <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Peso Movido (Hoy)</p>
-                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">480 <span class="text-sm font-normal text-slate-500">Ton</span></h3>
-                                <p class="text-[10px] text-success font-bold mt-1 bg-success/10 px-1.5 py-0.5 rounded w-max flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">trending_up</span> Cumpliendo meta</p>
+                            <div
+                                class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-success">
+                                <p
+                                    class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">
+                                    Peso Movido (Hoy)</p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">480 <span
+                                        class="text-sm font-normal text-slate-500">Ton</span></h3>
+                                <p
+                                    class="text-[10px] text-success font-bold mt-1 bg-success/10 px-1.5 py-0.5 rounded w-max flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[12px]">trending_up</span> Cumpliendo
+                                    meta</p>
                             </div>
-                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-primary">
-                                <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Productividad x Camión</p>
-                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">40 <span class="text-sm font-normal text-slate-500">Ton/Día</span></h3>
-                                <div class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mt-3 overflow-hidden"><div class="bg-primary h-full w-[85%]"></div></div>
+                            <div
+                                class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-primary">
+                                <p
+                                    class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">
+                                    Productividad x Camión</p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">40 <span
+                                        class="text-sm font-normal text-slate-500">Ton/Día</span></h3>
+                                <div
+                                    class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mt-3 overflow-hidden">
+                                    <div class="bg-primary h-full w-[85%]"></div>
+                                </div>
                             </div>
-                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-amber-500">
-                                <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Tiempo de Ciclo Promedio</p>
-                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">3.2 <span class="text-sm font-normal text-slate-500">Hrs</span></h3>
+                            <div
+                                class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-amber-500">
+                                <p
+                                    class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">
+                                    Tiempo de Ciclo Promedio</p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">3.2 <span
+                                        class="text-sm font-normal text-slate-500">Hrs</span></h3>
                                 <p class="text-[10px] text-slate-500 font-bold mt-1">(Planta -> Fundición -> Planta)</p>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            
-                            <div class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-5">
-                                <h3 class="text-sm font-bold text-slate-800 dark:text-white mb-1">Toneladas Transportadas por Semana</h3>
-                                <p class="text-[10px] text-slate-500 dark:text-slate-400 mb-4">Volumen total de concentrado entregado</p>
+
+                            <div
+                                class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-5">
+                                <h3 class="text-sm font-bold text-slate-800 dark:text-white mb-1">Toneladas
+                                    Transportadas por Semana</h3>
+                                <p class="text-[10px] text-slate-500 dark:text-slate-400 mb-4">Volumen total de
+                                    concentrado entregado</p>
                                 <div class="relative h-[250px] w-full"><canvas id="fleteChart"></canvas></div>
                             </div>
 
-                            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col">
-                                <div class="px-4 py-3 bg-slate-50 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
-                                    <h3 class="text-xs font-bold text-slate-800 dark:text-white">Top Productividad x Camión</h3>
-                                    <span class="text-[9px] bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded font-bold">Semanal</span>
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col">
+                                <div
+                                    class="px-4 py-3 bg-slate-50 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+                                    <h3 class="text-xs font-bold text-slate-800 dark:text-white">Top Productividad x
+                                        Camión</h3>
+                                    <span
+                                        class="text-[9px] bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded font-bold">Semanal</span>
                                 </div>
                                 <div class="p-4 space-y-4 flex-1 overflow-y-auto">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full bg-info/10 text-info flex items-center justify-center font-bold text-xs border border-info/30">#1</div>
+                                            <div
+                                                class="w-8 h-8 rounded-full bg-info/10 text-info flex items-center justify-center font-bold text-xs border border-info/30">
+                                                #1</div>
                                             <div>
-                                                <p class="text-xs font-bold text-slate-800 dark:text-white">Góndola TR-05</p>
-                                                <p class="text-[10px] text-slate-500 dark:text-slate-400">Op: Miguel A.</p>
+                                                <p class="text-xs font-bold text-slate-800 dark:text-white">Góndola
+                                                    TR-05</p>
+                                                <p class="text-[10px] text-slate-500 dark:text-slate-400">Op: Miguel A.
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="text-right">
@@ -247,12 +483,17 @@
                                             <p class="text-[9px] text-success font-bold">6 Viajes</p>
                                         </div>
                                     </div>
-                                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-700 pt-4">
+                                    <div
+                                        class="flex items-center justify-between border-t border-slate-100 dark:border-slate-700 pt-4">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 flex items-center justify-center font-bold text-xs">#2</div>
+                                            <div
+                                                class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 flex items-center justify-center font-bold text-xs">
+                                                #2</div>
                                             <div>
-                                                <p class="text-xs font-bold text-slate-800 dark:text-white">Góndola TR-12</p>
-                                                <p class="text-[10px] text-slate-500 dark:text-slate-400">Op: José V.</p>
+                                                <p class="text-xs font-bold text-slate-800 dark:text-white">Góndola
+                                                    TR-12</p>
+                                                <p class="text-[10px] text-slate-500 dark:text-slate-400">Op: José V.
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="text-right">
@@ -260,12 +501,17 @@
                                             <p class="text-[9px] text-success font-bold">5 Viajes</p>
                                         </div>
                                     </div>
-                                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-700 pt-4">
+                                    <div
+                                        class="flex items-center justify-between border-t border-slate-100 dark:border-slate-700 pt-4">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 flex items-center justify-center font-bold text-xs">#3</div>
+                                            <div
+                                                class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 flex items-center justify-center font-bold text-xs">
+                                                #3</div>
                                             <div>
-                                                <p class="text-xs font-bold text-slate-800 dark:text-white">Góndola TR-08</p>
-                                                <p class="text-[10px] text-slate-500 dark:text-slate-400">Op: Roberto F.</p>
+                                                <p class="text-xs font-bold text-slate-800 dark:text-white">Góndola
+                                                    TR-08</p>
+                                                <p class="text-[10px] text-slate-500 dark:text-slate-400">Op: Roberto F.
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="text-right">
@@ -279,139 +525,202 @@
                     </div>
 
                     <div id="tab-rastreo" class="tab-content space-y-6">
-                        
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            
-                            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col">
-                                <div class="px-5 py-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center">
-                                    <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">format_list_bulleted</span> Salidas y Llegadas (Hoy)</h3>
-                                </div>
-                                <div class="overflow-x-auto">
-                                    <table class="w-full text-left data-dense">
-                                        <thead class="bg-white dark:bg-slate-800 text-[10px] text-slate-500 dark:text-slate-400 uppercase border-b border-slate-200 dark:border-slate-700">
-                                            <tr>
-                                                <th>Camión</th>
-                                                <th class="text-center">Peso</th>
-                                                <th class="text-center">Salida Planta</th>
-                                                <th class="text-center">Llegada Fundición</th>
-                                                <th class="text-center">Estatus</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-xs text-slate-700 dark:text-slate-300">
-                                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50">
-                                                <td class="font-bold text-slate-900 dark:text-white">TR-05</td>
-                                                <td class="text-center font-mono">40 Ton</td>
-                                                <td class="text-center text-slate-500">07:00 AM</td>
-                                                <td class="text-center text-slate-500">10:15 AM</td>
-                                                <td class="text-center"><span class="bg-success/10 text-success border border-success/20 px-2 py-0.5 rounded text-[9px] font-bold">Entregado</span></td>
-                                            </tr>
-                                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50">
-                                                <td class="font-bold text-slate-900 dark:text-white">TR-12</td>
-                                                <td class="text-center font-mono">38 Ton</td>
-                                                <td class="text-center text-slate-500">11:30 AM</td>
-                                                <td class="text-center text-slate-500">-</td>
-                                                <td class="text-center"><span class="bg-info/10 text-info border border-info/20 px-2 py-0.5 rounded text-[9px] font-bold">En Ruta (Ida)</span></td>
-                                            </tr>
-                                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 bg-amber-50/30 dark:bg-amber-900/10">
-                                                <td class="font-bold text-slate-900 dark:text-white">TR-08</td>
-                                                <td class="text-center font-mono">- (Vacío)</td>
-                                                <td class="text-center text-slate-500">-</td>
-                                                <td class="text-center text-slate-500">08:00 AM (Salida)</td>
-                                                <td class="text-center"><span class="bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300 border border-amber-200 dark:border-amber-800 px-2 py-0.5 rounded text-[9px] font-bold">En Ruta (Retorno)</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
 
-                            <div class="bg-secondary rounded-xl border border-slate-700 shadow-xl overflow-hidden relative flex flex-col items-center justify-center p-8 min-h-[350px]">
-                                <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 20px 20px;"></div>
-                                
-                                <div class="relative z-10 text-center w-full">
-                                    <h3 class="text-sm font-bold text-white flex items-center justify-center gap-2 mb-8"><span class="material-symbols-outlined text-info">my_location</span> Rastreo GPS Activo</h3>
-                                    
-                                    <div class="relative w-full max-w-sm mx-auto h-2 bg-slate-800 rounded-full my-12">
-                                        <div class="absolute -left-2 -top-3 flex flex-col items-center">
-                                            <div class="w-4 h-4 bg-white rounded-full border-4 border-slate-500"></div>
-                                            <span class="text-[9px] font-bold text-slate-400 mt-1 uppercase">Planta</span>
-                                        </div>
-                                        <div class="absolute -right-2 -top-3 flex flex-col items-center">
-                                            <div class="w-4 h-4 bg-white rounded-full border-4 border-slate-500"></div>
-                                            <span class="text-[9px] font-bold text-slate-400 mt-1 uppercase">Fundición</span>
-                                        </div>
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg overflow-hidden flex flex-col">
+        <div class="px-6 py-4 bg-slate-900 text-white flex justify-between items-center">
+            <h3 class="text-sm font-bold flex items-center gap-2">
+                <span class="material-symbols-outlined text-info">timeline</span> 
+                Bitácora de Ciclos Internos (Checkpoints)
+            </h3>
+            <span class="text-[10px] font-bold uppercase tracking-widest bg-info/20 text-info px-2 py-1 rounded">2 Unidades en Movimiento</span>
+        </div>
 
-                                        <div class="absolute top-1/2 left-[45%] -translate-y-1/2 -translate-x-1/2 text-info flex flex-col items-center group cursor-pointer">
-                                            <div class="relative text-info gps-ping">
-                                                <span class="material-symbols-outlined text-3xl drop-shadow-[0_0_10px_rgba(14,165,233,0.8)]">local_shipping</span>
-                                            </div>
-                                            <div class="absolute bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900 border border-slate-700 text-white text-[10px] p-2 rounded shadow-xl whitespace-nowrap z-20">
-                                                <p class="font-bold text-info border-b border-slate-700 pb-1 mb-1">TR-12 (En Ruta)</p>
-                                                <p>Velocidad: 65 km/h</p>
-                                                <p>Carga: 38 Ton</p>
-                                                <p>ETA Fundición: 45 min</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="absolute top-1/2 right-[25%] -translate-y-1/2 translate-x-1/2 text-amber-500 flex flex-col items-center group cursor-pointer">
-                                            <div class="relative text-amber-500 gps-ping">
-                                                <span class="material-symbols-outlined text-3xl drop-shadow-[0_0_10px_rgba(245,158,11,0.8)]" style="transform: scaleX(-1);">local_shipping</span>
-                                            </div>
-                                            <div class="absolute bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900 border border-slate-700 text-white text-[10px] p-2 rounded shadow-xl whitespace-nowrap z-20">
-                                                <p class="font-bold text-amber-500 border-b border-slate-700 pb-1 mb-1">TR-08 (Retorno Vacío)</p>
-                                                <p>Velocidad: 70 km/h</p>
-                                                <p>ETA Planta: 1h 20m</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="text-[10px] text-slate-400 mt-8 italic">Coloca el cursor sobre un camión para ver telemetría.</p>
-                                </div>
-                            </div>
-
-                        </div>
+        <div class="p-8 space-y-12">
+            
+            <div class="relative">
+                <div class="flex justify-between items-end mb-6">
+                    <div>
+                        <span class="px-2 py-0.5 bg-info text-white text-[9px] font-black rounded uppercase">GÓNDOLA: GN-105</span>
+                        <h4 class="text-sm font-bold text-slate-800 dark:text-white mt-1">Acarreo: Veta Norte - <span class="font-normal text-slate-500 text-xs">Roberto Ruiz (35t)</span></h4>
                     </div>
+                    <div class="text-right">
+                        <p class="text-[9px] font-black text-info uppercase">En Tránsito a Trituradora</p>
+                        <p class="text-[10px] text-slate-400 font-bold italic">Salida Frente: 12:40 PM</p>
+                    </div>
+                </div>
+
+                <div class="relative w-full flex justify-between items-center px-2">
+                    <div class="absolute h-1 w-[98%] bg-slate-100 dark:bg-slate-700 left-1 top-4 z-0"></div>
+                    <div class="absolute h-1 w-[65%] bg-info left-1 top-4 z-0 shadow-[0_0_8px_rgba(14,165,233,0.5)]"></div>
+
+                    <div class="relative z-10 flex flex-col items-center">
+                        <div class="w-8 h-8 rounded-full bg-info text-white flex items-center justify-center border-4 border-white dark:border-slate-800 shadow-md">
+                            <span class="material-symbols-outlined text-[16px]">hardware</span>
+                        </div>
+                        <span class="absolute top-9 text-[8px] font-black text-slate-500 uppercase whitespace-nowrap">Frente Mina</span>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col items-center">
+                        <div class="w-8 h-8 rounded-full bg-info text-white flex items-center justify-center border-4 border-white dark:border-slate-800 shadow-md">
+                            <span class="material-symbols-outlined text-[16px]">scale</span>
+                        </div>
+                        <span class="absolute top-9 text-[8px] font-black text-slate-500 uppercase whitespace-nowrap">Báscula</span>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col items-center">
+                        <div class="w-10 h-10 -mt-1 rounded-full bg-info text-white flex items-center justify-center border-4 border-white dark:border-slate-800 shadow-xl animate-pulse ring-4 ring-info/20">
+                            <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+                        </div>
+                        <span class="absolute top-10 text-[8px] font-black text-info uppercase italic underline whitespace-nowrap">En Tránsito</span>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col items-center">
+                        <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-400 flex items-center justify-center border-4 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-[16px]">factory</span>
+                        </div>
+                        <span class="absolute top-9 text-[8px] font-black text-slate-400 uppercase whitespace-nowrap">Trituración</span>
+                    </div>
+                </div>
+                
+                <div class="mt-12 flex justify-end">
+                    <button onclick="alert('Confirmando descarga en Trituración...')" class="text-[10px] font-black text-info border border-info px-3 py-1 rounded hover:bg-info hover:text-white transition-all uppercase">Confirmar Descarga</button>
+                </div>
+            </div>
+
+            <hr class="border-slate-100 dark:border-slate-700/50">
+
+            <div class="relative">
+                <div class="flex justify-between items-end mb-6">
+                    <div>
+                        <span class="px-2 py-0.5 bg-primary text-white text-[9px] font-black rounded uppercase">CAMIÓN: CP-04</span>
+                        <h4 class="text-sm font-bold text-slate-800 dark:text-white mt-1">Patio: Almacén a Taller - <span class="font-normal text-slate-500 text-xs">Pedro Gómez (Refacciones)</span></h4>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[9px] font-black text-primary uppercase">En camino a Entrega</p>
+                    </div>
+                </div>
+
+                <div class="relative w-full flex justify-between items-center px-2">
+                    <div class="absolute h-1 w-[98%] bg-slate-100 dark:bg-slate-700 left-1 top-4 z-0"></div>
+                    <div class="absolute h-1 w-[40%] bg-primary left-1 top-4 z-0"></div>
+
+                    <div class="relative z-10 flex flex-col items-center">
+                        <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center border-4 border-white dark:border-slate-800 shadow-md">
+                            <span class="material-symbols-outlined text-[16px]">inventory_2</span>
+                        </div>
+                        <span class="absolute top-9 text-[8px] font-black text-slate-500 uppercase whitespace-nowrap">Almacén</span>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col items-center">
+                        <div class="w-10 h-10 -mt-1 rounded-full bg-primary text-white flex items-center justify-center border-4 border-white dark:border-slate-800 shadow-xl animate-bounce">
+                            <span class="material-symbols-outlined text-[20px]">agriculture</span>
+                        </div>
+                        <span class="absolute top-10 text-[8px] font-black text-primary uppercase italic whitespace-nowrap">En Camino</span>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col items-center">
+                        <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-400 flex items-center justify-center border-4 border-white dark:border-slate-800">
+                            <span class="material-symbols-outlined text-[16px]">build</span>
+                        </div>
+                        <span class="absolute top-9 text-[8px] font-black text-slate-400 uppercase whitespace-nowrap">Taller Mecánico</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col">
+        <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+            <h3 class="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-tighter">Historial Reciente de Ciclos Internos</h3>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left data-dense">
+                <thead class="bg-slate-50 dark:bg-slate-900/50 text-[9px] text-slate-400 uppercase">
+                    <tr>
+                        <th>Unidad / Operador</th>
+                        <th class="text-center">Origen</th>
+                        <th class="text-center">Destino</th>
+                        <th class="text-center">Tiempo Ciclo</th>
+                        <th class="text-center">Carga</th>
+                        <th class="text-center">Estatus</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-xs">
+                    <tr>
+                        <td class="font-bold">GN-102 (S. Méndez)</td>
+                        <td class="text-center">Veta Sur</td>
+                        <td class="text-center">Planta</td>
+                        <td class="text-center font-bold">18 min</td>
+                        <td class="text-center font-mono">34.8 t</td>
+                        <td class="text-center"><span class="bg-success/10 text-success font-black px-2 py-0.5 rounded text-[9px]">COMPLETO</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
 
                 </div>
 
                 <aside class="w-full xl:w-80 flex-shrink-0 flex flex-col gap-6 lg:gap-8">
-                    
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col flex-1 h-[600px] transition-colors duration-300">
-                        <div class="px-5 py-4 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between sticky top-0 bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm rounded-t-2xl z-10 transition-colors duration-300">
+
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col flex-1 h-[600px] transition-colors duration-300">
+                        <div
+                            class="px-5 py-4 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between sticky top-0 bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm rounded-t-2xl z-10 transition-colors duration-300">
                             <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                                <span class="material-symbols-outlined text-danger animate-pulse">sensors</span> Control de Flota
+                                <span class="material-symbols-outlined text-danger animate-pulse">sensors</span> Control
+                                de Flota
                             </h3>
-                            <span class="text-[9px] font-bold uppercase tracking-widest text-info border border-info/30 bg-info/10 px-2 py-0.5 rounded">Logística</span>
+                            <span
+                                class="text-[9px] font-bold uppercase tracking-widest text-info border border-info/30 bg-info/10 px-2 py-0.5 rounded">Logística</span>
                         </div>
-                        
+
                         <div class="p-4 space-y-4 overflow-y-auto flex-1">
-                            <div class="alert-item flex gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-700/30 border border-slate-200 dark:border-slate-700 transition-colors duration-300">
-                                <div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-success shrink-0"><span class="material-symbols-outlined text-[16px]">check_circle</span></div>
+                            <div
+                                class="alert-item flex gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-700/30 border border-slate-200 dark:border-slate-700 transition-colors duration-300">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-success shrink-0">
+                                    <span class="material-symbols-outlined text-[16px]">check_circle</span></div>
                                 <div>
                                     <p class="text-xs font-bold text-slate-800 dark:text-white">Descarga Exitosa</p>
-                                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">Camión TR-05 descargó 40 Toneladas en Fundición. Inicia retorno.</p>
+                                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">Camión TR-05
+                                        descargó 40 Toneladas en Fundición. Inicia retorno.</p>
                                     <p class="text-[9px] text-slate-500 font-bold mt-1">Hace 5 minutos</p>
                                 </div>
                             </div>
 
-                            <div class="alert-item flex gap-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-800/30 transition-colors duration-300" style="animation-delay: 0.2s;">
-                                <div class="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center text-amber-600 shrink-0"><span class="material-symbols-outlined text-[16px]">traffic</span></div>
+                            <div class="alert-item flex gap-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-800/30 transition-colors duration-300"
+                                style="animation-delay: 0.2s;">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center text-amber-600 shrink-0">
+                                    <span class="material-symbols-outlined text-[16px]">traffic</span></div>
                                 <div>
                                     <p class="text-xs font-bold text-slate-800 dark:text-white">Retraso en Ruta 45</p>
-                                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">Camión TR-12 reporta tráfico pesado. ETA incrementó 15 min.</p>
-                                    <p class="text-[9px] text-amber-600 dark:text-amber-500 font-bold mt-1">Hace 22 minutos</p>
+                                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">Camión TR-12
+                                        reporta tráfico pesado. ETA incrementó 15 min.</p>
+                                    <p class="text-[9px] text-amber-600 dark:text-amber-500 font-bold mt-1">Hace 22
+                                        minutos</p>
                                 </div>
                             </div>
 
-                            <div class="alert-item flex gap-3 p-3 rounded-xl bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-800/30 transition-colors duration-300" style="animation-delay: 0.4s;">
-                                <div class="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/50 flex items-center justify-center text-danger shrink-0"><span class="material-symbols-outlined text-[16px]">car_repair</span></div>
+                            <div class="alert-item flex gap-3 p-3 rounded-xl bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-800/30 transition-colors duration-300"
+                                style="animation-delay: 0.4s;">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/50 flex items-center justify-center text-danger shrink-0">
+                                    <span class="material-symbols-outlined text-[16px]">car_repair</span></div>
                                 <div>
                                     <p class="text-xs font-bold text-slate-800 dark:text-white">Alerta de Taller</p>
-                                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">Camión TR-02 no liberado. Falla en sistema de frenos (Correctivo).</p>
+                                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">Camión TR-02 no
+                                        liberado. Falla en sistema de frenos (Correctivo).</p>
                                     <p class="text-[9px] text-danger font-bold mt-1">Hace 1.5 horas</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                 </aside>
 
             </div>
@@ -437,14 +746,14 @@
             const isDark = htmlElement.classList.contains('dark');
             localStorage.theme = isDark ? 'dark' : 'light';
             themeIcon.textContent = isDark ? 'light_mode' : 'dark_mode';
-            if(window.myChart) updateChartsTheme(isDark);
+            if (window.myChart) updateChartsTheme(isDark);
         });
 
         // --- Sidebar Menu Logic ---
         function toggleMenu(menuId, btn) {
             const targetMenu = document.getElementById(menuId);
             const targetArrow = btn.querySelector('.nav-arrow');
-            
+
             document.querySelectorAll('.submenu').forEach(menu => {
                 if (menu.id !== menuId) {
                     menu.classList.remove('open');
@@ -461,23 +770,23 @@
         function switchTab(tabId, el) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
-            
+
             document.querySelectorAll('.sub-nav-btn').forEach(nav => {
                 nav.classList.remove('text-info', 'font-bold');
                 nav.classList.add('text-slate-400');
             });
-            
+
             document.querySelectorAll('.top-tab-btn').forEach(btn => {
                 btn.classList.remove('border-info', 'text-info', 'dark:text-info');
                 btn.classList.add('border-transparent', 'text-slate-500', 'dark:text-slate-400');
             });
 
-            if(el.classList.contains('sub-nav-btn')){
+            if (el.classList.contains('sub-nav-btn')) {
                 el.classList.remove('text-slate-400');
                 el.classList.add('text-info', 'font-bold');
                 const index = Array.from(document.querySelectorAll('.sub-nav-btn')).indexOf(el);
                 const topBtn = document.querySelectorAll('.top-tab-btn')[index];
-                if(topBtn) {
+                if (topBtn) {
                     topBtn.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
                     topBtn.classList.add('border-info', 'text-info', 'dark:text-info');
                 }
@@ -486,13 +795,13 @@
                 el.classList.add('border-info', 'text-info', 'dark:text-info');
                 const index = Array.from(document.querySelectorAll('.top-tab-btn')).indexOf(el);
                 const latBtn = document.querySelectorAll('.sub-nav-btn')[index];
-                if(latBtn) {
+                if (latBtn) {
                     latBtn.classList.remove('text-slate-400');
                     latBtn.classList.add('text-info', 'font-bold');
                 }
             }
-            
-            if(tabId === 'tab-flota') renderChart();
+
+            if (tabId === 'tab-flota') renderChart();
         }
 
         // --- Chart.js Configuration ---
@@ -501,14 +810,14 @@
 
         function renderChart() {
             const canvas = document.getElementById('fleteChart');
-            if(!canvas) return;
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
-            
-            if(window.myChart) window.myChart.destroy();
+
+            if (window.myChart) window.myChart.destroy();
 
             const isDark = document.documentElement.classList.contains('dark');
-            const textColor = isDark ? '#94a3b8' : '#64748b'; 
-            const gridColor = isDark ? '#334155' : '#f1f5f9'; 
+            const textColor = isDark ? '#94a3b8' : '#64748b';
+            const gridColor = isDark ? '#334155' : '#f1f5f9';
 
             Chart.defaults.color = textColor;
 
@@ -533,7 +842,7 @@
                     maintainAspectRatio: false,
                     scales: {
                         x: { grid: { display: false }, ticks: { color: textColor } },
-                        y: { 
+                        y: {
                             beginAtZero: true,
                             grid: { color: gridColor, borderDash: [4, 4] },
                             ticks: { color: textColor }
@@ -548,4 +857,5 @@
         setTimeout(() => { renderChart(); }, 100);
     </script>
 </body>
+
 </html>

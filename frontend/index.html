@@ -65,91 +65,144 @@
         </div>
 
        <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 relative z-10">
-    
-    <a href="index.html" class="flex items-center p-2.5 rounded-lg bg-primary/20 text-primary border-l-2 border-primary shadow-md transition-colors">
-        <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
-        <span class="hidden lg:block ml-3 text-sm font-bold">Dashboard Maestro</span>
-    </a>
-    
-    <div class="nav-group mt-2">
-        <button onclick="toggleMenu('menu-mina', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-            <div class="flex items-center">
-                <span class="material-symbols-outlined text-[20px]">landscape</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Operación Mina</span>
-            </div>
-            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-        </button>
-        <div id="menu-mina" class="submenu pl-11 space-y-1 mt-1 mb-3">
-            <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Barrenación y Detonación</a>
-            <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Acarreo de Mineral</a>
-            <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Patio e Inventario</a>
-        </div>
-    </div>
+            
+            <a href="index.html" class="flex items-center p-2.5 rounded-lg bg-primary/20 text-primary border-l-2 border-primary shadow-md transition-colors">
+                <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
+                <span class="hidden lg:block ml-3 text-sm font-bold">Dashboard Maestro</span>
+            </a>
+            
+            <a href="alertas.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
+                <span class="material-symbols-outlined text-[20px]">emergency</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Alertas Live (Crítico)</span>
+            </a>
 
-    <div class="nav-group mt-2">
-        <button onclick="toggleMenu('menu-planta', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-            <div class="flex items-center">
-                <span class="material-symbols-outlined text-[20px]">factory</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Planta y Calidad</span>
+            <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">Operaciones</p>
+            <div class="nav-group">
+                <button onclick="toggleMenu('menu-mina', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">landscape</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Operación Mina</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-mina" class="submenu pl-11 space-y-1 mt-1 mb-3">
+                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Barrenación y Detonación</a>
+                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Acarreo de Mineral</a>
+                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Patio e Inventario</a>
+                </div>
             </div>
-            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-        </button>
-        <div id="menu-planta" class="submenu pl-11 space-y-1 mt-1">
-            <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Trituración y Molienda</a>
-            <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Flotación, Jales y Lab</a>
-            <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Concentrado y Embarques</a>
-        </div>
-    </div>
 
-    <a href="logistica-fletes.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
-        <span class="material-symbols-outlined text-[20px]">local_shipping</span>
-        <span class="hidden lg:block ml-3 text-sm font-medium">Logística y Fletes</span>
-    </a>
-    
-    <div class="nav-group mt-2">
-        <button onclick="toggleMenu('menu-finanzas', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-            <div class="flex items-center">
-                <span class="material-symbols-outlined text-[20px]">request_quote</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Finanzas e Ingresos</span>
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-planta', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">factory</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Planta y Calidad</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-planta" class="submenu pl-11 space-y-1 mt-1">
+                    <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Trituración y Molienda</a>
+                    <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Flotación, Jales y Lab</a>
+                    <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Concentrado y Embarques</a>
+                </div>
             </div>
-            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+
+            <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">Suministro & Finanzas</p>
+            <a href="logistica-fletes.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
+                <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Logística y Fletes</span>
+            </a>
+            
+            <a href="inventario.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
+                <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Inventarios</span>
+            </a>
+
+            <a href="compras.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
+                <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Compras y ODC</span>
+            </a>
+
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-finanzas', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">request_quote</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Finanzas e Ingresos</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-finanzas" class="submenu pl-11 space-y-1 mt-1">
+                    <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">P&L y KPIs Estratégicos</a>
+                    <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Facturación y CxC</a>
+                </div>
+            </div>
+            
+            <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">Admin & Soporte</p>
+            <a href="energia.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
+                <span class="material-symbols-outlined text-[20px]">electric_bolt</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Energía</span>
+            </a>
+
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-mtto', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">build</span><span class="hidden lg:block ml-3 text-sm font-medium">Mantenimiento</span></div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-mtto" class="submenu pl-11 space-y-1 mt-1 mb-3">
+                    <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Estado de Flota y Preventivos</a>
+                    <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Correctivos y Órdenes (OT)</a>
+                    <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Eficiencia Mecánica (MTBF/TR)</a>
+                </div>
+            </div>
+
+            <a href="rh.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
+                <span class="material-symbols-outlined text-[20px]">badge</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Recursos Humanos</span>
+            </a>
+
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-hse', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="hidden lg:block ml-3 text-sm font-medium">HSE y Ambiental</span></div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-hse" class="submenu pl-11 space-y-1 mt-1 mb-3">
+                    <a href="ambiental.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Certificaciones y NOMs</a>
+                    <a href="ambiental.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Seguridad Industrial (TRIR)</a>
+                </div>
+            </div>
+
+            <a href="grantt.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
+                <span class="material-symbols-outlined text-[20px]">view_timeline</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos & Gantt</span>
+            </a>
+
+            <a href="reportes.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1 mb-4">
+                <span class="material-symbols-outlined text-[20px]">description</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Reportes</span>
+            </a>
+        </nav>
+    <!-- Perfil: sección inferior del sidebar -->
+    <div class="relative z-10 border-t border-slate-800 p-3 shrink-0" id="profile-section">
+        <button onclick="toggleProfileMenu()" class="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 group">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-orange-400 flex items-center justify-center text-white font-bold text-xs shrink-0">AD</div>
+            <div class="hidden lg:flex flex-1 flex-col text-left min-w-0">
+                <p class="text-xs font-semibold text-white leading-none truncate">Admin Usuario</p>
+                <p class="text-[10px] text-slate-400 mt-0.5">Superintendente</p>
+            </div>
+            <span class="material-symbols-outlined text-[18px] hidden lg:block text-slate-400 group-hover:text-white transition-all" id="gear-icon">settings</span>
         </button>
-        <div id="menu-finanzas" class="submenu pl-11 space-y-1 mt-1">
-            <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">P&L y KPIs Estratégicos</a>
-            <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Facturación y CxC</a>
+        <div id="profile-menu" class="hidden absolute bottom-full left-0 right-0 bg-slate-800 border border-slate-700/80 rounded-xl shadow-2xl overflow-hidden z-[100]" style="margin-bottom:4px">
+            <button onclick="openProfileModal('modal-perfil')" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700/80 transition-colors text-slate-200">
+                <span class="material-symbols-outlined text-[20px] text-primary">account_circle</span>
+                <span class="hidden lg:block text-sm font-medium">Mi Perfil</span>
+            </button>
+            <div class="h-px bg-slate-700/50 mx-3"></div>
+            <button onclick="openProfileModal('modal-turno')" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700/80 transition-colors text-slate-200">
+                <span class="material-symbols-outlined text-[20px] text-accent">more_time</span>
+                <span class="hidden lg:block text-sm font-medium">Mi Turno</span>
+            </button>
         </div>
     </div>
-    
-    <div class="nav-group mt-2">
-        <button onclick="toggleMenu('menu-mtto', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-            <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">build</span><span class="hidden lg:block ml-3 text-sm font-medium">Mantenimiento</span></div>
-            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-        </button>
-        <div id="menu-mtto" class="submenu pl-11 space-y-1 mt-1 mb-3">
-            <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Estado de Flota y Preventivos</a>
-            <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Correctivos y Órdenes (OT)</a>
-            <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Eficiencia Mecánica (MTBF/TR)</a>
-        </div>
-    </div>
-    <div class="nav-group mt-2">
-        <button onclick="toggleMenu('menu-hse', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-            <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="hidden lg:block ml-3 text-sm font-medium">HSE y Ambiental</span></div>
-            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-        </button>
-        <div id="menu-hse" class="submenu pl-11 space-y-1 mt-1 mb-3">
-            <a href="ambiental.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Certificaciones y NOMs</a>
-            <a href="ambiental.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Seguridad Industrial (TRIR)</a>
-        </div>
-    </div>
-    <a href="grantt.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
-        <span class="material-symbols-outlined text-[20px]">view_timeline</span>
-        <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos &amp; Gantt</span>
-    </a>
-    <a href="alertas.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
-        <span class="material-symbols-outlined text-[20px]">emergency</span>
-        <span class="hidden lg:block ml-3 text-sm font-medium">Alertas Live</span>
-    </a>
-</nav>
     </aside>
 
     <div class="flex-1 flex flex-col h-full overflow-hidden bg-slate-100/50 dark:bg-slate-950/50">
@@ -520,6 +573,266 @@
         }
 
         renderCharts();
+    </script>
+
+    <!-- ===== MODALES PERFIL ===== -->
+    <!-- Backdrop -->
+    <div id="modal-backdrop" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[200]" onclick="closeAllModals()"></div>
+
+    <!-- Modal: Mi Perfil -->
+    <div id="modal-perfil" class="hidden fixed inset-0 z-[300] flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-md border border-slate-200 dark:border-slate-700 overflow-hidden">
+            <!-- Header -->
+            <div class="bg-secondary px-6 py-4 flex items-center justify-between">
+                <div>
+                    <h3 class="font-bold text-white text-base">Mi Perfil</h3>
+                    <p class="text-[11px] text-slate-400">Información personal y laboral</p>
+                </div>
+                <button onclick="closeAllModals()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-700 text-slate-400 hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">close</span>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="p-6 space-y-5 overflow-y-auto max-h-[70vh]">
+                <!-- Avatar -->
+                <div class="flex flex-col items-center gap-2">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-orange-400 flex items-center justify-center text-white font-bold text-2xl shadow-lg">AD</div>
+                    <p class="font-bold text-slate-800 dark:text-white text-base">Admin Usuario</p>
+                    <span class="px-3 py-0.5 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider rounded-full border border-primary/20">Superintendente</span>
+                </div>
+                <!-- Datos personales -->
+                <div>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1 mb-3"><span class="material-symbols-outlined text-[14px]">person</span> Datos Personales</p>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Nombre Completo</label>
+                            <input type="text" value="Admin Usuario" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:border-primary">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Correo Electrónico</label>
+                                <input type="email" value="admin@minaos.com" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:border-primary">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Teléfono</label>
+                                <input type="tel" value="+52 614 000 0000" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:border-primary">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Datos laborales -->
+                <div>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1 mb-3"><span class="material-symbols-outlined text-[14px]">work</span> Datos Laborales <span class="ml-auto px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 rounded text-[9px] text-slate-400">Solo Lectura</span></p>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">No. Empleado</label>
+                            <input type="text" value="EMP-001" readonly class="w-full bg-slate-100 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-500 dark:text-slate-400 cursor-not-allowed">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Cargo</label>
+                            <input type="text" value="Superintendente" readonly class="w-full bg-slate-100 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-500 dark:text-slate-400 cursor-not-allowed">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Área</label>
+                            <input type="text" value="Operaciones" readonly class="w-full bg-slate-100 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-500 dark:text-slate-400 cursor-not-allowed">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Turno</label>
+                            <input type="text" value="Turno 1 (06:00–14:00)" readonly class="w-full bg-slate-100 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-500 dark:text-slate-400 cursor-not-allowed">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Fecha de Ingreso</label>
+                            <input type="text" value="01/03/2023" readonly class="w-full bg-slate-100 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-500 dark:text-slate-400 cursor-not-allowed">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Nivel de Acceso</label>
+                            <input type="text" value="Admin" readonly class="w-full bg-slate-100 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-500 dark:text-slate-400 cursor-not-allowed">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                <button class="flex items-center gap-2 text-primary text-sm font-semibold hover:text-orange-400 transition-colors">
+                    <span class="material-symbols-outlined text-[18px]">edit</span> Editar perfil
+                </button>
+                <div class="flex gap-2">
+                    <button onclick="closeAllModals()" class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">Cancelar</button>
+                    <button class="px-4 py-2 rounded-lg bg-primary/60 text-white text-sm font-bold hover:bg-primary transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">save</span> Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Mi Turno -->
+    <div id="modal-turno" class="hidden fixed inset-0 z-[300] flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-md border border-slate-200 dark:border-slate-700 overflow-hidden">
+            <!-- Header -->
+            <div class="bg-secondary px-6 py-4 flex items-center justify-between">
+                <div>
+                    <h3 class="font-bold text-white text-base">Puesto y Turno</h3>
+                    <p class="text-[11px] text-slate-400">Información laboral y registro de asistencia</p>
+                </div>
+                <button onclick="closeAllModals()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-700 text-slate-400 hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">close</span>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="p-6 space-y-5 overflow-y-auto max-h-[70vh]">
+                <!-- Puesto -->
+                <div>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1 mb-3"><span class="material-symbols-outlined text-[14px]">work_history</span> Puesto</p>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-center">
+                            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Cargo</p>
+                            <p class="font-bold text-slate-800 dark:text-white text-sm">Superintendente</p>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-center">
+                            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Área</p>
+                            <p class="font-bold text-slate-800 dark:text-white text-sm">Operaciones</p>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-center">
+                            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Supervisor</p>
+                            <p class="font-bold text-slate-800 dark:text-white text-sm">Dir. General</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Turno asignado -->
+                <div>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1 mb-3"><span class="material-symbols-outlined text-[14px]">schedule</span> Turno Asignado</p>
+                    <div class="bg-accent/10 border border-accent/30 rounded-xl p-4 flex items-center gap-4">
+                        <div class="w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center">
+                            <span class="material-symbols-outlined text-accent text-[22px]">light_mode</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-bold text-slate-800 dark:text-white">Turno 1 &mdash; Diurno</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Lunes a Viernes</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-black text-accent text-lg">06:00 &ndash; 14:00</p>
+                            <p class="text-[10px] text-slate-400">8 hrs / día</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Registro de asistencia -->
+                <div>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1 mb-3"><span class="material-symbols-outlined text-[14px]">fingerprint</span> Registro de Asistencia</p>
+                    <div class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4">
+                        <div class="flex items-end justify-between mb-4">
+                            <div>
+                                <p id="turno-clock" class="font-black text-slate-800 dark:text-white text-4xl tracking-tight">00:00:00</p>
+                                <p id="turno-date" class="text-xs text-slate-400 mt-0.5"></p>
+                            </div>
+                            <button id="btn-registro" onclick="registrarAsistencia()" class="bg-success hover:bg-emerald-600 text-white font-bold text-sm px-5 py-3 rounded-xl flex items-center gap-2 transition-colors shadow-md">
+                                <span class="material-symbols-outlined text-[18px]">login</span> Registrar Entrada
+                            </button>
+                        </div>
+                        <!-- Historial -->
+                        <div>
+                            <table class="w-full text-xs">
+                                <thead>
+                                    <tr class="text-[9px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-700">
+                                        <th class="text-left pb-2">Fecha</th>
+                                        <th class="text-left pb-2">Entrada</th>
+                                        <th class="text-left pb-2">Salida</th>
+                                        <th class="text-left pb-2">Horas</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="turno-historial" class="divide-y divide-slate-100 dark:divide-slate-700/50">
+                                    <tr><td class="py-2 text-slate-600 dark:text-slate-300">17 Mar</td><td class="py-2 text-success font-bold">06:02</td><td class="py-2 text-danger font-bold">14:05</td><td class="py-2 font-semibold text-slate-700 dark:text-slate-200">8h 03m</td></tr>
+                                    <tr><td class="py-2 text-slate-600 dark:text-slate-300">16 Mar</td><td class="py-2 text-success font-bold">05:58</td><td class="py-2 text-danger font-bold">14:01</td><td class="py-2 font-semibold text-slate-700 dark:text-slate-200">8h 03m</td></tr>
+                                    <tr><td class="py-2 text-slate-600 dark:text-slate-300">15 Mar</td><td class="py-2 text-success font-bold">06:10</td><td class="py-2 text-danger font-bold">14:08</td><td class="py-2 font-semibold text-slate-700 dark:text-slate-200">7h 58m</td></tr>
+                                    <tr><td class="py-2 text-slate-600 dark:text-slate-300">14 Mar</td><td class="py-2 text-success font-bold">06:00</td><td class="py-2 text-danger font-bold">14:00</td><td class="py-2 font-semibold text-slate-700 dark:text-slate-200">8h 00m</td></tr>
+                                    <tr><td class="py-2 text-slate-600 dark:text-slate-300">13 Mar</td><td class="py-2 text-success font-bold">06:05</td><td class="py-2 text-danger font-bold">14:03</td><td class="py-2 font-semibold text-slate-700 dark:text-slate-200">7h 58m</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Profile menu toggle ---
+        function toggleProfileMenu() {
+            const menu = document.getElementById('profile-menu');
+            const gear = document.getElementById('gear-icon');
+            menu.classList.toggle('hidden');
+            if (gear) gear.style.transform = menu.classList.contains('hidden') ? '' : 'rotate(60deg)';
+        }
+        function openProfileModal(id) {
+            document.getElementById('profile-menu').classList.add('hidden');
+            document.getElementById('modal-backdrop').classList.remove('hidden');
+            document.getElementById(id).classList.remove('hidden');
+            if (id === 'modal-turno') startClock();
+        }
+        function closeAllModals() {
+            document.getElementById('modal-backdrop').classList.add('hidden');
+            document.getElementById('modal-perfil').classList.add('hidden');
+            document.getElementById('modal-turno').classList.add('hidden');
+            stopClock();
+        }
+        // Close profile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const section = document.getElementById('profile-section');
+            const menu = document.getElementById('profile-menu');
+            if (section && menu && !section.contains(e.target)) {
+                menu.classList.add('hidden');
+                const gear = document.getElementById('gear-icon');
+                if (gear) gear.style.transform = '';
+            }
+        });
+        // --- Live clock for Mi Turno ---
+        let clockInterval = null;
+        function startClock() {
+            const clockEl = document.getElementById('turno-clock');
+            const dateEl = document.getElementById('turno-date');
+            function tick() {
+                const now = new Date();
+                const h = String(now.getHours()).padStart(2,'0');
+                const m = String(now.getMinutes()).padStart(2,'0');
+                const s = String(now.getSeconds()).padStart(2,'0');
+                if (clockEl) clockEl.textContent = h + ':' + m + ':' + s;
+                if (dateEl) {
+                    const days = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+                    const months = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+                    dateEl.textContent = days[now.getDay()] + ', ' + now.getDate() + ' de ' + months[now.getMonth()] + ' de ' + now.getFullYear();
+                }
+            }
+            tick();
+            clockInterval = setInterval(tick, 1000);
+        }
+        function stopClock() { if (clockInterval) { clearInterval(clockInterval); clockInterval = null; } }
+        // --- Attendance logic ---
+        let turnoState = 'entrada'; // 'entrada' | 'salida'
+        let entradaTime = null;
+        function registrarAsistencia() {
+            const btn = document.getElementById('btn-registro');
+            const tbody = document.getElementById('turno-historial');
+            const now = new Date();
+            const hm = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+            if (turnoState === 'entrada') {
+                entradaTime = now;
+                btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">logout</span> Registrar Salida';
+                btn.className = btn.className.replace('bg-success hover:bg-emerald-600', 'bg-danger hover:bg-red-600');
+                turnoState = 'salida';
+            } else {
+                const diffMs = now - entradaTime;
+                const diffH = Math.floor(diffMs / 3600000);
+                const diffM = Math.floor((diffMs % 3600000) / 60000);
+                const entHm = String(entradaTime.getHours()).padStart(2,'0') + ':' + String(entradaTime.getMinutes()).padStart(2,'0');
+                const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+                const dateStr = now.getDate() + ' ' + months[now.getMonth()];
+                const tr = document.createElement('tr');
+                tr.innerHTML = '<td class="py-2 text-slate-600 dark:text-slate-300">' + dateStr + '</td><td class="py-2 text-success font-bold">' + entHm + '</td><td class="py-2 text-danger font-bold">' + hm + '</td><td class="py-2 font-semibold text-slate-700 dark:text-slate-200">' + diffH + 'h ' + diffM + 'm</td>';
+                tbody.insertBefore(tr, tbody.firstChild);
+                btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">login</span> Registrar Entrada';
+                btn.className = btn.className.replace('bg-danger hover:bg-red-600', 'bg-success hover:bg-emerald-600');
+                turnoState = 'entrada';
+                entradaTime = null;
+            }
+        }
     </script>
 </body>
 </html>
