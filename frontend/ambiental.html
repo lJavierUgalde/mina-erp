@@ -85,9 +85,13 @@
                     <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
                 </button>
                 <div id="menu-mina" class="submenu pl-11 space-y-1 mt-1 mb-3">
-                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Barrenación y Detonación</a>
-                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Acarreo de Mineral</a>
-                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Patio e Inventario</a>
+                    <a href="operacion-mina.html?mod=mod-hse" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Cumplimiento Ambiental/Seg.</a>
+                    <a href="operacion-mina.html?mod=mod-inv" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Inventarios</a>
+                    <a href="operacion-mina.html?mod=mod-energia" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Energía</a>
+                    <a href="operacion-mina.html?mod=mod-mtto" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Mtto</a>
+                    <a href="operacion-mina.html?mod=mod-kpis" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">KPIs Op</a>
+                    <a href="operacion-mina.html?mod=mod-compras" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Compras</a>
+                    <a href="operacion-mina.html?mod=mod-rh" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">RH</a>
                 </div>
             </div>
 
@@ -112,16 +116,6 @@
                 <span class="hidden lg:block ml-3 text-sm font-medium">Logística y Fletes</span>
             </a>
             
-            <a href="inventario.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
-                <span class="material-symbols-outlined text-[20px]">inventory_2</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Inventarios</span>
-            </a>
-
-            <a href="compras.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
-                <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Compras y ODC</span>
-            </a>
-
             <div class="nav-group mt-1">
                 <button onclick="toggleMenu('menu-finanzas', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
                     <div class="flex items-center">
@@ -135,29 +129,6 @@
                     <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Facturación y CxC</a>
                 </div>
             </div>
-            
-            <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">Admin & Soporte</p>
-            <a href="energia.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
-                <span class="material-symbols-outlined text-[20px]">electric_bolt</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Energía</span>
-            </a>
-
-            <div class="nav-group mt-1">
-                <button onclick="toggleMenu('menu-mtto', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-                    <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">build</span><span class="hidden lg:block ml-3 text-sm font-medium">Mantenimiento</span></div>
-                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-                </button>
-                <div id="menu-mtto" class="submenu pl-11 space-y-1 mt-1 mb-3">
-                    <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Estado de Flota y Preventivos</a>
-                    <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Correctivos y Órdenes (OT)</a>
-                    <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Eficiencia Mecánica (MTBF/TR)</a>
-                </div>
-            </div>
-
-            <a href="rh.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
-                <span class="material-symbols-outlined text-[20px]">badge</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Recursos Humanos</span>
-            </a>
 
             <div class="nav-group mt-1">
                 <button onclick="toggleMenu('menu-hse', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg bg-success/20 text-success border-l-2 border-success shadow-md transition-colors cursor-pointer">
@@ -173,11 +144,6 @@
             <a href="grantt.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
                 <span class="material-symbols-outlined text-[20px]">view_timeline</span>
                 <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos & Gantt</span>
-            </a>
-
-            <a href="reportes.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1 mb-4">
-                <span class="material-symbols-outlined text-[20px]">description</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Reportes</span>
             </a>
         </nav>
     <!-- Perfil: sección inferior del sidebar -->

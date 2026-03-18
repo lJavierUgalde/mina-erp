@@ -64,131 +64,92 @@
         </div>
 
         <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 relative z-10">
-            
-            <a href="index.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
-                <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Dashboard Maestro</span>
-            </a>
-
-            <a href="alertas.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
-                <span class="material-symbols-outlined text-[20px]">emergency</span>
-                <span class="hidden lg:block ml-3 text-sm font-bold">Alertas Live (Crítico)</span>
-            </a>
-
-            <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">Operaciones</p>
-            <div class="nav-group">
-                <button onclick="toggleMenu('menu-mina', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-                    <div class="flex items-center">
-                        <span class="material-symbols-outlined text-[20px]">landscape</span>
-                        <span class="hidden lg:block ml-3 text-sm font-medium">Operación Mina</span>
-                    </div>
-                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-                </button>
-                <div id="menu-mina" class="submenu pl-11 space-y-1 mt-1 mb-3">
-                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Barrenación y Detonación</a>
-                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Acarreo de Mineral</a>
-                    <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Patio e Inventario</a>
-                </div>
+    <a href="index.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
+        <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
+        <span class="hidden lg:block ml-3 text-sm font-medium">Dashboard Maestro</span>
+    </a>
+    
+    <div class="nav-group mt-2">
+        <button onclick="toggleMenu('menu-mina', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+            <div class="flex items-center">
+                <span class="material-symbols-outlined text-[20px]">landscape</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Operación Mina</span>
             </div>
+            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+        </button>
+        <div id="menu-mina" class="submenu pl-11 space-y-1 mt-1 mb-3">
+            <a href="operacion-mina.html?mod=mod-hse" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Cumplimiento Ambiental/Seg.</a>
+            <a href="operacion-mina.html?mod=mod-inv" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Inventarios</a>
+            <a href="operacion-mina.html?mod=mod-energia" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Energía</a>
+            <a href="operacion-mina.html?mod=mod-mtto" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Mtto</a>
+            <a href="operacion-mina.html?mod=mod-kpis" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">KPIs Op</a>
+            <a href="operacion-mina.html?mod=mod-compras" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Compras</a>
+            <a href="operacion-mina.html?mod=mod-rh" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">RH</a>
+        </div>
+    </div>
 
-            <div class="nav-group mt-1">
-                <button onclick="toggleMenu('menu-planta', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-                    <div class="flex items-center">
-                        <span class="material-symbols-outlined text-[20px]">factory</span>
-                        <span class="hidden lg:block ml-3 text-sm font-medium">Planta y Calidad</span>
-                    </div>
-                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-                </button>
-                <div id="menu-planta" class="submenu pl-11 space-y-1 mt-1">
-                    <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Trituración y Molienda</a>
-                    <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Flotación, Jales y Lab</a>
-                    <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Concentrado y Embarques</a>
-                </div>
+    <div class="nav-group mt-2">
+        <button onclick="toggleMenu('menu-planta', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+            <div class="flex items-center">
+                <span class="material-symbols-outlined text-[20px]">factory</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Planta y Calidad</span>
             </div>
+            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+        </button>
+        <div id="menu-planta" class="submenu pl-11 space-y-1 mt-1">
+            <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Trituración y Molienda</a>
+            <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Flotación, Jales y Lab</a>
+            <a href="planta-calidad.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Concentrado y Embarques</a>
+        </div>
+    </div>
 
-            <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">Suministro & Finanzas</p>
-            <a href="logistica-fletes.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
-                <span class="material-symbols-outlined text-[20px]">local_shipping</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Logística y Fletes</span>
-            </a>
-            
-            <div class="nav-group mt-1">
-                <button onclick="toggleMenu('menu-inv', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg bg-accent/20 text-accent border-l-2 border-accent shadow-md transition-colors cursor-pointer">
-                    <div class="flex items-center">
-                        <span class="material-symbols-outlined text-[20px]">inventory_2</span>
-                        <span class="hidden lg:block ml-3 text-sm font-bold">Inventarios</span>
-                    </div>
-                    <span class="material-symbols-outlined text-[16px] nav-arrow open hidden lg:block">chevron_right</span>
-                </button>
-                <div id="menu-inv" class="submenu open pl-11 space-y-1 mt-1 hidden lg:block">
-                    <button onclick="switchTab('tab-maestro', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 font-bold text-accent">Almacén y Pañol (Detalle)</button>
-                    <button onclick="switchTab('tab-kardex', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Vales de Salida y Préstamos</button>
-                </div>
+    <a href="logistica-fletes.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
+        <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+        <span class="hidden lg:block ml-3 text-sm font-medium">Logística y Fletes</span>
+    </a>
+    
+    <div class="nav-group mt-2">
+        <button onclick="toggleMenu('menu-finanzas', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+            <div class="flex items-center">
+                <span class="material-symbols-outlined text-[20px]">request_quote</span>
+                <span class="hidden lg:block ml-3 text-sm font-medium">Finanzas e Ingresos</span>
             </div>
-
-            <a href="compras.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
-                <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Compras y ODC</span>
-            </a>
-
-            <div class="nav-group mt-1">
-                <button onclick="toggleMenu('menu-finanzas', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-                    <div class="flex items-center">
-                        <span class="material-symbols-outlined text-[20px]">request_quote</span>
-                        <span class="hidden lg:block ml-3 text-sm font-medium">Finanzas e Ingresos</span>
-                    </div>
-                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-                </button>
-                <div id="menu-finanzas" class="submenu pl-11 space-y-1 mt-1">
-                    <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">P&L y KPIs Estratégicos</a>
-                    <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Facturación y CxC</a>
-                </div>
-            </div>
-            
-            <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">Admin & Soporte</p>
-            <a href="energia.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
-                <span class="material-symbols-outlined text-[20px]">electric_bolt</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Energía</span>
-            </a>
-
-            <div class="nav-group mt-1">
-                <button onclick="toggleMenu('menu-mtto', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-                    <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">build</span><span class="hidden lg:block ml-3 text-sm font-medium">Mantenimiento</span></div>
-                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-                </button>
-                <div id="menu-mtto" class="submenu pl-11 space-y-1 mt-1 mb-3">
-                    <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Estado de Flota y Preventivos</a>
-                    <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Correctivos y Órdenes (OT)</a>
-                    <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Eficiencia Mecánica (MTBF/TR)</a>
-                </div>
-            </div>
-
-            <a href="rh.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
-                <span class="material-symbols-outlined text-[20px]">badge</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Recursos Humanos</span>
-            </a>
-
-            <div class="nav-group mt-1">
-                <button onclick="toggleMenu('menu-hse', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-                    <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="hidden lg:block ml-3 text-sm font-medium">HSE y Ambiental</span></div>
-                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-                </button>
-                <div id="menu-hse" class="submenu pl-11 space-y-1 mt-1 mb-3">
-                    <a href="ambiental.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Certificaciones y NOMs</a>
-                    <a href="ambiental.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Seguridad Industrial (TRIR)</a>
-                </div>
-            </div>
-
-            <a href="grantt.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
-                <span class="material-symbols-outlined text-[20px]">view_timeline</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos & Gantt</span>
-            </a>
-
-            <a href="reportes.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1 mb-4">
-                <span class="material-symbols-outlined text-[20px]">description</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Reportes</span>
-            </a>
-        </nav>
+            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+        </button>
+        <div id="menu-finanzas" class="submenu pl-11 space-y-1 mt-1">
+            <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">P&amp;L y KPIs Estratégicos</a>
+            <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Facturación y CxC</a>
+        </div>
+    </div>
+    <div class="nav-group mt-2">
+        <button onclick="toggleMenu('menu-inv', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg bg-accent/20 text-accent border-l-2 border-accent shadow-md transition-colors cursor-pointer">
+            <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="hidden lg:block ml-3 text-sm font-bold">Inventarios y Almacén</span></div>
+            <span class="material-symbols-outlined text-[16px] nav-arrow open hidden lg:block">chevron_right</span>
+        </button>
+        <div id="menu-inv" class="submenu open pl-11 space-y-1 mt-1 mb-3">
+            <button onclick="switchTab('tab-maestro', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 font-bold text-accent">Almacén y Pañol (Detalle)</button>
+            <button onclick="switchTab('tab-kardex', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Vales de Salida y Préstamos</button>
+        </div>
+    </div>
+    <div class="nav-group mt-2">
+        <button onclick="toggleMenu('menu-hse', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+            <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">admin_panel_settings</span><span class="hidden lg:block ml-3 text-sm font-medium">HSE y Ambiental</span></div>
+            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+        </button>
+        <div id="menu-hse" class="submenu pl-11 space-y-1 mt-1 mb-3">
+            <a href="ambiental.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Certificaciones y NOMs</a>
+            <a href="ambiental.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Seguridad Industrial (TRIR)</a>
+        </div>
+    </div>
+    <a href="grantt.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
+        <span class="material-symbols-outlined text-[20px]">view_timeline</span>
+        <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos &amp; Gantt</span>
+    </a>
+    <a href="alertas.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-2">
+        <span class="material-symbols-outlined text-[20px]">emergency</span>
+        <span class="hidden lg:block ml-3 text-sm font-medium">Alertas Live</span>
+    </a>
+</nav>
     </aside>
 
     <div class="flex-1 flex flex-col h-full overflow-hidden bg-slate-100/50 dark:bg-slate-950/50">
@@ -203,7 +164,9 @@
                     <button id="theme-toggle" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shadow-sm">
                         <span id="theme-icon" class="material-symbols-outlined text-[20px]">dark_mode</span>
                     </button>
-                    
+                    <button class="bg-accent hover:bg-blue-600 text-white text-xs font-bold py-2 px-4 rounded-lg shadow flex items-center gap-2 transition-colors">
+                        <span class="material-symbols-outlined text-[16px]">qr_code_scanner</span> Escanear Movimiento
+                    </button>
                 </div>
             </div>
             
@@ -259,7 +222,7 @@
                         <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-5 flex flex-col md:flex-row items-center gap-6">
                             <div class="w-full md:w-1/3">
                                 <h3 class="text-sm font-bold text-slate-800 dark:text-white mb-1">Distribución de Capital</h3>
-                                <p class="text-[10px] text-slate-500 dark:text-slate-400 mb-4">Capital inmovilizado por categoría en almacenes.</p>
+                                <p class="text-[10px] text-slate-500 dark:text-slate-400 mb-4">Capital inmovilizado por categoría de producto en almacenes.</p>
                                 <div class="relative h-[200px] w-full"><canvas id="inventoryChart"></canvas></div>
                             </div>
                             <div class="w-full md:w-2/3 grid grid-cols-2 gap-4">
@@ -303,8 +266,12 @@
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-xs text-slate-700 dark:text-slate-300">
+                                        
                                         <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
-                                            <td class="font-bold"><span class="text-[9px] text-slate-400 font-mono block">LUB-045</span>Aceite Hidráulico AW-68 (Tambo)</td>
+                                            <td class="font-bold">
+                                                <span class="text-[9px] text-slate-400 font-mono block">LUB-045</span>
+                                                Aceite Hidráulico AW-68 (Tambo)
+                                            </td>
                                             <td><span class="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-[10px]">Lubricantes</span></td>
                                             <td class="text-slate-500 font-mono">Alm. Central - Pasillo F, Piso</td>
                                             <td class="text-center font-bold">Litros</td>
@@ -312,8 +279,12 @@
                                             <td class="text-center font-mono text-[10px] text-slate-500 border-x border-slate-100 dark:border-slate-700">500 / 2,000</td>
                                             <td class="text-center"><span class="bg-success/20 text-success font-bold px-2 py-0.5 rounded">Stock Óptimo</span></td>
                                         </tr>
+
                                         <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors bg-red-50/30 dark:bg-red-900/10">
-                                            <td class="font-bold text-danger"><span class="text-[9px] text-danger/60 font-mono block">TOR-892</span>Tornillo Hexagonal G8 3/4" x 4" NC</td>
+                                            <td class="font-bold text-danger">
+                                                <span class="text-[9px] text-danger/60 font-mono block">TOR-892</span>
+                                                Tornillo Hexagonal G8 3/4" x 4" NC
+                                            </td>
                                             <td><span class="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-[10px]">Tornillería</span></td>
                                             <td class="text-slate-500 font-mono">Alm. Planta - Pasillo 3, Anaquel B2</td>
                                             <td class="text-center font-bold">Pzas</td>
@@ -321,14 +292,44 @@
                                             <td class="text-center font-mono text-[10px] text-slate-500 border-x border-slate-100 dark:border-slate-700">100 / 500</td>
                                             <td class="text-center"><span class="bg-danger text-white font-bold px-2 py-0.5 rounded animate-pulse shadow-sm shadow-red-500/30">Punto Reorden</span></td>
                                         </tr>
+
                                         <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
-                                            <td class="font-bold"><span class="text-[9px] text-slate-400 font-mono block">PER-011</span>Broca de Botones 45mm R32</td>
+                                            <td class="font-bold">
+                                                <span class="text-[9px] text-slate-400 font-mono block">HER-102</span>
+                                                Llave de Impacto Neumática 1"
+                                            </td>
+                                            <td><span class="bg-accent/10 text-accent px-2 py-0.5 rounded text-[10px] font-bold border border-accent/20">Pañol (Controlado)</span></td>
+                                            <td class="text-slate-500 font-mono">Pañol Mina - Caja Fuerte 4</td>
+                                            <td class="text-center font-bold">Pieza</td>
+                                            <td class="text-center font-black font-mono text-sm">3</td>
+                                            <td class="text-center font-mono text-[10px] text-slate-500 border-x border-slate-100 dark:border-slate-700">2 / 5</td>
+                                            <td class="text-center"><span class="bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-400 font-bold px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800">1 Prestada a CM</span></td>
+                                        </tr>
+
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                                            <td class="font-bold">
+                                                <span class="text-[9px] text-slate-400 font-mono block">PER-011</span>
+                                                Broca de Botones 45mm R32
+                                            </td>
                                             <td><span class="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-[10px]">Acero Perforación</span></td>
                                             <td class="text-slate-500 font-mono">Alm. Mina - Pasillo 1, Anaquel A1</td>
                                             <td class="text-center font-bold">Pzas</td>
-                                            <td id="broca-stock" class="text-center font-black font-mono text-sm transition-all duration-500">42</td>
+                                            <td class="text-center font-black font-mono text-sm">42</td>
                                             <td class="text-center font-mono text-[10px] text-slate-500 border-x border-slate-100 dark:border-slate-700">20 / 100</td>
                                             <td class="text-center"><span class="bg-success/20 text-success font-bold px-2 py-0.5 rounded">Stock Óptimo</span></td>
+                                        </tr>
+
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                                            <td class="font-bold">
+                                                <span class="text-[9px] text-slate-400 font-mono block">FIL-441</span>
+                                                Filtro de Aceite para Scoop (Motor)
+                                            </td>
+                                            <td><span class="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-[10px]">Refacciones Diésel</span></td>
+                                            <td class="text-slate-500 font-mono">Alm. Mina - Pasillo 2, Anaquel C3</td>
+                                            <td class="text-center font-bold">Pzas</td>
+                                            <td class="text-center font-black font-mono text-sm">12</td>
+                                            <td class="text-center font-mono text-[10px] text-slate-500 border-x border-slate-100 dark:border-slate-700">15 / 50</td>
+                                            <td class="text-center"><span class="bg-danger/10 text-danger border border-danger/30 font-bold px-2 py-0.5 rounded">Bajo Mínimo</span></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -338,6 +339,7 @@
                     </div>
 
                     <div id="tab-kardex" class="tab-content space-y-6">
+                        
                         <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col">
                             <div class="px-5 py-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center">
                                 <div>
@@ -359,26 +361,51 @@
                                             <th class="text-center">Cant.</th>
                                             <th>Solicitante (Firma)</th>
                                             <th>Destino / Imputación (OT)</th>
+                                            <th class="text-center">Estatus</th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-xs text-slate-700 dark:text-slate-300">
+                                        
                                         <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                                             <td class="font-mono font-bold text-slate-900 dark:text-white">VAL-992<br><span class="text-[9px] text-slate-400 font-normal">Hoy, 08:30 AM</span></td>
-                                            <td class="text-center"><span class="bg-accent/10 text-accent border border-accent/20 px-2 py-0.5 rounded text-[9px] font-bold">PRÉSTAMO</span></td>
-                                            <td class="font-bold text-slate-800 dark:text-slate-200">HER-102 - Llave de Impacto</td>
+                                            <td class="text-center"><span class="bg-accent/10 text-accent border border-accent/20 px-2 py-0.5 rounded text-[9px] font-bold">PRÉSTAMO (Pañol)</span></td>
+                                            <td class="font-bold text-slate-800 dark:text-slate-200">HER-102 - Llave de Impacto Neumática</td>
                                             <td class="text-center font-mono font-black text-sm">1 Pza</td>
                                             <td><div class="flex items-center gap-2"><div class="w-5 h-5 rounded-full bg-slate-300 text-slate-700 flex items-center justify-center text-[8px] font-bold">CM</div> Carlos Méndez</div></td>
-                                            <td><span class="text-[10px] bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono border border-slate-300 dark:border-slate-600">OT-2026-090</span></td>
+                                            <td><span class="text-[10px] bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono border border-slate-300 dark:border-slate-600">OT-2026-090</span> (Scoop 03)</td>
+                                            <td class="text-center"><span class="text-amber-500 font-bold">Pendiente Devolver</span></td>
+                                        </tr>
+
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                            <td class="font-mono font-bold text-slate-900 dark:text-white">VAL-993<br><span class="text-[9px] text-slate-400 font-normal">Hoy, 09:15 AM</span></td>
+                                            <td class="text-center"><span class="bg-danger/10 text-danger border border-danger/20 px-2 py-0.5 rounded text-[9px] font-bold">CONSUMO (Salida)</span></td>
+                                            <td class="font-bold text-slate-800 dark:text-slate-200">LUB-045 - Aceite Hidráulico AW-68</td>
+                                            <td class="text-center font-mono font-black text-sm text-danger">- 50 L</td>
+                                            <td><div class="flex items-center gap-2"><div class="w-5 h-5 rounded-full bg-slate-300 text-slate-700 flex items-center justify-center text-[8px] font-bold">JP</div> Juan Pérez</div></td>
+                                            <td><span class="text-[10px] bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono border border-slate-300 dark:border-slate-600">OT-2026-089</span> (Tiro Central)</td>
+                                            <td class="text-center"><span class="text-success font-bold">Cargado a OT</span></td>
+                                        </tr>
+
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                            <td class="font-mono font-bold text-slate-900 dark:text-white">VAL-994<br><span class="text-[9px] text-slate-400 font-normal">Hoy, 10:00 AM</span></td>
+                                            <td class="text-center"><span class="bg-danger/10 text-danger border border-danger/20 px-2 py-0.5 rounded text-[9px] font-bold">CONSUMO (Salida)</span></td>
+                                            <td class="font-bold text-slate-800 dark:text-slate-200">TOR-892 - Tornillo Hexagonal G8 3/4"</td>
+                                            <td class="text-center font-mono font-black text-sm text-danger">- 15 Pzas</td>
+                                            <td><div class="flex items-center gap-2"><div class="w-5 h-5 rounded-full bg-slate-300 text-slate-700 flex items-center justify-center text-[8px] font-bold">AR</div> Andrés Reyes</div></td>
+                                            <td><span class="text-[10px] bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono border border-slate-300 dark:border-slate-600">PM-MOL-01</span> (Preventivo Molino)</td>
+                                            <td class="text-center"><span class="text-success font-bold">Cargado a OT</span></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
 
                 <aside class="w-full xl:w-80 flex-shrink-0 flex flex-col gap-6 lg:gap-8">
+                    
                     <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col flex-1 h-[600px] transition-colors duration-300">
                         <div class="px-5 py-4 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between sticky top-0 bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm rounded-t-2xl z-10 transition-colors duration-300">
                             <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2">
@@ -386,91 +413,44 @@
                             </h3>
                             <span class="text-[9px] font-bold uppercase tracking-widest text-accent border border-accent/30 bg-accent/10 px-2 py-0.5 rounded">Live Feed</span>
                         </div>
+                        
                         <div class="p-4 space-y-4 overflow-y-auto flex-1">
+                            
                             <div class="alert-item flex gap-3 p-3 rounded-xl bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-800/30">
                                 <div class="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/50 flex items-center justify-center text-danger shrink-0"><span class="material-symbols-outlined text-[16px]">warning</span></div>
                                 <div>
                                     <p class="text-xs font-bold text-slate-800 dark:text-white">Stock Crítico</p>
-                                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">Bolas de Acero 3" por debajo del mínimo de seguridad.</p>
+                                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">Bolas de Acero 3" por debajo del mínimo de seguridad. Afectará Molienda.</p>
                                     <p class="text-[9px] text-danger font-bold mt-1">Hace 20 min</p>
                                 </div>
                             </div>
+
+                            <div class="alert-item flex gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-700/30 border border-slate-200 dark:border-slate-700" style="animation-delay: 0.2s;">
+                                <div class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 flex items-center justify-center text-slate-500 shrink-0 font-bold text-xs"><span class="material-symbols-outlined text-[16px]">check</span></div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800 dark:text-white">Vale Surtido (Mtto)</p>
+                                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">Material entregado al mecánico CM para OT-2026-090. Inventario actualizado.</p>
+                                    <p class="text-[9px] text-slate-500 font-bold mt-1">Hace 1.5 horas</p>
+                                </div>
+                            </div>
+
+                            <div class="alert-item flex gap-3 p-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-800/30" style="animation-delay: 0.4s;">
+                                <div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center text-success shrink-0"><span class="material-symbols-outlined text-[16px]">local_shipping</span></div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800 dark:text-white">Recepción de Proveedor</p>
+                                    <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-0.5">Ingresaron 500 mascarillas correspondientes a ODC-1042.</p>
+                                    <p class="text-[9px] text-success font-bold mt-1">Hace 3 horas</p>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+                    
                 </aside>
 
             </div>
         </main>
     </div>
-
-    <div id="ai-audit-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 transition-opacity">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 w-full max-w-lg overflow-hidden flex flex-col transition-colors">
-            
-            <div class="bg-gradient-to-r from-accent to-indigo-500 p-5 flex justify-between items-center text-white">
-                <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-2xl">center_focus_strong</span>
-                    <div>
-                        <h3 class="text-sm font-black">Auditoría Visual IA</h3>
-                        <p class="text-[10px] font-bold uppercase text-blue-100">Conteo Automático por Computer Vision</p>
-                    </div>
-                </div>
-                <button onclick="closeAIAuditModal()" class="text-white/70 hover:text-white transition-colors">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-
-            <div id="ai-step-upload" class="p-6 space-y-4">
-                <p class="text-xs text-slate-600 dark:text-slate-400 text-center mb-2">Toma o sube una fotografía clara del anaquel a auditar.</p>
-                <div class="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-xl p-8 text-center hover:border-accent hover:bg-accent/5 transition-colors cursor-pointer" onclick="simulateAIAudit()">
-                    <span class="material-symbols-outlined text-5xl text-accent mb-2">add_a_photo</span>
-                    <p class="text-sm font-bold text-slate-700 dark:text-slate-300">Haz clic para tomar fotografía del Anaquel</p>
-                </div>
-            </div>
-
-            <div id="ai-step-scanning" class="hidden p-10 text-center space-y-4">
-                <div class="relative w-32 h-32 mx-auto border-4 border-accent rounded overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1581244277943-fe4a9c777189?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover opacity-50 grayscale" alt="Anaquel">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-accent shadow-[0_0_15px_rgba(59,130,246,1)] animate-[scan_1.5s_ease-in-out_infinite_alternate]"></div>
-                </div>
-                <p class="text-sm font-bold text-slate-700 dark:text-slate-300 animate-pulse">Modelo de Visión identificando objetos...</p>
-            </div>
-
-            <div id="ai-step-results" class="hidden p-6 space-y-4">
-                <div class="bg-success/10 border border-success/30 p-4 rounded-lg flex items-start gap-3">
-                    <span class="material-symbols-outlined text-success text-2xl">verified</span>
-                    <div>
-                        <p class="text-sm font-black text-slate-800 dark:text-white">Escaneo Completado con Éxito</p>
-                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Se identificó la ubicación <span class="font-bold">Alm. Mina - Pasillo 1, Anaquel A1</span>.</p>
-                    </div>
-                </div>
-                
-                <div class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
-                    <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-2 mb-2">
-                        <span class="text-xs font-bold text-slate-500 uppercase">Objeto Detectado</span>
-                        <span class="text-xs font-bold text-slate-500 uppercase">Conteo IA</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-accent"></span>
-                            <span class="text-sm font-bold text-slate-800 dark:text-white">Brocas de Botones 45mm (PER-011)</span>
-                        </div>
-                        <span class="text-lg font-black text-accent">50 Pzas</span>
-                    </div>
-                    <p class="text-[10px] text-slate-500 mt-2 text-right">Diferencia con sistema: <span class="text-success font-bold">+8 Pzas</span></p>
-                </div>
-
-                <div class="pt-4 flex gap-3">
-                    <button onclick="closeAIAuditModal()" class="flex-1 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">Descartar</button>
-                    <button onclick="applyAIAudit()" class="flex-1 py-2 rounded-lg bg-accent hover:bg-blue-600 text-white text-xs font-bold shadow-md transition-colors flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[16px]">sync</span> Actualizar Kardex</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    
-    <style>
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
-    </style>
 
     <script>
         const themeToggleBtn = document.getElementById('theme-toggle');
@@ -496,6 +476,7 @@
         function toggleMenu(menuId, btn) {
             const targetMenu = document.getElementById(menuId);
             const targetArrow = btn.querySelector('.nav-arrow');
+            
             document.querySelectorAll('.submenu').forEach(menu => {
                 if (menu.id !== menuId) {
                     menu.classList.remove('open');
@@ -503,6 +484,7 @@
                     if (arrow) arrow.classList.remove('open');
                 }
             });
+
             targetMenu.classList.toggle('open');
             if (targetArrow) targetArrow.classList.toggle('open');
         }
@@ -515,56 +497,33 @@
                 nav.classList.remove('text-accent', 'font-bold');
                 nav.classList.add('text-slate-400');
             });
+            
             document.querySelectorAll('.top-tab-btn').forEach(btn => {
                 btn.classList.remove('border-accent', 'text-accent', 'dark:text-accent');
                 btn.classList.add('border-transparent', 'text-slate-500', 'dark:text-slate-400');
             });
 
             if(el.classList.contains('sub-nav-btn')){
-                el.classList.remove('text-slate-400'); el.classList.add('text-accent', 'font-bold');
+                el.classList.remove('text-slate-400');
+                el.classList.add('text-accent', 'font-bold');
                 const index = Array.from(document.querySelectorAll('.sub-nav-btn')).indexOf(el);
                 const topBtn = document.querySelectorAll('.top-tab-btn')[index];
-                if(topBtn) { topBtn.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400'); topBtn.classList.add('border-accent', 'text-accent', 'dark:text-accent'); }
+                if(topBtn) {
+                    topBtn.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
+                    topBtn.classList.add('border-accent', 'text-accent', 'dark:text-accent');
+                }
             } else {
-                el.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400'); el.classList.add('border-accent', 'text-accent', 'dark:text-accent');
+                el.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
+                el.classList.add('border-accent', 'text-accent', 'dark:text-accent');
                 const index = Array.from(document.querySelectorAll('.top-tab-btn')).indexOf(el);
                 const latBtn = document.querySelectorAll('.sub-nav-btn')[index];
-                if(latBtn) { latBtn.classList.remove('text-slate-400'); latBtn.classList.add('text-accent', 'font-bold'); }
+                if(latBtn) {
+                    latBtn.classList.remove('text-slate-400');
+                    latBtn.classList.add('text-accent', 'font-bold');
+                }
             }
-            if(tabId === 'tab-maestro') renderChart();
-        }
-
-        // --- LÓGICA IA AUDITORÍA VISUAL ---
-        function openAIAuditModal() {
-            document.getElementById('ai-audit-modal').classList.remove('hidden');
-            document.getElementById('ai-step-upload').classList.remove('hidden');
-            document.getElementById('ai-step-scanning').classList.add('hidden');
-            document.getElementById('ai-step-results').classList.add('hidden');
-        }
-
-        function closeAIAuditModal() {
-            document.getElementById('ai-audit-modal').classList.add('hidden');
-        }
-
-        function simulateAIAudit() {
-            document.getElementById('ai-step-upload').classList.add('hidden');
-            document.getElementById('ai-step-scanning').classList.remove('hidden');
             
-            // Simular procesamiento del modelo de Computer Vision
-            setTimeout(() => {
-                document.getElementById('ai-step-scanning').classList.add('hidden');
-                document.getElementById('ai-step-results').classList.remove('hidden');
-            }, 3000);
-        }
-
-        function applyAIAudit() {
-            closeAIAuditModal();
-            // Actualizamos la tabla dinámicamente para dar efecto Wow
-            const brocaCell = document.getElementById('broca-stock');
-            brocaCell.textContent = '50';
-            brocaCell.classList.add('text-success', 'scale-110');
-            setTimeout(() => brocaCell.classList.remove('text-success', 'scale-110'), 2000);
-            alert("El Kardex se ha actualizado correctamente basándose en el análisis visual de la IA.");
+            if(tabId === 'tab-maestro') renderChart();
         }
 
         Chart.defaults.font.family = "'Poppins', sans-serif";
@@ -574,9 +533,12 @@
             const canvas = document.getElementById('inventoryChart');
             if(!canvas) return;
             const ctx = canvas.getContext('2d');
+            
             if(window.myChart) window.myChart.destroy();
 
             const isDark = document.documentElement.classList.contains('dark');
+            const textColor = isDark ? '#94a3b8' : '#64748b'; 
+            
             window.myChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
@@ -584,12 +546,21 @@
                     datasets: [{
                         data: [850000, 420000, 310000, 220000],
                         backgroundColor: ['#3b82f6', '#ef4444', '#f59e0b', '#10b981'],
-                        borderWidth: isDark ? 2 : 0, borderColor: isDark ? '#1e293b' : '#fff'
+                        borderWidth: isDark ? 2 : 0,
+                        borderColor: isDark ? '#1e293b' : '#fff'
                     }]
                 },
-                options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false } } }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
             });
         }
+
         function updateChartsTheme() { renderChart(); }
         setTimeout(() => { renderChart(); }, 100);
     </script>
