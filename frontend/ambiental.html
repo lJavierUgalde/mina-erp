@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -167,6 +170,7 @@
                 <div id="menu-hse" class="submenu open pl-11 space-y-1 mt-1 mb-3">
                     <button onclick="switchTab('tab-ambiental', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 font-bold text-success">Certificaciones y NOMs</button>
                     <button onclick="switchTab('tab-seguridad', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Seguridad Industrial (TRIR)</button>
+                    <button onclick="switchTab('tab-consumos', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Consumo Insumos HSE</button>
                 </div>
             </div>
 
@@ -225,6 +229,9 @@
             </button>
             <button onclick="switchTab('tab-seguridad', document.querySelectorAll('.sub-nav-btn')[1])" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
                 <span class="material-symbols-outlined text-[18px]">health_and_safety</span> Seguridad y Salud (TRIR)
+            </button>
+            <button onclick="switchTab('tab-consumos', document.querySelectorAll('.sub-nav-btn')[2])" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                <span class="material-symbols-outlined text-[18px]">safety_check</span> Consumo Insumos HSE
             </button>
         </div>
 
@@ -372,6 +379,143 @@
                         </div>
                     </div>
 
+                    <!-- TAB: Consumo de Insumos HSE -->
+                    <div id="tab-consumos" class="tab-content space-y-6 lg:space-y-8">
+
+                        <!-- KPI Cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-accent">
+                                <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Consumo del Mes</p>
+                                <div class="flex items-end gap-2">
+                                    <h3 class="text-3xl font-black text-slate-800 dark:text-white" id="kpi-total-consumo">0</h3>
+                                    <p class="text-sm font-bold text-slate-400 mb-1">artículos</p>
+                                </div>
+                                <p class="text-[10px] text-slate-400 mt-1">Despachados en Marzo 2026</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-danger">
+                                <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Stock Crítico</p>
+                                <div class="flex items-end gap-2">
+                                    <h3 class="text-3xl font-black text-danger" id="kpi-stock-critico">3</h3>
+                                    <p class="text-sm font-bold text-slate-400 mb-1">ítems</p>
+                                </div>
+                                <p class="text-[10px] text-danger mt-1 bg-red-50 dark:bg-danger/10 px-2 py-0.5 rounded w-max font-bold">Bajo nivel mínimo</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-primary">
+                                <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Costo del Mes</p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white" id="kpi-costo">$0</h3>
+                                <p class="text-[10px] text-slate-400 mt-1">MXN en insumos HSE</p>
+                            </div>
+                        </div>
+
+                        <!-- Tabla + Gráfica -->
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+
+                            <!-- Header con botón registrar -->
+                            <div class="px-5 py-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center flex-wrap gap-4">
+                                <div>
+                                    <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-accent text-[18px]">safety_check</span> Consumo de Insumos de Seguridad (EPP)
+                                    </h3>
+                                    <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">Registro de retiros del almacén por equipo / trabajador</p>
+                                </div>
+                                <button onclick="openConsumoModal()" class="bg-accent hover:bg-blue-600 text-white text-xs font-bold py-2 px-4 rounded-lg transition-colors shadow-md shadow-accent/30 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[16px]">add_circle</span> Registrar Consumo
+                                </button>
+                            </div>
+
+                            <!-- Gráfica -->
+                            <div class="p-5 border-b border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-xs font-bold text-slate-600 dark:text-slate-300">Consumo por categoría — últimos 6 meses</p>
+                                    <select id="consumo-filter" onchange="updateConsumoChart(this.value)" class="text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-2 py-1.5 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-accent/40">
+                                        <option value="all">Todas las categorías</option>
+                                        <option value="epp">EPP</option>
+                                        <option value="incendio">Contra Incendio</option>
+                                        <option value="senalizacion">Señalización</option>
+                                        <option value="otros">Otros</option>
+                                    </select>
+                                </div>
+                                <div class="relative h-[200px] w-full"><canvas id="consumoChart"></canvas></div>
+                            </div>
+
+                            <!-- Barra de búsqueda y filtros -->
+                            <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800 flex flex-wrap items-center gap-3">
+                                <!-- Búsqueda texto -->
+                                <div class="relative flex-1 min-w-[180px]">
+                                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[16px] pointer-events-none">search</span>
+                                    <input type="text" id="tbl-search" placeholder="Buscar ítem, destino, almacén..." oninput="applyTableFilters()"
+                                        class="w-full text-xs pl-8 pr-3 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-accent/50 placeholder-slate-400">
+                                </div>
+                                <!-- Filtro categoría -->
+                                <select id="tbl-cat" onchange="applyTableFilters()" class="text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-2.5 py-2 bg-slate-50 dark:bg-slate-700 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-accent/40">
+                                    <option value="">Todas las categorías</option>
+                                    <option>EPP</option>
+                                    <option>Contra Incendio</option>
+                                    <option>Señalización</option>
+                                    <option>Botiquín</option>
+                                    <option>Ambiental</option>
+                                    <option>Otro</option>
+                                </select>
+                                <!-- Filtro almacén -->
+                                <select id="tbl-almacen" onchange="applyTableFilters()" class="text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-2.5 py-2 bg-slate-50 dark:bg-slate-700 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-accent/40">
+                                    <option value="">Todos los almacenes</option>
+                                    <option>Almacén Mina</option>
+                                    <option>Almacén Planta</option>
+                                    <option>Bodega HSE</option>
+                                </select>
+                                <!-- Fecha desde -->
+                                <div class="flex items-center gap-1.5">
+                                    <label class="text-[10px] text-slate-400 font-bold uppercase whitespace-nowrap">Desde</label>
+                                    <input type="date" id="tbl-desde" onchange="applyTableFilters()" class="text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-2 py-1.5 bg-slate-50 dark:bg-slate-700 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-accent/40">
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    <label class="text-[10px] text-slate-400 font-bold uppercase whitespace-nowrap">Hasta</label>
+                                    <input type="date" id="tbl-hasta" onchange="applyTableFilters()" class="text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-2 py-1.5 bg-slate-50 dark:bg-slate-700 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-accent/40">
+                                </div>
+                                <!-- Limpiar filtros -->
+                                <button onclick="clearTableFilters()" class="text-[10px] font-bold text-slate-400 hover:text-danger transition-colors flex items-center gap-1 whitespace-nowrap">
+                                    <span class="material-symbols-outlined text-[14px]">filter_alt_off</span> Limpiar
+                                </button>
+                            </div>
+
+                            <!-- Tabla -->
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left data-dense">
+                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 dark:text-slate-400 uppercase border-b border-slate-200 dark:border-slate-700">
+                                        <tr>
+                                            <th class="font-bold">Fecha</th>
+                                            <th class="font-bold">Ítem / Insumo</th>
+                                            <th class="text-center font-bold">Categoría</th>
+                                            <th class="text-center font-bold">Cant.</th>
+                                            <th class="text-center font-bold">Unidad</th>
+                                            <th class="font-bold">Destino / Equipo</th>
+                                            <th class="font-bold">Almacén</th>
+                                            <th class="text-right font-bold">Costo Unit.</th>
+                                            <th class="font-bold">Registró</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="consumo-tbody" class="divide-y divide-slate-100 dark:divide-slate-700/50 text-xs text-slate-700 dark:text-slate-300">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="px-5 py-3 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between flex-wrap gap-3 bg-slate-50/30 dark:bg-slate-900/20">
+                                <p class="text-[10px] text-slate-400" id="consumo-count">Registros recientes</p>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="exportExcel()" class="flex items-center gap-1.5 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 px-3 py-1.5 rounded-lg transition-colors">
+                                        <span class="material-symbols-outlined text-[15px]">table_view</span> Excel
+                                    </button>
+                                    <button onclick="exportPDF()" class="flex items-center gap-1.5 text-[11px] font-bold text-red-500 dark:text-red-400 border border-red-200 dark:border-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 px-3 py-1.5 rounded-lg transition-colors">
+                                        <span class="material-symbols-outlined text-[15px]">picture_as_pdf</span> PDF
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- FIN TAB consumos -->
+
                 </div>
 
                 <aside class="w-full xl:w-80 flex-shrink-0 flex flex-col gap-6 lg:gap-8">
@@ -514,6 +658,7 @@
             }
             
             if(tabId === 'tab-seguridad') renderChart();
+            if(tabId === 'tab-consumos') renderConsumoChart(document.getElementById('consumo-filter')?.value || 'all');
         }
 
         Chart.defaults.font.family = "'Poppins', sans-serif";
@@ -567,7 +712,406 @@
             });
         }
 
-        function updateChartsTheme() { renderChart(); }
+        function updateChartsTheme() {
+            renderChart();
+            if(window.consumoChart) renderConsumoChart(document.getElementById('consumo-filter')?.value || 'all');
+        }
+
+        // ================================================================
+        //  CONSUMO INSUMOS HSE
+        // ================================================================
+        const catColors = {
+            'EPP': '#3b82f6', 'Contra Incendio': '#ef4444',
+            'Señalización': '#f59e0b', 'Botiquín': '#10b981',
+            'Ambiental': '#8b5cf6', 'Otro': '#64748b'
+        };
+
+        let consumoData = [
+            { fecha: '2026-03-18', item: 'Casco de seguridad',        cat: 'EPP',             qty: 5,  unit: 'piezas', destino: 'Crew Voladura A',    almacen: 'Almacén Mina',   costo: 285  },
+            { fecha: '2026-03-17', item: 'Guantes de nitrilo',         cat: 'EPP',             qty: 10, unit: 'pares',  destino: 'Planta Molienda',    almacen: 'Almacén Planta', costo: 42   },
+            { fecha: '2026-03-17', item: 'Respiradores N95',           cat: 'EPP',             qty: 20, unit: 'piezas', destino: 'Crew Perforación',   almacen: 'Almacén Mina',   costo: 65   },
+            { fecha: '2026-03-16', item: 'Extintor PQS 6kg',           cat: 'Contra Incendio', qty: 2,  unit: 'piezas', destino: 'Taller Mecánico',    almacen: 'Bodega HSE',     costo: 850  },
+            { fecha: '2026-03-16', item: 'Chaleco reflectivo',         cat: 'EPP',             qty: 8,  unit: 'piezas', destino: 'Personal Nuevo',     almacen: 'Almacén Mina',   costo: 320  },
+            { fecha: '2026-03-15', item: 'Señal Zona Restringida',     cat: 'Señalización',    qty: 4,  unit: 'piezas', destino: 'Área Chancado',      almacen: 'Bodega HSE',     costo: 180  },
+            { fecha: '2026-03-14', item: 'Kit botiquín básico',        cat: 'Botiquín',        qty: 1,  unit: 'kits',   destino: 'Cabina Equipo P-07', almacen: 'Bodega HSE',     costo: 650  },
+            { fecha: '2026-03-13', item: 'Botas dieléctricas',         cat: 'EPP',             qty: 3,  unit: 'pares',  destino: 'Electricistas',      almacen: 'Almacén Planta', costo: 1200 },
+            { fecha: '2026-03-12', item: 'Absorbente industrial',      cat: 'Ambiental',       qty: 5,  unit: 'bolsas', destino: 'Taller Mecánico',    almacen: 'Bodega HSE',     costo: 420  },
+            { fecha: '2026-03-11', item: 'Lentes de seguridad',        cat: 'EPP',             qty: 15, unit: 'piezas', destino: 'Planta General',     almacen: 'Almacén Planta', costo: 95   },
+        ];
+
+        const consumoChartDatasets = {
+            all: [
+                { label: 'EPP',             data: [45, 52, 38, 61, 55, 48], backgroundColor: '#3b82f6', borderRadius: 4 },
+                { label: 'Contra Incendio', data: [8,  5,  12,  6,  9,  7], backgroundColor: '#ef4444', borderRadius: 4 },
+                { label: 'Señalización',    data: [12,  8, 15, 10, 11,  9], backgroundColor: '#f59e0b', borderRadius: 4 },
+                { label: 'Otros',           data: [10,  7,  9, 12,  8, 11], backgroundColor: '#10b981', borderRadius: 4 },
+            ],
+            epp:         [{ label: 'EPP',             data: [45, 52, 38, 61, 55, 48], backgroundColor: '#3b82f6', borderRadius: 4 }],
+            incendio:    [{ label: 'Contra Incendio', data: [8,  5,  12,  6,  9,  7], backgroundColor: '#ef4444', borderRadius: 4 }],
+            senalizacion:[{ label: 'Señalización',    data: [12,  8, 15, 10, 11,  9], backgroundColor: '#f59e0b', borderRadius: 4 }],
+            otros:       [{ label: 'Otros',           data: [10,  7,  9, 12,  8, 11], backgroundColor: '#10b981', borderRadius: 4 }],
+        };
+
+        window.consumoChart = null;
+
+        function renderConsumoChart(filter = 'all') {
+            const canvas = document.getElementById('consumoChart');
+            if (!canvas) return;
+            const isDark = document.documentElement.classList.contains('dark');
+            const textColor = isDark ? '#94a3b8' : '#64748b';
+            const gridColor = isDark ? '#334155' : '#f1f5f9';
+            if (window.consumoChart) window.consumoChart.destroy();
+            window.consumoChart = new Chart(canvas.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['Oct', 'Nov', 'Dic', 'Ene', 'Feb', 'Mar'],
+                    datasets: consumoChartDatasets[filter] || consumoChartDatasets.all
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { stacked: filter === 'all', grid: { display: false }, ticks: { color: textColor } },
+                        y: { stacked: filter === 'all', beginAtZero: true, ticks: { color: textColor }, grid: { color: gridColor, borderDash: [4, 4] } }
+                    },
+                    plugins: { legend: { labels: { color: textColor, usePointStyle: true, boxWidth: 10 } } }
+                }
+            });
+        }
+
+        function updateConsumoChart(val) { renderConsumoChart(val); }
+
+        function recalcKPIs() {
+            const total = consumoData.reduce((s, r) => s + r.qty, 0);
+            const costo = consumoData.reduce((s, r) => s + (r.costo * r.qty), 0);
+            document.getElementById('kpi-total-consumo').textContent = total.toLocaleString();
+            document.getElementById('kpi-costo').textContent = '$' + costo.toLocaleString();
+        }
+
+        function getFilteredData() {
+            const q       = (document.getElementById('tbl-search')?.value  || '').toLowerCase().trim();
+            const cat     =  document.getElementById('tbl-cat')?.value     || '';
+            const almacen =  document.getElementById('tbl-almacen')?.value || '';
+            const desde   =  document.getElementById('tbl-desde')?.value   || '';
+            const hasta   =  document.getElementById('tbl-hasta')?.value   || '';
+            return consumoData.filter(r => {
+                if (q && ![
+                    r.item, r.destino, r.almacen, r.cat, r.user || ''
+                ].some(f => f.toLowerCase().includes(q))) return false;
+                if (cat     && r.cat     !== cat)     return false;
+                if (almacen && r.almacen !== almacen) return false;
+                if (desde   && r.fecha   <  desde)    return false;
+                if (hasta   && r.fecha   >  hasta)    return false;
+                return true;
+            });
+        }
+
+        function applyTableFilters() { renderConsumoTable(); }
+
+        function clearTableFilters() {
+            ['tbl-search','tbl-cat','tbl-almacen','tbl-desde','tbl-hasta'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            renderConsumoTable();
+        }
+
+        function highlightMatch(text, q) {
+            if (!q) return text;
+            const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return text.replace(re, '<mark class="bg-accent/20 text-accent font-bold rounded px-0.5">$1</mark>');
+        }
+
+        function renderConsumoTable() {
+            const tbody = document.getElementById('consumo-tbody');
+            if (!tbody) return;
+            const q = (document.getElementById('tbl-search')?.value || '').toLowerCase().trim();
+            const rows = getFilteredData();
+            if (rows.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" class="text-center py-10 text-slate-400 text-xs">
+                    <span class="material-symbols-outlined text-[36px] block mx-auto mb-2 opacity-30">search_off</span>
+                    Sin resultados para los filtros aplicados
+                </td></tr>`;
+                document.getElementById('consumo-count').textContent = 'Sin resultados';
+                return;
+            }
+            tbody.innerHTML = rows.map(r => `
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                    <td class="font-mono text-slate-500">${r.fecha}</td>
+                    <td class="font-bold">${highlightMatch(r.item, q)}</td>
+                    <td class="text-center">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold" style="background:${catColors[r.cat] || '#64748b'}22;color:${catColors[r.cat] || '#64748b'}">${r.cat}</span>
+                    </td>
+                    <td class="text-center font-bold">${r.qty}</td>
+                    <td class="text-center text-slate-500">${r.unit}</td>
+                    <td>${highlightMatch(r.destino, q)}</td>
+                    <td class="text-slate-500">${highlightMatch(r.almacen, q)}</td>
+                    <td class="text-right font-mono">$${r.costo.toLocaleString()}</td>
+                    <td class="text-slate-500">${r.user || 'Admin'}</td>
+                </tr>
+            `).join('');
+            document.getElementById('consumo-count').textContent = `Mostrando ${rows.length} de ${consumoData.length} registros`;
+            recalcKPIs();
+        }
+
+        function openConsumoModal() {
+            document.getElementById('modal-consumo').classList.remove('hidden');
+            const now = new Date();
+            const pad = n => String(n).padStart(2, '0');
+            document.getElementById('c-fecha').value = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+            document.getElementById('c-hora').value  = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+        }
+
+        function closeConsumoModal() {
+            document.getElementById('modal-consumo').classList.add('hidden');
+            document.getElementById('consumo-form').reset();
+        }
+
+        function submitConsumo(e) {
+            e.preventDefault();
+            const qty   = parseInt(document.getElementById('c-cantidad').value, 10);
+            const costo = parseFloat(document.getElementById('c-costo').value) || 0;
+            if (qty < 1) return;
+            consumoData.unshift({
+                fecha:   document.getElementById('c-fecha').value,
+                item:    document.getElementById('c-item').value.trim(),
+                cat:     document.getElementById('c-categoria').value,
+                qty, unit: document.getElementById('c-unidad').value,
+                destino: document.getElementById('c-destino').value.trim(),
+                almacen: document.getElementById('c-almacen').value,
+                costo, user: 'Admin Usuario'
+            });
+            renderConsumoTable();
+            closeConsumoModal();
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-6 right-6 z-[300] bg-accent text-white text-xs font-bold px-5 py-3 rounded-xl shadow-2xl flex items-center gap-2';
+            toast.innerHTML = '<span class="material-symbols-outlined text-[18px]">check_circle</span> Consumo registrado exitosamente';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3500);
+        }
+
+        // ================================================================
+        //  EXPORTAR PDF
+        // ================================================================
+        function exportPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+            const rows = getFilteredData();
+            const now  = new Date().toLocaleDateString('es-MX', { year:'numeric', month:'long', day:'numeric' });
+
+            // Encabezado
+            doc.setFillColor(15, 23, 42);          // secondary
+            doc.rect(0, 0, 297, 20, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(13);
+            doc.setFont('helvetica', 'bold');
+            doc.text('MinaOS — Reporte de Consumo de Insumos HSE', 14, 13);
+            doc.setFontSize(8);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`Generado: ${now}`, 230, 13);
+
+            // Tabla
+            doc.autoTable({
+                startY: 25,
+                head: [['Fecha', 'Ítem / Insumo', 'Categoría', 'Cant.', 'Unidad', 'Destino / Equipo', 'Almacén', 'Costo Unit.', 'Registró']],
+                body: rows.map(r => [
+                    r.fecha, r.item, r.cat, r.qty, r.unit,
+                    r.destino, r.almacen, `$${r.costo.toLocaleString()}`, r.user || 'Admin'
+                ]),
+                styles: { fontSize: 8, cellPadding: 2.5, font: 'helvetica' },
+                headStyles: { fillColor: [59, 130, 246], textColor: 255, fontStyle: 'bold', fontSize: 8 },
+                alternateRowStyles: { fillColor: [248, 250, 252] },
+                columnStyles: { 3: { halign: 'center' }, 4: { halign: 'center' }, 7: { halign: 'right' } },
+                margin: { left: 14, right: 14 },
+                didDrawPage: (data) => {
+                    // Pie de página
+                    const pageCount = doc.internal.getNumberOfPages();
+                    doc.setFontSize(7);
+                    doc.setTextColor(150);
+                    doc.text(`Página ${data.pageNumber} de ${pageCount}`, data.settings.margin.left, doc.internal.pageSize.height - 6);
+                    doc.text('MinaOS ERP — Confidencial', 200, doc.internal.pageSize.height - 6);
+                }
+            });
+
+            // Total costo
+            const totalCosto = rows.reduce((s, r) => s + r.costo * r.qty, 0);
+            const finalY = doc.lastAutoTable.finalY + 5;
+            doc.setFontSize(9);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(30, 41, 59);
+            doc.text(`Total registros: ${rows.length}     Costo total: $${totalCosto.toLocaleString()} MXN`, 14, finalY);
+
+            doc.save(`consumo-hse-${new Date().toISOString().slice(0,10)}.pdf`);
+            showExportToast('PDF generado exitosamente', 'picture_as_pdf', '#ef4444');
+        }
+
+        // ================================================================
+        //  EXPORTAR EXCEL
+        // ================================================================
+        function exportExcel() {
+            const rows  = getFilteredData();
+            const wsData = [
+                ['Fecha', 'Ítem / Insumo', 'Categoría', 'Cantidad', 'Unidad', 'Destino / Equipo', 'Almacén', 'Costo Unit. (MXN)', 'Costo Total (MXN)', 'Registró'],
+                ...rows.map(r => [
+                    r.fecha, r.item, r.cat, r.qty, r.unit,
+                    r.destino, r.almacen, r.costo, r.costo * r.qty, r.user || 'Admin'
+                ]),
+                [],
+                ['', '', '', '', '', '', 'TOTAL', '',
+                    rows.reduce((s, r) => s + r.costo * r.qty, 0), '']
+            ];
+
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+            // Ancho de columnas
+            ws['!cols'] = [10,30,18,8,10,25,18,18,18,15].map(w => ({ wch: w }));
+
+            // Estilo del encabezado (color de fondo para la primera fila)
+            const headerRange = XLSX.utils.decode_range('A1:J1');
+            for (let C = headerRange.s.c; C <= headerRange.e.c; C++) {
+                const cell = ws[XLSX.utils.encode_cell({ r: 0, c: C })];
+                if (cell) {
+                    cell.s = { font: { bold: true }, fill: { fgColor: { rgb: '3B82F6' } }, alignment: { horizontal: 'center' } };
+                }
+            }
+
+            XLSX.utils.book_append_sheet(wb, ws, 'Consumo HSE');
+
+            // Hoja resumen por categoría
+            const catMap = {};
+            rows.forEach(r => {
+                if (!catMap[r.cat]) catMap[r.cat] = { qty: 0, costo: 0 };
+                catMap[r.cat].qty   += r.qty;
+                catMap[r.cat].costo += r.costo * r.qty;
+            });
+            const wsRes = XLSX.utils.aoa_to_sheet([
+                ['Categoría', 'Total Artículos', 'Costo Total (MXN)'],
+                ...Object.entries(catMap).map(([k, v]) => [k, v.qty, v.costo])
+            ]);
+            wsRes['!cols'] = [{ wch: 22 }, { wch: 16 }, { wch: 20 }];
+            XLSX.utils.book_append_sheet(wb, wsRes, 'Resumen Cat.');
+
+            XLSX.writeFile(wb, `consumo-hse-${new Date().toISOString().slice(0,10)}.xlsx`);
+            showExportToast('Excel generado exitosamente', 'table_view', '#10b981');
+        }
+
+        function showExportToast(msg, icon, color) {
+            const t = document.createElement('div');
+            t.className = 'fixed bottom-6 right-6 z-[300] text-white text-xs font-bold px-5 py-3 rounded-xl shadow-2xl flex items-center gap-2';
+            t.style.background = color;
+            t.innerHTML = `<span class="material-symbols-outlined text-[18px]">${icon}</span> ${msg}`;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 3500);
+        }
+
+        // Inicializar tabla al cargar
+        renderConsumoTable();
+
     </script>
+
+    <!-- Modal Registrar Consumo HSE -->
+    <div id="modal-consumo" class="fixed inset-0 z-[200] flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeConsumoModal()"></div>
+        <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-lg z-10 overflow-hidden">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
+                <div>
+                    <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="material-symbols-outlined text-accent text-[18px]">safety_check</span> Registrar Consumo de Insumo HSE
+                    </h3>
+                    <p class="text-[10px] text-slate-400 mt-0.5">Capture el retiro o consumo del almacén</p>
+                </div>
+                <button onclick="closeConsumoModal()" class="text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <form id="consumo-form" onsubmit="submitConsumo(event)" class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Fecha *</label>
+                        <input type="date" id="c-fecha" required class="w-full text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-accent/50">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Hora *</label>
+                        <input type="time" id="c-hora" required class="w-full text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-accent/50">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Ítem / Insumo *</label>
+                    <input type="text" id="c-item" required placeholder="Ej. Casco de seguridad, Guantes nitrilo..." list="items-list"
+                        class="w-full text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-accent/50 placeholder-slate-400">
+                    <datalist id="items-list">
+                        <option value="Casco de seguridad"><option value="Guantes de nitrilo"><option value="Guantes de cuero">
+                        <option value="Respiradores N95"><option value="Lentes de seguridad"><option value="Chaleco reflectivo">
+                        <option value="Botas de seguridad"><option value="Botas dieléctricas"><option value="Orejeras">
+                        <option value="Tapones auditivos"><option value="Extintor PQS 6kg"><option value="Kit botiquín básico">
+                        <option value="Señal zona restringida"><option value="Absorbente industrial"><option value="Cinta de señalización">
+                    </datalist>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Categoría *</label>
+                    <select id="c-categoria" required class="w-full text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-accent/50">
+                        <option value="">Seleccionar...</option>
+                        <option value="EPP">EPP (Equipo de Protección Personal)</option>
+                        <option value="Contra Incendio">Contra Incendio</option>
+                        <option value="Señalización">Señalización</option>
+                        <option value="Botiquín">Botiquín / Primeros Auxilios</option>
+                        <option value="Ambiental">Control Ambiental / Absorbentes</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Cantidad *</label>
+                        <input type="number" id="c-cantidad" min="1" required placeholder="0"
+                            class="w-full text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-accent/50 placeholder-slate-400">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Unidad *</label>
+                        <select id="c-unidad" required class="w-full text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-accent/50">
+                            <option value="piezas">Piezas</option>
+                            <option value="pares">Pares</option>
+                            <option value="cajas">Cajas</option>
+                            <option value="kits">Kits</option>
+                            <option value="bolsas">Bolsas</option>
+                            <option value="litros">Litros</option>
+                            <option value="kg">Kilogramos</option>
+                            <option value="rollos">Rollos</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Destino / Equipo *</label>
+                    <input type="text" id="c-destino" required placeholder="Ej. Crew Voladura A, Planta Molienda..."
+                        class="w-full text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-accent/50 placeholder-slate-400">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Almacén origen</label>
+                        <select id="c-almacen" class="w-full text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-accent/50">
+                            <option>Almacén Mina</option><option>Almacén Planta</option><option>Bodega HSE</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Costo Unitario (MXN)</label>
+                        <input type="number" id="c-costo" min="0" step="0.01" placeholder="0.00"
+                            class="w-full text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-accent/50 placeholder-slate-400">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Motivo / Nota</label>
+                    <textarea id="c-nota" rows="2" placeholder="Descripción del uso o motivo del consumo..."
+                        class="w-full text-xs border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-accent/50 placeholder-slate-400 resize-none"></textarea>
+                </div>
+                <div class="flex items-center justify-end gap-3 pt-2 border-t border-slate-100 dark:border-slate-700">
+                    <button type="button" onclick="closeConsumoModal()" class="text-xs font-bold text-slate-500 hover:text-slate-700 dark:hover:text-slate-200 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-600 transition-colors">Cancelar</button>
+                    <button type="submit" class="bg-accent hover:bg-blue-600 text-white text-xs font-bold py-2 px-6 rounded-lg transition-colors shadow-md shadow-accent/30 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[16px]">save</span> Guardar Registro
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
