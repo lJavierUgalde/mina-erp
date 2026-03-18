@@ -78,9 +78,13 @@
             <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
         </button>
         <div id="menu-mina" class="submenu pl-11 space-y-1 mt-1 mb-3">
-            <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Barrenación y Detonación</a>
-            <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Acarreo de Mineral</a>
-            <a href="operacion-mina.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Patio e Inventario</a>
+            <a href="operacion-mina.html?mod=mod-hse" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Cumplimiento Ambiental/Seg.</a>
+            <a href="operacion-mina.html?mod=mod-inv" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Inventarios</a>
+            <a href="operacion-mina.html?mod=mod-energia" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Energía</a>
+            <a href="operacion-mina.html?mod=mod-mtto" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Mtto</a>
+            <a href="operacion-mina.html?mod=mod-kpis" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">KPIs Op</a>
+            <a href="operacion-mina.html?mod=mod-compras" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Compras</a>
+            <a href="operacion-mina.html?mod=mod-rh" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">RH</a>
         </div>
     </div>
 
@@ -125,17 +129,6 @@
         <div id="menu-inv" class="submenu open pl-11 space-y-1 mt-1 mb-3">
             <button onclick="switchTab('tab-maestro', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 font-bold text-accent">Almacén y Pañol (Detalle)</button>
             <button onclick="switchTab('tab-kardex', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Vales de Salida y Préstamos</button>
-        </div>
-    </div>
-    <div class="nav-group mt-2">
-        <button onclick="toggleMenu('menu-mtto', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
-            <div class="flex items-center"><span class="material-symbols-outlined text-[20px]">build</span><span class="hidden lg:block ml-3 text-sm font-medium">Mantenimiento</span></div>
-            <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
-        </button>
-        <div id="menu-mtto" class="submenu pl-11 space-y-1 mt-1 mb-3">
-            <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Estado de Flota y Preventivos</a>
-            <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Correctivos y Órdenes (OT)</a>
-            <a href="mantenimiento.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Eficiencia Mecánica (MTBF/TR)</a>
         </div>
     </div>
     <div class="nav-group mt-2">
