@@ -44,6 +44,11 @@
         .submenu.open { max-height: 500px; }
         .nav-arrow { transition: transform 0.3s; }
         .nav-arrow.open { transform: rotate(90deg); }
+        .submenu.open { max-height: 2000px !important; }
+        .sub-submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .sub-submenu.open { max-height: 400px; }
+        .sub-arrow { transition: transform 0.3s; }
+        .sub-arrow.open { transform: rotate(90deg); }
 
         /* Animación para el feed en vivo */
         @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
@@ -112,10 +117,21 @@
             </div>
 
             <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">Suministro & Finanzas</p>
-            <a href="logistica-fletes.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
-                <span class="material-symbols-outlined text-[20px]">local_shipping</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Logística y Fletes</span>
-            </a>
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-logistica', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Logística y Fletes</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-logistica" class="submenu pl-11 space-y-1 mt-1">
+                    <a href="logistica-fletes.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Camiones Disponibles</a>
+                    <a href="logistica-fletes.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">KPIs Operativos</a>
+                    <a href="logistica-fletes.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Rastreo</a>
+                    <a href="logistica-fletes.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Salidas y Llegadas</a>
+                </div>
+            </div>
             
          
 
@@ -129,9 +145,27 @@
                     </div>
                     <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
                 </button>
-                <div id="menu-finanzas" class="submenu pl-11 space-y-1 mt-1">
-                    <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">P&L y KPIs Estratégicos</a>
-                    <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Facturación y CxC</a>
+                <div id="menu-finanzas" class="submenu pl-4 space-y-1 mt-1 mb-2">
+                    <div>
+                        <button onclick="toggleSubMenu('sub-facturacion', this)" class="w-full flex items-center justify-between text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">
+                            <span>Facturación</span>
+                            <span class="material-symbols-outlined text-[14px] sub-arrow hidden lg:block">chevron_right</span>
+                        </button>
+                        <div id="sub-facturacion" class="sub-submenu pl-3 space-y-1">
+                            <a href="ingresos.html" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Ligado</a>
+                        </div>
+                    </div>
+                    <div>
+                        <button onclick="toggleSubMenu('sub-pnl', this)" class="w-full flex items-center justify-between text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">
+                            <span>Estados Financieros</span>
+                            <span class="material-symbols-outlined text-[14px] sub-arrow hidden lg:block">chevron_right</span>
+                        </button>
+                        <div id="sub-pnl" class="sub-submenu pl-3 space-y-1">
+                            <a href="ingresos.html" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Real</a>
+                            <a href="ingresos.html" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Presupuestado</a>
+                        </div>
+                    </div>
+                    <a href="ingresos.html" class="block text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">CxC</a>
                 </div>
             </div>
             
@@ -147,10 +181,21 @@
                 </div>
             </div>
 
-            <a href="grantt.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
-                <span class="material-symbols-outlined text-[20px]">view_timeline</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos & Gantt</span>
-            </a>
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-proyectos', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">view_timeline</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos & Gantt</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-proyectos" class="submenu pl-11 space-y-1 mt-1 mb-2">
+                    <a href="grantt.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Cronogramas</a>
+                    <a href="grantt.html" class="block text-xs py-1.5 pl-6 text-[11px] text-slate-500 hover:text-white transition-colors">↳ Actividades</a>
+                    <a href="grantt.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Estatus de Proyectos</a>
+                    <a href="grantt.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Gantt</a>
+                </div>
+            </div>
 
            
         </nav>
@@ -436,6 +481,24 @@
 
     <script>
         // --- Sidebar submenu toggle ---
+        function toggleSubMenu(menuId, btn) {
+            const targetMenu = document.getElementById(menuId);
+            const targetArrow = btn.querySelector('.sub-arrow');
+            const isOpen = targetMenu.classList.contains('open');
+            const parentSubmenu = btn.closest('.submenu');
+            if(parentSubmenu) {
+                parentSubmenu.querySelectorAll('.sub-submenu').forEach(m => {
+                    m.classList.remove('open');
+                    const a = m.previousElementSibling && m.previousElementSibling.querySelector('.sub-arrow');
+                    if(a) a.classList.remove('open');
+                });
+            }
+            if(!isOpen) {
+                targetMenu.classList.add('open');
+                if(targetArrow) targetArrow.classList.add('open');
+            }
+        }
+
         function toggleMenu(menuId, btn) {
             const targetMenu = document.getElementById(menuId);
             const targetArrow = btn.querySelector('.nav-arrow');

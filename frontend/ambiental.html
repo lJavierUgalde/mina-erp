@@ -47,9 +47,13 @@
         .alert-item { animation: slideIn 0.4s ease-out forwards; }
         
         .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .submenu.open { max-height: 500px; }
+        .submenu.open { max-height: 2000px; }
         .nav-arrow { transition: transform 0.3s; }
         .nav-arrow.open { transform: rotate(90deg); }
+        .sub-submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .sub-submenu.open { max-height: 400px; }
+        .sub-arrow { transition: transform 0.3s; }
+        .sub-arrow.open { transform: rotate(90deg); }
     </style>
 </head>
 <body class="text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-950 flex h-screen overflow-hidden transition-colors duration-300">
@@ -114,10 +118,21 @@
             </div>
 
             <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">Suministro & Finanzas</p>
-            <a href="logistica-fletes.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">
-                <span class="material-symbols-outlined text-[20px]">local_shipping</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Logística y Fletes</span>
-            </a>
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-logistica', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Logística y Fletes</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-logistica" class="submenu pl-11 space-y-1 mt-1">
+                    <a href="logistica-fletes.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Camiones Disponibles</a>
+                    <a href="logistica-fletes.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">KPIs Operativos</a>
+                    <a href="logistica-fletes.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Rastreo</a>
+                    <a href="logistica-fletes.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Salidas y Llegadas</a>
+                </div>
+            </div>
             
             <div class="nav-group mt-1">
                 <button onclick="toggleMenu('menu-finanzas', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
@@ -127,9 +142,27 @@
                     </div>
                     <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
                 </button>
-                <div id="menu-finanzas" class="submenu pl-11 space-y-1 mt-1">
-                    <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">P&L y KPIs Estratégicos</a>
-                    <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Facturación y CxC</a>
+                <div id="menu-finanzas" class="submenu pl-4 space-y-1 mt-1 mb-2">
+                    <div>
+                        <button onclick="toggleSubMenu('sub-facturacion', this)" class="w-full flex items-center justify-between text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">
+                            <span>Facturación</span>
+                            <span class="material-symbols-outlined text-[14px] sub-arrow hidden lg:block">chevron_right</span>
+                        </button>
+                        <div id="sub-facturacion" class="sub-submenu pl-3 space-y-1">
+                            <a href="ingresos.html" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Ligado</a>
+                        </div>
+                    </div>
+                    <div>
+                        <button onclick="toggleSubMenu('sub-pnl', this)" class="w-full flex items-center justify-between text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">
+                            <span>Estados Financieros</span>
+                            <span class="material-symbols-outlined text-[14px] sub-arrow hidden lg:block">chevron_right</span>
+                        </button>
+                        <div id="sub-pnl" class="sub-submenu pl-3 space-y-1">
+                            <a href="ingresos.html" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Real</a>
+                            <a href="ingresos.html" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Presupuestado</a>
+                        </div>
+                    </div>
+                    <a href="ingresos.html" class="block text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">CxC</a>
                 </div>
             </div>
 
@@ -145,10 +178,21 @@
                 </div>
             </div>
 
-            <a href="grantt.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
-                <span class="material-symbols-outlined text-[20px]">view_timeline</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos & Gantt</span>
-            </a>
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-proyectos', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">view_timeline</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos & Gantt</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-proyectos" class="submenu pl-11 space-y-1 mt-1 mb-2">
+                    <a href="grantt.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Cronogramas</a>
+                    <a href="grantt.html" class="block text-xs py-1.5 pl-6 text-[11px] text-slate-500 hover:text-white transition-colors">↳ Actividades</a>
+                    <a href="grantt.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Estatus de Proyectos</a>
+                    <a href="grantt.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Gantt</a>
+                </div>
+            </div>
         </nav>
     <!-- Perfil: sección inferior del sidebar -->
     <div class="relative z-10 border-t border-slate-800 p-3 shrink-0" id="profile-section">
@@ -190,13 +234,13 @@
         </header>
 
         <div class="px-6 md:px-8 flex gap-6 overflow-x-auto bg-white/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 shrink-0">
-            <button onclick="switchTab('tab-ambiental', document.querySelectorAll('.sub-nav-btn')[0])" class="top-tab-btn border-b-2 border-success text-success py-3 font-bold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+            <button onclick="switchTab('tab-ambiental', this)" class="top-tab-btn border-b-2 border-success text-success py-3 font-bold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
                 <span class="material-symbols-outlined text-[18px]">eco</span> Medio Ambiente y Certificaciones
             </button>
-            <button onclick="switchTab('tab-seguridad', document.querySelectorAll('.sub-nav-btn')[1])" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+            <button onclick="switchTab('tab-seguridad', this)" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
                 <span class="material-symbols-outlined text-[18px]">health_and_safety</span> Seguridad y Salud (TRIR)
             </button>
-            <button onclick="switchTab('tab-consumos', document.querySelectorAll('.sub-nav-btn')[2])" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+            <button onclick="switchTab('tab-consumos', this)" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
                 <span class="material-symbols-outlined text-[18px]">safety_check</span> Consumo Insumos HSE
             </button>
         </div>
@@ -589,40 +633,45 @@
             if (targetArrow) targetArrow.classList.toggle('open');
         }
 
+        function toggleSubMenu(menuId, btn) {
+            const targetMenu = document.getElementById(menuId);
+            const targetArrow = btn.querySelector('.sub-arrow');
+            const isOpen = targetMenu.classList.contains('open');
+            const parentSubmenu = btn.closest('.submenu');
+            if(parentSubmenu) {
+                parentSubmenu.querySelectorAll('.sub-submenu').forEach(m => {
+                    m.classList.remove('open');
+                    const a = m.previousElementSibling && m.previousElementSibling.querySelector('.sub-arrow');
+                    if(a) a.classList.remove('open');
+                });
+            }
+            if(!isOpen) {
+                targetMenu.classList.add('open');
+                if(targetArrow) targetArrow.classList.add('open');
+            }
+        }
+
         function switchTab(tabId, el) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            
-            document.querySelectorAll('.sub-nav-btn').forEach(nav => {
-                nav.classList.remove('text-success', 'font-bold');
-                nav.classList.add('text-slate-400');
-            });
-            
+            const target = document.getElementById(tabId);
+            if(target) target.classList.add('active');
+
             document.querySelectorAll('.top-tab-btn').forEach(btn => {
                 btn.classList.remove('border-success', 'text-success', 'dark:text-success');
                 btn.classList.add('border-transparent', 'text-slate-500', 'dark:text-slate-400');
             });
-
-            if(el.classList.contains('sub-nav-btn')){
-                el.classList.remove('text-slate-400');
-                el.classList.add('text-success', 'font-bold');
-                const index = Array.from(document.querySelectorAll('.sub-nav-btn')).indexOf(el);
-                const topBtn = document.querySelectorAll('.top-tab-btn')[index];
-                if(topBtn) {
-                    topBtn.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
-                    topBtn.classList.add('border-success', 'text-success', 'dark:text-success');
+            document.querySelectorAll('.top-tab-btn').forEach(btn => {
+                const onc = btn.getAttribute('onclick') || '';
+                if(onc.includes("'" + tabId + "'") || onc.includes('"' + tabId + '"')) {
+                    btn.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
+                    btn.classList.add('border-success', 'text-success', 'dark:text-success');
                 }
-            } else {
+            });
+            if(el && el.classList && el.classList.contains('top-tab-btn')) {
                 el.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
                 el.classList.add('border-success', 'text-success', 'dark:text-success');
-                const index = Array.from(document.querySelectorAll('.top-tab-btn')).indexOf(el);
-                const latBtn = document.querySelectorAll('.sub-nav-btn')[index];
-                if(latBtn) {
-                    latBtn.classList.remove('text-slate-400');
-                    latBtn.classList.add('text-success', 'font-bold');
-                }
             }
-            
+
             if(tabId === 'tab-seguridad') renderChart();
             if(tabId === 'tab-consumos') renderConsumoChart(document.getElementById('consumo-filter')?.value || 'all');
         }

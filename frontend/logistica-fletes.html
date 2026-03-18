@@ -101,7 +101,25 @@
         }
 
         .submenu.open {
-            max-height: 500px;
+            max-height: 2000px;
+        }
+
+        .sub-submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .sub-submenu.open {
+            max-height: 400px;
+        }
+
+        .sub-arrow {
+            transition: transform 0.3s;
+        }
+
+        .sub-arrow.open {
+            transform: rotate(90deg);
         }
 
         .nav-arrow {
@@ -216,11 +234,32 @@
             <p class="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-4 mb-2 px-3">
                 Suministro & Finanzas</p>
 
-            <a href="logistica-fletes.html"
-                class="flex items-center p-2.5 rounded-lg bg-primary/20 text-primary border-l-2 border-primary shadow-md transition-colors mt-2">
-                <span class="material-symbols-outlined text-[20px]">local_shipping</span>
-                <span class="hidden lg:block ml-3 text-sm font-bold">Logística y Fletes</span>
-            </a>
+            <div class="nav-group mt-2">
+                <button onclick="toggleMenu('menu-logistica', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg bg-info/10 border border-info/20 text-info shadow-sm transition-colors cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+                        <span class="hidden lg:block ml-3 text-sm font-bold">Logística y Fletes</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block open">chevron_right</span>
+                </button>
+                <div id="menu-logistica" class="submenu open pl-4 space-y-1 mt-1">
+                    <a href="logistica-fletes.html" onclick="switchTab('tab-camiones', this); return false;" class="block text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">Camiones Disponibles</a>
+                    <!-- KPIs Op con sub-submenu -->
+                    <div>
+                        <button onclick="toggleSubMenu('sub-kpis', this)" class="w-full flex items-center justify-between text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">
+                            <span>KPIs Op</span>
+                            <span class="material-symbols-outlined text-[14px] sub-arrow hidden lg:block">chevron_right</span>
+                        </button>
+                        <div id="sub-kpis" class="sub-submenu pl-3 space-y-1">
+                            <a href="logistica-fletes.html" onclick="switchTab('tab-kpis-tiempo', this); return false;" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Tiempo</a>
+                            <a href="logistica-fletes.html" onclick="switchTab('tab-kpis-prod', this); return false;" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Productividad x Camión</a>
+                            <a href="logistica-fletes.html" onclick="switchTab('tab-kpis-peso', this); return false;" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Peso x Camión</a>
+                        </div>
+                    </div>
+                    <a href="logistica-fletes.html" onclick="switchTab('tab-rastreo', this); return false;" class="block text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">Rastreo</a>
+                    <a href="logistica-fletes.html" onclick="switchTab('tab-salidas', this); return false;" class="block text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">Salidas y Llegadas</a>
+                </div>
+            </div>
 
             <div class="nav-group mt-1">
                 <button onclick="toggleMenu('menu-finanzas', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
@@ -230,9 +269,27 @@
                     </div>
                     <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
                 </button>
-                <div id="menu-finanzas" class="submenu pl-11 space-y-1 mt-1">
-                    <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">P&L y KPIs Estratégicos</a>
-                    <a href="ingresos.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Facturación y CxC</a>
+                <div id="menu-finanzas" class="submenu pl-4 space-y-1 mt-1 mb-2">
+                    <div>
+                        <button onclick="toggleSubMenu('sub-facturacion', this)" class="w-full flex items-center justify-between text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">
+                            <span>Facturación</span>
+                            <span class="material-symbols-outlined text-[14px] sub-arrow hidden lg:block">chevron_right</span>
+                        </button>
+                        <div id="sub-facturacion" class="sub-submenu pl-3 space-y-1">
+                            <a href="ingresos.html" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Ligado</a>
+                        </div>
+                    </div>
+                    <div>
+                        <button onclick="toggleSubMenu('sub-pnl', this)" class="w-full flex items-center justify-between text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">
+                            <span>Estados Financieros</span>
+                            <span class="material-symbols-outlined text-[14px] sub-arrow hidden lg:block">chevron_right</span>
+                        </button>
+                        <div id="sub-pnl" class="sub-submenu pl-3 space-y-1">
+                            <a href="ingresos.html" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Real</a>
+                            <a href="ingresos.html" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Presupuestado</a>
+                        </div>
+                    </div>
+                    <a href="ingresos.html" class="block text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">CxC</a>
                 </div>
             </div>
 
@@ -248,10 +305,21 @@
                 </div>
             </div>
 
-            <a href="grantt.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
-                <span class="material-symbols-outlined text-[20px]">view_timeline</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos & Gantt</span>
-            </a>
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-proyectos', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">view_timeline</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos & Gantt</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-proyectos" class="submenu pl-11 space-y-1 mt-1 mb-2">
+                    <a href="grantt.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Cronogramas</a>
+                    <a href="grantt.html" class="block text-xs py-1.5 pl-6 text-[11px] text-slate-500 hover:text-white transition-colors">↳ Actividades</a>
+                    <a href="grantt.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Estatus de Proyectos</a>
+                    <a href="grantt.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Gantt</a>
+                </div>
+            </div>
         </nav>
         <!-- Perfil: sección inferior del sidebar -->
         <div class="relative z-10 border-t border-slate-800 p-3 shrink-0" id="profile-section">
@@ -312,13 +380,29 @@
 
         <div
             class="px-6 md:px-8 flex gap-6 overflow-x-auto bg-white/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 shrink-0">
-            <button onclick="switchTab('tab-flota', document.querySelectorAll('.sub-nav-btn')[0])"
+            <button onclick="switchTab('tab-camiones', this)"
                 class="top-tab-btn border-b-2 border-info text-info py-3 font-bold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
-                <span class="material-symbols-outlined text-[18px]">assessment</span> Productividad de Flota
+                <span class="material-symbols-outlined text-[18px]">fire_truck</span> Camiones
+            </button>
+            <button onclick="switchTab('tab-kpis-tiempo', this)"
+                class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                <span class="material-symbols-outlined text-[18px]">timer</span> KPIs — Tiempo
+            </button>
+            <button onclick="switchTab('tab-kpis-prod', this)"
+                class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                <span class="material-symbols-outlined text-[18px]">trending_up</span> KPIs — Productividad
+            </button>
+            <button onclick="switchTab('tab-kpis-peso', this)"
+                class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                <span class="material-symbols-outlined text-[18px]">weight</span> KPIs — Peso
             </button>
             <button onclick="switchTab('tab-rastreo', this)"
                 class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
-                <span class="material-symbols-outlined text-[18px]">format_list_numbered</span> Bitácora en Vivo
+                <span class="material-symbols-outlined text-[18px]">location_on</span> Rastreo
+            </button>
+            <button onclick="switchTab('tab-salidas', this)"
+                class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                <span class="material-symbols-outlined text-[18px]">swap_horiz</span> Salidas y Llegadas
             </button>
 
         </div>
@@ -328,135 +412,204 @@
 
                 <div class="flex-1">
 
-                    <div id="tab-flota" class="tab-content active space-y-6 lg:space-y-8">
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div
-                                class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-info">
-                                <p
-                                    class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">
-                                    Camiones Disponibles</p>
+                    <!-- ====== CAMIONES DISPONIBLES ====== -->
+                    <div id="tab-camiones" class="tab-content active space-y-6">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-info">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Disponibles</p>
                                 <div class="flex items-end gap-2">
                                     <h3 class="text-3xl font-black text-slate-800 dark:text-white">12</h3>
-                                    <p class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-1">/ 15 Flota</p>
+                                    <p class="text-sm font-bold text-slate-500 mb-1">/ 15 Flota</p>
                                 </div>
-                                <p
-                                    class="text-[10px] text-danger font-bold mt-1 bg-danger/10 px-1.5 py-0.5 rounded w-max">
-                                    3 En Taller (Mtto)</p>
+                                <p class="text-[10px] text-danger font-bold mt-1 bg-danger/10 px-1.5 py-0.5 rounded w-max">3 En Taller</p>
                             </div>
-                            <div
-                                class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-success">
-                                <p
-                                    class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">
-                                    Peso Movido (Hoy)</p>
-                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">480 <span
-                                        class="text-sm font-normal text-slate-500">Ton</span></h3>
-                                <p
-                                    class="text-[10px] text-success font-bold mt-1 bg-success/10 px-1.5 py-0.5 rounded w-max flex items-center gap-1">
-                                    <span class="material-symbols-outlined text-[12px]">trending_up</span> Cumpliendo
-                                    meta</p>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-success">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">En Ruta</p>
+                                <h3 class="text-3xl font-black text-success">8</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">4 en espera</p>
                             </div>
-                            <div
-                                class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-primary">
-                                <p
-                                    class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">
-                                    Productividad x Camión</p>
-                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">40 <span
-                                        class="text-sm font-normal text-slate-500">Ton/Día</span></h3>
-                                <div
-                                    class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mt-3 overflow-hidden">
-                                    <div class="bg-primary h-full w-[85%]"></div>
-                                </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-danger">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">En Taller</p>
+                                <h3 class="text-3xl font-black text-danger">3</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">2 Correctivo · 1 Preventivo</p>
                             </div>
-                            <div
-                                class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-amber-500">
-                                <p
-                                    class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">
-                                    Tiempo de Ciclo Promedio</p>
-                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">3.2 <span
-                                        class="text-sm font-normal text-slate-500">Hrs</span></h3>
-                                <p class="text-[10px] text-slate-500 font-bold mt-1">(Planta -> Fundición -> Planta)</p>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-amber-400">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Disponibilidad</p>
+                                <h3 class="text-3xl font-black text-amber-500">80%</h3>
+                                <div class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mt-2 overflow-hidden"><div class="bg-amber-400 h-full w-[80%]"></div></div>
                             </div>
                         </div>
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center">
+                                <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-info text-[18px]">fire_truck</span> Estado de Flota — Turno Actual</h3>
+                                <span class="text-[10px] font-bold bg-info/10 text-info px-2 py-1 rounded">15 Unidades</span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left data-dense">
+                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                        <tr><th>Unidad</th><th>Operador</th><th class="text-center">Estado</th><th class="text-center">Viajes Hoy</th><th class="text-center">Último Checkpoint</th><th class="text-center">Combustible</th></tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">GN-101</td><td>Miguel A.</td><td class="text-center"><span class="bg-success/10 text-success px-1.5 py-0.5 rounded text-[9px] font-bold">En Ruta</span></td><td class="text-center font-mono">6</td><td class="text-center text-[10px]">Báscula 13:20</td><td class="text-center"><div class="w-16 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mx-auto overflow-hidden"><div class="bg-success h-full w-[78%]"></div></div></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">GN-102</td><td>José V.</td><td class="text-center"><span class="bg-success/10 text-success px-1.5 py-0.5 rounded text-[9px] font-bold">En Ruta</span></td><td class="text-center font-mono">5</td><td class="text-center text-[10px]">Trituradora 13:15</td><td class="text-center"><div class="w-16 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mx-auto overflow-hidden"><div class="bg-success h-full w-[65%]"></div></div></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">GN-103</td><td>Roberto F.</td><td class="text-center"><span class="bg-slate-100 dark:bg-slate-700 text-slate-500 px-1.5 py-0.5 rounded text-[9px] font-bold">En Espera</span></td><td class="text-center font-mono">5</td><td class="text-center text-[10px]">Planta 12:58</td><td class="text-center"><div class="w-16 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mx-auto overflow-hidden"><div class="bg-success h-full w-[90%]"></div></div></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">GN-104</td><td>Samuel M.</td><td class="text-center"><span class="bg-success/10 text-success px-1.5 py-0.5 rounded text-[9px] font-bold">En Ruta</span></td><td class="text-center font-mono">4</td><td class="text-center text-[10px]">Frente Norte 13:05</td><td class="text-center"><div class="w-16 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mx-auto overflow-hidden"><div class="bg-warning h-full w-[42%]"></div></div></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">CP-01</td><td>Pedro G.</td><td class="text-center"><span class="bg-success/10 text-success px-1.5 py-0.5 rounded text-[9px] font-bold">En Ruta</span></td><td class="text-center font-mono">3</td><td class="text-center text-[10px]">Patio 12:45</td><td class="text-center"><div class="w-16 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mx-auto overflow-hidden"><div class="bg-success h-full w-[85%]"></div></div></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">TR-02</td><td>—</td><td class="text-center"><span class="bg-danger/10 text-danger px-1.5 py-0.5 rounded text-[9px] font-bold">Taller</span></td><td class="text-center font-mono text-slate-400">0</td><td class="text-center text-[10px] text-danger">Falla Frenos</td><td class="text-center"><div class="w-16 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mx-auto overflow-hidden"><div class="bg-slate-300 h-full w-full"></div></div></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">TR-07</td><td>—</td><td class="text-center"><span class="bg-danger/10 text-danger px-1.5 py-0.5 rounded text-[9px] font-bold">Taller</span></td><td class="text-center font-mono text-slate-400">0</td><td class="text-center text-[10px] text-danger">Cambio Llanta</td><td class="text-center"><div class="w-16 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mx-auto overflow-hidden"><div class="bg-slate-300 h-full w-full"></div></div></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">TR-11</td><td>—</td><td class="text-center"><span class="bg-warning/10 text-warning px-1.5 py-0.5 rounded text-[9px] font-bold">Preventivo</span></td><td class="text-center font-mono text-slate-400">0</td><td class="text-center text-[10px] text-warning">Mtto Prog.</td><td class="text-center"><div class="w-16 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mx-auto overflow-hidden"><div class="bg-slate-300 h-full w-full"></div></div></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- end tab-camiones -->
 
+                    <!-- ====== KPIS: TIEMPO ====== -->
+                    <div id="tab-kpis-tiempo" class="tab-content space-y-6">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-amber-500">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Ciclo Promedio</p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">3.2 <span class="text-sm font-normal text-slate-500">hrs</span></h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Plan: 3.0 hrs · <span class="text-warning font-bold">+6.7%</span></p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-success">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">T. Carga Promedio</p>
+                                <h3 class="text-3xl font-black text-success">22 <span class="text-sm font-normal text-slate-500">min</span></h3>
+                                <p class="text-[10px] text-success mt-1 font-bold">Plan: 25 min ✓</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-info">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">T. Descarga Promedio</p>
+                                <h3 class="text-3xl font-black text-info">18 <span class="text-sm font-normal text-slate-500">min</span></h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Plan: 20 min ✓</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-danger">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">T. Espera Promedio</p>
+                                <h3 class="text-3xl font-black text-danger">28 <span class="text-sm font-normal text-slate-500">min</span></h3>
+                                <p class="text-[10px] text-danger mt-1 font-bold">Plan: 15 min ▲</p>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50">
+                                <h3 class="text-sm font-bold text-slate-800 dark:text-white">Desglose de Tiempo de Ciclo por Unidad</h3>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left data-dense">
+                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                        <tr><th>Unidad</th><th class="text-center">T. Carga</th><th class="text-center">T. Tránsito</th><th class="text-center">T. Descarga</th><th class="text-center">T. Espera</th><th class="text-center">Ciclo Total</th><th class="text-center">vs Plan</th></tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">GN-101</td><td class="text-center font-mono">20 min</td><td class="text-center font-mono">45 min</td><td class="text-center font-mono">15 min</td><td class="text-center font-mono">12 min</td><td class="text-center font-mono font-bold">1.5 h</td><td class="text-center"><span class="text-success font-bold text-[10px]">-10% ✓</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">GN-102</td><td class="text-center font-mono">24 min</td><td class="text-center font-mono">52 min</td><td class="text-center font-mono">18 min</td><td class="text-center font-mono">30 min</td><td class="text-center font-mono font-bold">2.1 h</td><td class="text-center"><span class="text-warning font-bold text-[10px]">+5%</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">GN-103</td><td class="text-center font-mono">22 min</td><td class="text-center font-mono">48 min</td><td class="text-center font-mono">19 min</td><td class="text-center font-mono">25 min</td><td class="text-center font-mono font-bold">1.9 h</td><td class="text-center"><span class="text-success font-bold text-[10px]">-5% ✓</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">GN-104</td><td class="text-center font-mono">25 min</td><td class="text-center font-mono">65 min</td><td class="text-center font-mono">20 min</td><td class="text-center font-mono">45 min</td><td class="text-center font-mono font-bold">2.6 h</td><td class="text-center"><span class="text-danger font-bold text-[10px]">+30% ▲</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- end tab-kpis-tiempo -->
+
+                    <!-- ====== KPIS: PRODUCTIVIDAD ====== -->
+                    <div id="tab-kpis-prod" class="tab-content space-y-6">
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-primary">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Productividad Promedio</p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">40 <span class="text-sm font-normal text-slate-500">Ton/Día</span></h3>
+                                <div class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mt-3 overflow-hidden"><div class="bg-primary h-full w-[85%]"></div></div>
+                                <p class="text-[10px] text-slate-500 mt-1">Meta: 47 Ton/Día · <span class="text-warning font-bold">85%</span></p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-info">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Viajes Totales Hoy</p>
+                                <h3 class="text-3xl font-black text-info">38</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Meta turno: 45 · <span class="text-warning font-bold">84%</span></p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-success">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Mejor Unidad Semana</p>
+                                <h3 class="text-xl font-black text-success">GN-101</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">240 Ton · 6 viajes</p>
+                            </div>
+                        </div>
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-                            <div
-                                class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-5">
-                                <h3 class="text-sm font-bold text-slate-800 dark:text-white mb-1">Toneladas
-                                    Transportadas por Semana</h3>
-                                <p class="text-[10px] text-slate-500 dark:text-slate-400 mb-4">Volumen total de
-                                    concentrado entregado</p>
+                            <div class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-5">
+                                <h3 class="text-sm font-bold text-slate-800 dark:text-white mb-1">Toneladas Transportadas por Semana</h3>
+                                <p class="text-[10px] text-slate-500 mb-4">Volumen total de concentrado entregado</p>
                                 <div class="relative h-[250px] w-full"><canvas id="fleteChart"></canvas></div>
                             </div>
-
-                            <div
-                                class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col">
-                                <div
-                                    class="px-4 py-3 bg-slate-50 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
-                                    <h3 class="text-xs font-bold text-slate-800 dark:text-white">Top Productividad x
-                                        Camión</h3>
-                                    <span
-                                        class="text-[9px] bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded font-bold">Semanal</span>
+                            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col">
+                                <div class="px-4 py-3 bg-slate-50 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+                                    <h3 class="text-xs font-bold text-slate-800 dark:text-white">Ranking Productividad</h3>
+                                    <span class="text-[9px] bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded font-bold">Semanal</span>
                                 </div>
                                 <div class="p-4 space-y-4 flex-1 overflow-y-auto">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center gap-3">
-                                            <div
-                                                class="w-8 h-8 rounded-full bg-info/10 text-info flex items-center justify-center font-bold text-xs border border-info/30">
-                                                #1</div>
-                                            <div>
-                                                <p class="text-xs font-bold text-slate-800 dark:text-white">Góndola
-                                                    TR-05</p>
-                                                <p class="text-[10px] text-slate-500 dark:text-slate-400">Op: Miguel A.
-                                                </p>
-                                            </div>
+                                            <div class="w-8 h-8 rounded-full bg-info/10 text-info flex items-center justify-center font-bold text-xs border border-info/30">#1</div>
+                                            <div><p class="text-xs font-bold text-slate-800 dark:text-white">GN-101</p><p class="text-[10px] text-slate-500">Op: Miguel A.</p></div>
                                         </div>
-                                        <div class="text-right">
-                                            <p class="text-sm font-black text-slate-800 dark:text-white">240 Ton</p>
-                                            <p class="text-[9px] text-success font-bold">6 Viajes</p>
-                                        </div>
+                                        <div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-white">240 Ton</p><p class="text-[9px] text-success font-bold">6 Viajes</p></div>
                                     </div>
-                                    <div
-                                        class="flex items-center justify-between border-t border-slate-100 dark:border-slate-700 pt-4">
+                                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-700 pt-4">
                                         <div class="flex items-center gap-3">
-                                            <div
-                                                class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 flex items-center justify-center font-bold text-xs">
-                                                #2</div>
-                                            <div>
-                                                <p class="text-xs font-bold text-slate-800 dark:text-white">Góndola
-                                                    TR-12</p>
-                                                <p class="text-[10px] text-slate-500 dark:text-slate-400">Op: José V.
-                                                </p>
-                                            </div>
+                                            <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 flex items-center justify-center font-bold text-xs">#2</div>
+                                            <div><p class="text-xs font-bold text-slate-800 dark:text-white">GN-103</p><p class="text-[10px] text-slate-500">Op: Roberto F.</p></div>
                                         </div>
-                                        <div class="text-right">
-                                            <p class="text-sm font-black text-slate-800 dark:text-white">200 Ton</p>
-                                            <p class="text-[9px] text-success font-bold">5 Viajes</p>
-                                        </div>
+                                        <div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-white">210 Ton</p><p class="text-[9px] text-success font-bold">5 Viajes</p></div>
                                     </div>
-                                    <div
-                                        class="flex items-center justify-between border-t border-slate-100 dark:border-slate-700 pt-4">
+                                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-700 pt-4">
                                         <div class="flex items-center gap-3">
-                                            <div
-                                                class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 flex items-center justify-center font-bold text-xs">
-                                                #3</div>
-                                            <div>
-                                                <p class="text-xs font-bold text-slate-800 dark:text-white">Góndola
-                                                    TR-08</p>
-                                                <p class="text-[10px] text-slate-500 dark:text-slate-400">Op: Roberto F.
-                                                </p>
-                                            </div>
+                                            <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 flex items-center justify-center font-bold text-xs">#3</div>
+                                            <div><p class="text-xs font-bold text-slate-800 dark:text-white">GN-102</p><p class="text-[10px] text-slate-500">Op: José V.</p></div>
                                         </div>
-                                        <div class="text-right">
-                                            <p class="text-sm font-black text-slate-800 dark:text-white">195 Ton</p>
-                                            <p class="text-[9px] text-success font-bold">5 Viajes</p>
-                                        </div>
+                                        <div class="text-right"><p class="text-sm font-black text-slate-800 dark:text-white">200 Ton</p><p class="text-[9px] text-success font-bold">5 Viajes</p></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div><!-- end tab-kpis-prod -->
+
+                    <!-- ====== KPIS: PESO ====== -->
+                    <div id="tab-kpis-peso" class="tab-content space-y-6">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-success">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Peso Movido Hoy</p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">480 <span class="text-sm font-normal text-slate-500">Ton</span></h3>
+                                <p class="text-[10px] text-success font-bold mt-1 bg-success/10 px-1.5 py-0.5 rounded w-max flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">trending_up</span> Meta: 500 Ton · 96%</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-info">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Carga Promedio/Viaje</p>
+                                <h3 class="text-3xl font-black text-info">34.5 <span class="text-sm font-normal text-slate-500">Ton</span></h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Capacidad: 40 Ton · <span class="text-warning font-bold">86%</span></p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-primary">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Carga Máx Registrada</p>
+                                <h3 class="text-3xl font-black text-primary">39.8 <span class="text-sm font-normal text-slate-500">Ton</span></h3>
+                                <p class="text-[10px] text-slate-500 mt-1">GN-101 · Turno 1</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-warning">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Variación Báscula</p>
+                                <h3 class="text-3xl font-black text-warning">±1.2 <span class="text-sm font-normal text-slate-500">Ton</span></h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Tolerancia: ±2 Ton ✓</p>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center">
+                                <h3 class="text-sm font-bold text-slate-800 dark:text-white">Registro de Pesaje por Unidad — Turno Actual</h3>
+                                <span class="text-[10px] font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-1 rounded">Capacidad Máx: 40 Ton</span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left data-dense">
+                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                        <tr><th>Unidad</th><th class="text-center">Viaje 1</th><th class="text-center">Viaje 2</th><th class="text-center">Viaje 3</th><th class="text-center">Viaje 4</th><th class="text-center">Viaje 5</th><th class="text-center">Total Turno</th><th class="text-center">% Capacidad</th></tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">GN-101</td><td class="text-center font-mono">38.5</td><td class="text-center font-mono">39.8</td><td class="text-center font-mono">37.2</td><td class="text-center font-mono">38.0</td><td class="text-center font-mono">39.1</td><td class="text-center font-black text-success">192.6 t</td><td class="text-center"><span class="text-success font-bold">96%</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">GN-102</td><td class="text-center font-mono">35.0</td><td class="text-center font-mono">34.5</td><td class="text-center font-mono">36.0</td><td class="text-center font-mono">33.8</td><td class="text-center font-mono">—</td><td class="text-center font-black">139.3 t</td><td class="text-center"><span class="text-warning font-bold">87%</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">GN-103</td><td class="text-center font-mono">32.0</td><td class="text-center font-mono">33.5</td><td class="text-center font-mono">31.8</td><td class="text-center font-mono">34.0</td><td class="text-center font-mono">32.5</td><td class="text-center font-black">163.8 t</td><td class="text-center"><span class="text-warning font-bold">82%</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">GN-104</td><td class="text-center font-mono">28.0</td><td class="text-center font-mono">29.5</td><td class="text-center font-mono">27.0</td><td class="text-center font-mono">—</td><td class="text-center font-mono">—</td><td class="text-center font-black">84.5 t</td><td class="text-center"><span class="text-danger font-bold">71%</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- end tab-kpis-peso -->
 
                     <div id="tab-rastreo" class="tab-content space-y-6">
 
@@ -594,7 +747,54 @@
         </div>
     </div>
 
-</div>
+                    </div><!-- end tab-rastreo -->
+
+                    <!-- ====== SALIDAS Y LLEGADAS ====== -->
+                    <div id="tab-salidas" class="tab-content space-y-6">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-success">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Salidas Hoy</p>
+                                <h3 class="text-3xl font-black text-success">38</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Plan: 45 · <span class="text-warning font-bold">84%</span></p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-info">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Llegadas Confirmadas</p>
+                                <h3 class="text-3xl font-black text-info">35</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">3 en tránsito</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-warning">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Con Retraso</p>
+                                <h3 class="text-3xl font-black text-warning">4</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">&gt; 15 min sobre ETA</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-primary">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Ton Entregadas</p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">480 <span class="text-sm font-normal text-slate-500">t</span></h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Meta: 500 t · <span class="text-warning font-bold">96%</span></p>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center">
+                                <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-info text-[18px]">swap_horiz</span> Bitácora de Salidas y Llegadas</h3>
+                                <span class="text-[10px] font-bold bg-info/10 text-info px-2 py-1 rounded">Turno Actual</span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left data-dense">
+                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                        <tr><th>Hora</th><th>Unidad</th><th>Tipo</th><th>Origen / Destino</th><th class="text-center">Carga (Ton)</th><th>ETA / Real</th><th class="text-center">Estatus</th></tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-mono text-[10px]">13:22</td><td class="font-bold">GN-101</td><td><span class="text-success text-[10px] font-bold">SALIDA</span></td><td>Frente Norte → Trituradora</td><td class="text-center font-mono">38.5</td><td class="font-mono text-[10px]">ETA 13:45</td><td class="text-center"><span class="bg-success/10 text-success text-[9px] px-1.5 py-0.5 rounded font-bold">En Ruta</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-mono text-[10px]">13:18</td><td class="font-bold">GN-103</td><td><span class="text-info text-[10px] font-bold">LLEGADA</span></td><td>Veta Sur → Planta</td><td class="text-center font-mono">32.0</td><td class="font-mono text-[10px]">Real 13:18</td><td class="text-center"><span class="bg-info/10 text-info text-[9px] px-1.5 py-0.5 rounded font-bold">Entregado</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-mono text-[10px]">13:05</td><td class="font-bold">GN-104</td><td><span class="text-success text-[10px] font-bold">SALIDA</span></td><td>Frente Este → Trituradora</td><td class="text-center font-mono">29.5</td><td class="font-mono text-[10px]">ETA 13:35</td><td class="text-center"><span class="bg-warning/10 text-warning text-[9px] px-1.5 py-0.5 rounded font-bold">Retraso</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-mono text-[10px]">12:58</td><td class="font-bold">GN-102</td><td><span class="text-info text-[10px] font-bold">LLEGADA</span></td><td>Veta Norte → Planta</td><td class="text-center font-mono">34.5</td><td class="font-mono text-[10px]">Real 12:58</td><td class="text-center"><span class="bg-info/10 text-info text-[9px] px-1.5 py-0.5 rounded font-bold">Entregado</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-mono text-[10px]">12:45</td><td class="font-bold">CP-01</td><td><span class="text-success text-[10px] font-bold">SALIDA</span></td><td>Almacén → Taller</td><td class="text-center font-mono text-slate-400">—</td><td class="font-mono text-[10px]">ETA 13:00</td><td class="text-center"><span class="bg-success/10 text-success text-[9px] px-1.5 py-0.5 rounded font-bold">En Ruta</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-mono text-[10px]">12:30</td><td class="font-bold">GN-103</td><td><span class="text-success text-[10px] font-bold">SALIDA</span></td><td>Frente Sur → Planta</td><td class="text-center font-mono">33.5</td><td class="font-mono text-[10px]">ETA 12:55</td><td class="text-center"><span class="bg-info/10 text-info text-[9px] px-1.5 py-0.5 rounded font-bold">Entregado</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- end tab-salidas -->
 
                 </div>
 
@@ -700,42 +900,45 @@
             if (targetArrow) targetArrow.classList.toggle('open');
         }
 
+        // --- Sub-submenu toggle ---
+        function toggleSubMenu(menuId, btn) {
+            const targetMenu = document.getElementById(menuId);
+            const targetArrow = btn.querySelector('.sub-arrow');
+            const isOpen = targetMenu.classList.contains('open');
+            btn.closest('.submenu').querySelectorAll('.sub-submenu').forEach(m => {
+                m.classList.remove('open');
+                const a = m.previousElementSibling && m.previousElementSibling.querySelector('.sub-arrow');
+                if (a) a.classList.remove('open');
+            });
+            if (!isOpen) {
+                targetMenu.classList.add('open');
+                if (targetArrow) targetArrow.classList.add('open');
+            }
+        }
+
         // --- Tabs Logic ---
         function switchTab(tabId, el) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-
-            document.querySelectorAll('.sub-nav-btn').forEach(nav => {
-                nav.classList.remove('text-info', 'font-bold');
-                nav.classList.add('text-slate-400');
-            });
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active');
 
             document.querySelectorAll('.top-tab-btn').forEach(btn => {
                 btn.classList.remove('border-info', 'text-info', 'dark:text-info');
                 btn.classList.add('border-transparent', 'text-slate-500', 'dark:text-slate-400');
             });
-
-            if (el.classList.contains('sub-nav-btn')) {
-                el.classList.remove('text-slate-400');
-                el.classList.add('text-info', 'font-bold');
-                const index = Array.from(document.querySelectorAll('.sub-nav-btn')).indexOf(el);
-                const topBtn = document.querySelectorAll('.top-tab-btn')[index];
-                if (topBtn) {
-                    topBtn.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
-                    topBtn.classList.add('border-info', 'text-info', 'dark:text-info');
+            document.querySelectorAll('.top-tab-btn').forEach(btn => {
+                const onc = btn.getAttribute('onclick') || '';
+                if (onc.includes("'" + tabId + "'") || onc.includes('"' + tabId + '"')) {
+                    btn.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
+                    btn.classList.add('border-info', 'text-info', 'dark:text-info');
                 }
-            } else {
+            });
+            if (el && el.classList && el.classList.contains('top-tab-btn')) {
                 el.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
                 el.classList.add('border-info', 'text-info', 'dark:text-info');
-                const index = Array.from(document.querySelectorAll('.top-tab-btn')).indexOf(el);
-                const latBtn = document.querySelectorAll('.sub-nav-btn')[index];
-                if (latBtn) {
-                    latBtn.classList.remove('text-slate-400');
-                    latBtn.classList.add('text-info', 'font-bold');
-                }
             }
 
-            if (tabId === 'tab-flota') renderChart();
+            if (tabId === 'tab-kpis-prod') renderChart();
         }
 
         // --- Chart.js Configuration ---
@@ -788,7 +991,6 @@
         }
 
         function updateChartsTheme() { renderChart(); }
-        setTimeout(() => { renderChart(); }, 100);
     </script>
 </body>
 

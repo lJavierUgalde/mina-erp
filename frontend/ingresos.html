@@ -44,9 +44,13 @@
         .alert-item { animation: slideIn 0.4s ease-out forwards; }
         
         .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .submenu.open { max-height: 500px; }
+        .submenu.open { max-height: 2000px; }
         .nav-arrow { transition: transform 0.3s; }
         .nav-arrow.open { transform: rotate(90deg); }
+        .sub-submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .sub-submenu.open { max-height: 400px; }
+        .sub-arrow { transition: transform 0.3s; }
+        .sub-arrow.open { transform: rotate(90deg); }
     </style>
 </head>
 <body class="text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-950 flex h-screen overflow-hidden transition-colors duration-300">
@@ -124,9 +128,30 @@
                     </div>
                     <span class="material-symbols-outlined text-[16px] nav-arrow open hidden lg:block">chevron_right</span>
                 </button>
-                <div id="menu-finanzas" class="submenu open pl-11 space-y-1 mt-1 mb-3">
-                    <button onclick="switchTab('tab-pnl', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 font-bold text-primary">P&L y KPIs Estratégicos</button>
-                    <button onclick="switchTab('tab-cxc', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Facturación y CxC</button>
+                <div id="menu-finanzas" class="submenu open pl-4 space-y-1 mt-1 mb-3">
+                    <!-- Facturación + Ligado -->
+                    <div>
+                        <button onclick="toggleSubMenu('sub-facturacion', this)" class="w-full flex items-center justify-between text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">
+                            <span>Facturación</span>
+                            <span class="material-symbols-outlined text-[14px] sub-arrow hidden lg:block">chevron_right</span>
+                        </button>
+                        <div id="sub-facturacion" class="sub-submenu pl-3 space-y-1">
+                            <a href="ingresos.html" onclick="switchTab('tab-facturacion', this); return false;" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Ligado</a>
+                        </div>
+                    </div>
+                    <!-- Estados Financieros (P&L) -->
+                    <div>
+                        <button onclick="toggleSubMenu('sub-pnl', this)" class="w-full flex items-center justify-between text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">
+                            <span>Estados Financieros</span>
+                            <span class="material-symbols-outlined text-[14px] sub-arrow hidden lg:block">chevron_right</span>
+                        </button>
+                        <div id="sub-pnl" class="sub-submenu pl-3 space-y-1">
+                            <a href="ingresos.html" onclick="switchTab('tab-pnl-real', this); return false;" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Real</a>
+                            <a href="ingresos.html" onclick="switchTab('tab-pnl-presupuesto', this); return false;" class="block text-[11px] py-1 px-2 text-slate-500 hover:text-white transition-colors">↳ Presupuestado</a>
+                        </div>
+                    </div>
+                    <!-- CxC -->
+                    <a href="ingresos.html" onclick="switchTab('tab-cxc', this); return false;" class="block text-xs py-1.5 px-2 text-slate-400 hover:text-white transition-colors">CxC</a>
                 </div>
             </div>
 
@@ -142,10 +167,21 @@
                 </div>
             </div>
 
-            <a href="grantt.html" class="flex items-center p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-400 mt-1">
-                <span class="material-symbols-outlined text-[20px]">view_timeline</span>
-                <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos & Gantt</span>
-            </a>
+            <div class="nav-group mt-1">
+                <button onclick="toggleMenu('menu-proyectos', this)" class="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 cursor-pointer">
+                    <div class="flex items-center">
+                        <span class="material-symbols-outlined text-[20px]">view_timeline</span>
+                        <span class="hidden lg:block ml-3 text-sm font-medium">Proyectos & Gantt</span>
+                    </div>
+                    <span class="material-symbols-outlined text-[16px] nav-arrow hidden lg:block">chevron_right</span>
+                </button>
+                <div id="menu-proyectos" class="submenu pl-11 space-y-1 mt-1 mb-2">
+                    <a href="grantt.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Cronogramas</a>
+                    <a href="grantt.html" class="block text-xs py-1.5 pl-6 text-[11px] text-slate-500 hover:text-white transition-colors">↳ Actividades</a>
+                    <a href="grantt.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Estatus de Proyectos</a>
+                    <a href="grantt.html" class="block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Gantt</a>
+                </div>
+            </div>
         </nav>
     <!-- Perfil: sección inferior del sidebar -->
     <div class="relative z-10 border-t border-slate-800 p-3 shrink-0" id="profile-section">
@@ -190,11 +226,17 @@
         </header>
 
         <div class="px-6 md:px-8 flex gap-6 overflow-x-auto bg-white/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800 shrink-0">
-            <button onclick="switchTab('tab-pnl', document.querySelectorAll('.sub-nav-btn')[0])" class="top-tab-btn border-b-2 border-success text-success py-3 font-bold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
-                <span class="material-symbols-outlined text-[18px]">query_stats</span> P&L y KPIs Estratégicos
+            <button onclick="switchTab('tab-facturacion', this)" class="top-tab-btn border-b-2 border-success text-success py-3 font-bold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                <span class="material-symbols-outlined text-[18px]">receipt_long</span> Facturación
             </button>
-            <button onclick="switchTab('tab-cxc', document.querySelectorAll('.sub-nav-btn')[1])" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
-                <span class="material-symbols-outlined text-[18px]">receipt_long</span> Facturación y CxC
+            <button onclick="switchTab('tab-pnl-real', this)" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                <span class="material-symbols-outlined text-[18px]">show_chart</span> P&L — Real
+            </button>
+            <button onclick="switchTab('tab-pnl-presupuesto', this)" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                <span class="material-symbols-outlined text-[18px]">bar_chart</span> P&L — Presupuestado
+            </button>
+            <button onclick="switchTab('tab-cxc', this)" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                <span class="material-symbols-outlined text-[18px]">account_balance_wallet</span> CxC
             </button>
         </div>
 
@@ -203,7 +245,111 @@
 
                 <div class="flex-1">
 
-                    <div id="tab-pnl" class="tab-content active space-y-6 lg:space-y-8">
+                    <!-- ====== FACTURACIÓN + LIGADO ====== -->
+                    <div id="tab-facturacion" class="tab-content active space-y-6">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-success">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Facturas Emitidas (Mes)</p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">14</h3>
+                                <p class="text-[10px] text-success font-bold mt-1">+2 vs mes anterior</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-accent">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Monto Facturado</p>
+                                <h3 class="text-3xl font-black text-accent">$1.45M</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">USD acumulado Q1</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-success">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Ligadas a Embarque</p>
+                                <h3 class="text-3xl font-black text-success">12 / 14</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">2 en proceso de timbrado</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-warning">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">CxC Pendiente</p>
+                                <h3 class="text-3xl font-black text-warning">$350k</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">2 facturas abiertas</p>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-5 py-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-success text-[18px]">link</span> Facturación Ligada a Embarques (Producción)</h3>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">Cada factura está trazada al lote de góndola que la generó</p>
+                                </div>
+                                <span class="text-[10px] font-bold bg-accent/10 text-accent px-2 py-1 rounded">Trazabilidad Total</span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left data-dense">
+                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                        <tr>
+                                            <th>Factura ID</th>
+                                            <th>Fecha Emisión</th>
+                                            <th class="text-center text-accent">Ligado A (Embarque/Lote)</th>
+                                            <th class="text-center">Ton Facturadas</th>
+                                            <th class="text-center">Ley Au (g/t)</th>
+                                            <th class="text-right">Monto USD</th>
+                                            <th class="text-center">Vencimiento</th>
+                                            <th class="text-center">Estatus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                                            <td class="font-bold font-mono">FAC-8090</td>
+                                            <td class="font-mono text-[10px]">02/Ene/26</td>
+                                            <td class="text-center"><span class="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 px-2 py-0.5 rounded font-mono font-bold flex items-center justify-center gap-1 w-max mx-auto"><span class="material-symbols-outlined text-[12px]">link</span> GON-100</span></td>
+                                            <td class="text-center font-mono">240.5</td>
+                                            <td class="text-center font-mono">14.1</td>
+                                            <td class="text-right font-black text-slate-900 dark:text-white">$340,000</td>
+                                            <td class="text-center text-[10px]">15/Ene/26</td>
+                                            <td class="text-center"><span class="bg-success/10 text-success px-2 py-0.5 rounded font-bold text-[10px]">Pagada</span></td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                                            <td class="font-bold font-mono">FAC-8091</td>
+                                            <td class="font-mono text-[10px]">05/Feb/26</td>
+                                            <td class="text-center"><span class="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 px-2 py-0.5 rounded font-mono font-bold flex items-center justify-center gap-1 w-max mx-auto"><span class="material-symbols-outlined text-[12px]">link</span> GON-102</span></td>
+                                            <td class="text-center font-mono">255.8</td>
+                                            <td class="text-center font-mono">13.8</td>
+                                            <td class="text-right font-black text-slate-900 dark:text-white">$365,000</td>
+                                            <td class="text-center text-[10px]">20/Feb/26</td>
+                                            <td class="text-center"><span class="bg-success/10 text-success px-2 py-0.5 rounded font-bold text-[10px]">Pagada</span></td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                                            <td class="font-bold font-mono">FAC-8092</td>
+                                            <td class="font-mono text-[10px]">10/Mar/26</td>
+                                            <td class="text-center"><span class="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 px-2 py-0.5 rounded font-mono font-bold flex items-center justify-center gap-1 w-max mx-auto"><span class="material-symbols-outlined text-[12px]">link</span> GON-104</span></td>
+                                            <td class="text-center font-mono">262.0</td>
+                                            <td class="text-center font-mono">14.8</td>
+                                            <td class="text-right font-black text-slate-900 dark:text-white">$400,000</td>
+                                            <td class="text-center text-[10px]">12/Abr/26</td>
+                                            <td class="text-center"><span class="bg-success/10 text-success px-2 py-0.5 rounded font-bold text-[10px]">Pagada</span></td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                                            <td class="font-bold font-mono">FAC-8093</td>
+                                            <td class="font-mono text-[10px]">15/Mar/26</td>
+                                            <td class="text-center"><span class="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 px-2 py-0.5 rounded font-mono font-bold flex items-center justify-center gap-1 w-max mx-auto"><span class="material-symbols-outlined text-[12px]">link</span> GON-105</span></td>
+                                            <td class="text-center font-mono">258.3</td>
+                                            <td class="text-center font-mono">14.6</td>
+                                            <td class="text-right font-black text-slate-900 dark:text-white">$210,000</td>
+                                            <td class="text-center text-[10px]">28/Abr/26</td>
+                                            <td class="text-center"><span class="bg-warning/10 text-warning px-2 py-0.5 rounded font-bold text-[10px]">CxC Pendiente</span></td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                                            <td class="font-bold font-mono">FAC-8094</td>
+                                            <td class="font-mono text-[10px]">18/Mar/26</td>
+                                            <td class="text-center"><span class="bg-slate-100 dark:bg-slate-700 text-slate-400 px-2 py-0.5 rounded font-mono text-[10px] italic">Generando... GON-106</span></td>
+                                            <td class="text-center font-mono text-slate-400">—</td>
+                                            <td class="text-center font-mono text-slate-400">—</td>
+                                            <td class="text-right font-bold text-slate-400">Por definir</td>
+                                            <td class="text-center text-slate-400">—</td>
+                                            <td class="text-center"><span class="text-slate-400 font-bold text-[10px]">En Proceso</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- end tab-facturacion -->
+
+                    <!-- ====== P&L REAL ====== -->
+                    <div id="tab-pnl-real" class="tab-content space-y-6 lg:space-y-8">
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-success relative overflow-hidden">
@@ -286,8 +432,75 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div><!-- end tab-pnl-real -->
 
+                    <!-- ====== P&L PRESUPUESTADO ====== -->
+                    <div id="tab-pnl-presupuesto" class="tab-content space-y-6">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-accent">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Ingresos Presupuestados</p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">$1.34M</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Plan anual: $5.4M</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-slate-400">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Costo Op. Presupuestado</p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">$800k</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Plan anual: $3.2M</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-purple-500">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Utilidad Neta Presup.</p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">$400k</h3>
+                                <div class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mt-2 overflow-hidden"><div class="bg-purple-500 h-full w-[100%]"></div></div>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-amber-500">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Margen EBITDA Presup.</p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">40.0%</h3>
+                                <p class="text-[10px] text-success font-bold mt-1">Real: 43.5% <span class="text-slate-400 font-normal">(+3.5%)</span></p>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-5 py-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center">
+                                <h3 class="text-sm font-bold text-slate-800 dark:text-white">Presupuesto vs Real — Desglose por Mes</h3>
+                                <span class="text-[10px] font-bold bg-accent/10 text-accent px-2 py-1 rounded">Q1 2026</span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left data-dense">
+                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                        <tr><th>Mes</th><th class="text-right text-slate-400">Presupuesto</th><th class="text-right text-success">Real</th><th class="text-center">Variación $</th><th class="text-center">Variación %</th><th class="text-center">Cumplimiento</th></tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">Enero 2026</td><td class="text-right font-mono">$350,000</td><td class="text-right font-mono text-success">$380,000</td><td class="text-center font-mono text-success">+$30,000</td><td class="text-center"><span class="text-success font-bold">+8.6%</span></td><td class="text-center"><span class="bg-success/10 text-success text-[9px] px-1.5 py-0.5 rounded font-bold">Superado</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">Febrero 2026</td><td class="text-right font-mono">$380,000</td><td class="text-right font-mono text-success">$420,000</td><td class="text-center font-mono text-success">+$40,000</td><td class="text-center"><span class="text-success font-bold">+10.5%</span></td><td class="text-center"><span class="bg-success/10 text-success text-[9px] px-1.5 py-0.5 rounded font-bold">Superado</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">Marzo 2026</td><td class="text-right font-mono">$410,000</td><td class="text-right font-mono text-success">$450,000</td><td class="text-center font-mono text-success">+$40,000</td><td class="text-center"><span class="text-success font-bold">+9.8%</span></td><td class="text-center"><span class="bg-success/10 text-success text-[9px] px-1.5 py-0.5 rounded font-bold">Superado</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 bg-accent/5"><td class="font-bold text-accent">Abril 2026 (Curso)</td><td class="text-right font-mono">$400,000</td><td class="text-right font-mono text-accent">$200,000*</td><td class="text-center font-mono text-slate-400">En curso</td><td class="text-center"><span class="text-accent font-bold">50%</span></td><td class="text-center"><span class="bg-accent/10 text-accent text-[9px] px-1.5 py-0.5 rounded font-bold">En Curso</span></td></tr>
+                                    </tbody>
+                                    <tfoot class="bg-slate-50 dark:bg-slate-900/50 border-t-2 border-slate-200 dark:border-slate-600">
+                                        <tr><td class="font-black text-slate-900 dark:text-white">Total Q1</td><td class="text-right font-mono font-bold">$1,340,000</td><td class="text-right font-mono font-bold text-success">$1,450,000</td><td class="text-center font-mono font-bold text-success">+$110,000</td><td class="text-center"><span class="font-black text-success">+8.2%</span></td><td class="text-center"><span class="bg-success/20 text-success text-[10px] px-2 py-0.5 rounded font-bold">108% ✓</span></td></tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-5 py-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50">
+                                <h3 class="text-sm font-bold text-slate-800 dark:text-white">Presupuesto Anual por Concepto — Seguimiento YTD</h3>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left data-dense">
+                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                        <tr><th>Concepto</th><th class="text-right">Presup. Anual</th><th class="text-right text-success">Ejecutado YTD</th><th class="text-center">% Avance</th><th class="text-center">Estado</th></tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">Ingresos por Ventas</td><td class="text-right font-mono">$5,400,000</td><td class="text-right font-mono text-success">$1,450,000</td><td class="text-center"><div class="flex items-center gap-2"><div class="flex-1 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden"><div class="bg-success h-full w-[27%]"></div></div><span class="text-[10px] font-bold text-success">27%</span></div></td><td class="text-center"><span class="bg-success/10 text-success text-[9px] px-1.5 py-0.5 rounded font-bold">Normal</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">Costo Op. Mina</td><td class="text-right font-mono">$1,240,000</td><td class="text-right font-mono text-warning">$320,000</td><td class="text-center"><div class="flex items-center gap-2"><div class="flex-1 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden"><div class="bg-warning h-full w-[26%]"></div></div><span class="text-[10px] font-bold text-warning">26%</span></div></td><td class="text-center"><span class="bg-warning/10 text-warning text-[9px] px-1.5 py-0.5 rounded font-bold">Revisar</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">Costo Beneficio Planta</td><td class="text-right font-mono">$1,960,000</td><td class="text-right font-mono">$500,000</td><td class="text-center"><div class="flex items-center gap-2"><div class="flex-1 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden"><div class="bg-accent h-full w-[26%]"></div></div><span class="text-[10px] font-bold">26%</span></div></td><td class="text-center"><span class="bg-success/10 text-success text-[9px] px-1.5 py-0.5 rounded font-bold">Normal</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">CAPEX</td><td class="text-right font-mono">$800,000</td><td class="text-right font-mono">$85,000</td><td class="text-center"><div class="flex items-center gap-2"><div class="flex-1 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden"><div class="bg-slate-400 h-full w-[11%]"></div></div><span class="text-[10px] font-bold text-slate-500">11%</span></div></td><td class="text-center"><span class="bg-slate-100 dark:bg-slate-700 text-slate-500 text-[9px] px-1.5 py-0.5 rounded font-bold">Bajo Ejecución</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- end tab-pnl-presupuesto -->
+
+                    <!-- ====== CxC ====== -->
                     <div id="tab-cxc" class="tab-content space-y-6">
                         
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -469,41 +682,43 @@
             if (targetArrow) targetArrow.classList.toggle('open');
         }
 
+        function toggleSubMenu(menuId, btn) {
+            const targetMenu = document.getElementById(menuId);
+            const targetArrow = btn.querySelector('.sub-arrow');
+            const isOpen = targetMenu.classList.contains('open');
+            btn.closest('.submenu').querySelectorAll('.sub-submenu').forEach(m => {
+                m.classList.remove('open');
+                const a = m.previousElementSibling && m.previousElementSibling.querySelector('.sub-arrow');
+                if(a) a.classList.remove('open');
+            });
+            if(!isOpen) {
+                targetMenu.classList.add('open');
+                if(targetArrow) targetArrow.classList.add('open');
+            }
+        }
+
         function switchTab(tabId, el) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            
-            document.querySelectorAll('.sub-nav-btn').forEach(nav => {
-                nav.classList.remove('text-success', 'font-bold');
-                nav.classList.add('text-slate-400');
-            });
-            
+            const target = document.getElementById(tabId);
+            if(target) target.classList.add('active');
+
             document.querySelectorAll('.top-tab-btn').forEach(btn => {
                 btn.classList.remove('border-success', 'text-success', 'dark:text-success');
                 btn.classList.add('border-transparent', 'text-slate-500', 'dark:text-slate-400');
             });
-
-            if(el.classList.contains('sub-nav-btn')){
-                el.classList.remove('text-slate-400');
-                el.classList.add('text-success', 'font-bold');
-                const index = Array.from(document.querySelectorAll('.sub-nav-btn')).indexOf(el);
-                const topBtn = document.querySelectorAll('.top-tab-btn')[index];
-                if(topBtn) {
-                    topBtn.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
-                    topBtn.classList.add('border-success', 'text-success', 'dark:text-success');
+            document.querySelectorAll('.top-tab-btn').forEach(btn => {
+                const onc = btn.getAttribute('onclick') || '';
+                if(onc.includes("'" + tabId + "'") || onc.includes('"' + tabId + '"')) {
+                    btn.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
+                    btn.classList.add('border-success', 'text-success', 'dark:text-success');
                 }
-            } else {
+            });
+            if(el && el.classList && el.classList.contains('top-tab-btn')) {
                 el.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
                 el.classList.add('border-success', 'text-success', 'dark:text-success');
-                const index = Array.from(document.querySelectorAll('.top-tab-btn')).indexOf(el);
-                const latBtn = document.querySelectorAll('.sub-nav-btn')[index];
-                if(latBtn) {
-                    latBtn.classList.remove('text-slate-400');
-                    latBtn.classList.add('text-success', 'font-bold');
-                }
             }
-            
-            if(tabId === 'tab-pnl') renderChart();
+
+            if(tabId === 'tab-pnl-real') renderChart();
         }
 
         Chart.defaults.font.family = "'Poppins', sans-serif";
