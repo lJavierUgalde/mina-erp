@@ -50,10 +50,14 @@
         .dark .tank-white { background-color: #e2e8f0; border-color: #94a3b8; }
 
         /* Animación para el submenú */
-        .submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .submenu.open { max-height: 500px; }
+        .submenu { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+        .submenu.open { max-height: 2000px; }
+        .sub-submenu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .sub-submenu.open { max-height: 400px; }
         .nav-arrow { transition: transform 0.3s; }
         .nav-arrow.open { transform: rotate(90deg); }
+        .sub-arrow { transition: transform 0.3s; display: inline-block; }
+        .sub-arrow.open { transform: rotate(90deg); }
     </style>
 </head>
 <body class="text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-950 flex h-screen overflow-hidden transition-colors duration-300">
@@ -110,10 +114,135 @@
                     </div>
                     <span class="material-symbols-outlined text-[16px] nav-arrow open hidden lg:block">chevron_right</span>
                 </button>
-                <div id="menu-planta" class="submenu open pl-11 space-y-1 mt-1 mb-3">
-                    <button onclick="switchTab('tab-molienda', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 font-bold text-primary">Trituración y Molienda</button>
-                    <button onclick="switchTab('tab-flotacion', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Flotación, Jales y Lab</button>
-                    <button onclick="switchTab('tab-embarque', this)" class="sub-nav-btn w-full text-left block text-xs py-1.5 text-slate-400 hover:text-white transition-colors">Concentrado y Embarques</button>
+                <div id="menu-planta" class="submenu open pl-4 space-y-1 mt-1 mb-3">
+
+                    <!-- Compras -->
+                    <button onclick="toggleSubMenu('sub-compras', this)" class="sub-nav-btn w-full text-left flex items-center justify-between text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">
+                        <span>Compras</span><span class="material-symbols-outlined text-[13px] sub-arrow mr-1">chevron_right</span>
+                    </button>
+                    <div id="sub-compras" class="sub-submenu pl-5 space-y-0.5">
+                        <button onclick="switchTab('tab-odc', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
+                            <span>ODC</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
+                        </button>
+                        <div class="pl-3 space-y-0.5">
+                            <button onclick="switchTab('tab-facturacion', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Facturación</button>
+                        </div>
+                        <button onclick="switchTab('tab-cxp', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">CxP</button>
+                    </div>
+
+                    <!-- Inventarios -->
+                    <button onclick="toggleSubMenu('sub-inventarios', this)" class="sub-nav-btn w-full text-left flex items-center justify-between text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">
+                        <span>Inventarios</span><span class="material-symbols-outlined text-[13px] sub-arrow mr-1">chevron_right</span>
+                    </button>
+                    <div id="sub-inventarios" class="sub-submenu pl-5 space-y-0.5">
+                        <button onclick="switchTab('tab-inv-concentrado', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Inventario Concentrado</button>
+                        <button onclick="switchTab('tab-inv-insumos', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Inventario Insumos</button>
+                        <button onclick="switchTab('tab-inv-brena', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Inventario Breña <span class="text-[9px] text-slate-500 ml-1">→ Control Calidad</span></button>
+                    </div>
+
+                    <!-- Mantenimiento -->
+                    <button onclick="toggleSubMenu('sub-mtto', this)" class="sub-nav-btn w-full text-left flex items-center justify-between text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">
+                        <span>Mantenimiento</span><span class="material-symbols-outlined text-[13px] sub-arrow mr-1">chevron_right</span>
+                    </button>
+                    <div id="sub-mtto" class="sub-submenu pl-5 space-y-0.5">
+                        <button onclick="switchTab('tab-mtto-insumos', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Consumo de Insumos</button>
+                        <button onclick="switchTab('tab-mtto-maquinaria', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
+                            <span>Uso de Maquinaria/Transporte</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
+                        </button>
+                        <div class="pl-3 space-y-0.5">
+                            <button onclick="switchTab('tab-mtto-disp', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Disponibilidad</button>
+                            <button onclick="switchTab('tab-mtto-consumo', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Consumo de Insumos</button>
+                        </div>
+                        <button onclick="switchTab('tab-mtto-correctivos', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Mant. Correctivos</button>
+                        <button onclick="switchTab('tab-mtto-personal', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Personal/Turno</button>
+                        <button onclick="switchTab('tab-mtto-eficiencia', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Eficiencia Mecánica</button>
+                        <button onclick="switchTab('tab-mtto-equipos', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Disponibilidad de Equipos</button>
+                        <button onclick="switchTab('tab-mtto-preventivo', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
+                            <span>Plan Mant. Preventivo</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
+                        </button>
+                        <div class="pl-3 space-y-0.5">
+                            <button onclick="switchTab('tab-mtto-cumplimiento', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Cumplimiento de Plan</button>
+                        </div>
+                    </div>
+
+                    <!-- RH -->
+                    <button onclick="toggleSubMenu('sub-rh', this)" class="sub-nav-btn w-full text-left flex items-center justify-between text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">
+                        <span>RH</span><span class="material-symbols-outlined text-[13px] sub-arrow mr-1">chevron_right</span>
+                    </button>
+                    <div id="sub-rh" class="sub-submenu pl-5 space-y-0.5">
+                        <button onclick="switchTab('tab-rh-nomina', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Nómina</button>
+                        <button onclick="switchTab('tab-rh-incidentes', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
+                            <span>Incidentes/Seguridad</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
+                        </button>
+                        <div class="pl-3 space-y-0.5">
+                            <button onclick="switchTab('tab-rh-ltri', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">LTRI</button>
+                            <button onclick="switchTab('tab-rh-trir', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">TRIR</button>
+                        </div>
+                        <button onclick="switchTab('tab-rh-asistencia', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2">Asistencia</button>
+                    </div>
+
+                    <!-- KPIs Op -->
+                    <button onclick="toggleSubMenu('sub-kpis', this)" class="sub-nav-btn w-full text-left flex items-center justify-between text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">
+                        <span>KPIs Op</span><span class="material-symbols-outlined text-[13px] sub-arrow mr-1">chevron_right</span>
+                    </button>
+                    <div id="sub-kpis" class="sub-submenu pl-5 space-y-0.5">
+                        <button onclick="toggleSubMenu('sub-kpi-lab', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
+                            <span>Laboratorio</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
+                        </button>
+                        <div id="sub-kpi-lab" class="sub-submenu pl-3 space-y-0.5">
+                            <button onclick="switchTab('tab-lab-mtto', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Mantenimiento</button>
+                            <button onclick="switchTab('tab-lab-ensaye', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Ensaye</button>
+                            <button onclick="switchTab('tab-lab-reactivos', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Consumo Reactivo/Material</button>
+                        </div>
+                        <button onclick="toggleSubMenu('sub-kpi-trit', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
+                            <span>Trituración</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
+                        </button>
+                        <div id="sub-kpi-trit" class="sub-submenu pl-3 space-y-0.5">
+                            <button onclick="switchTab('tab-trit-inv-finos', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Inventario Finos</button>
+                            <button onclick="switchTab('tab-trit-mtbf', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">MTBF y MTBR</button>
+                            <button onclick="switchTab('tab-trit-disp', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Disponibilidad</button>
+                            <button onclick="switchTab('tab-molienda', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Ton/hr → Real vs Plan</button>
+                        </div>
+                        <button onclick="toggleSubMenu('sub-kpi-mol', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
+                            <span>Molienda (3)</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
+                        </button>
+                        <div id="sub-kpi-mol" class="sub-submenu pl-3 space-y-0.5">
+                            <button onclick="switchTab('tab-molienda', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">MTBF y MTBR</button>
+                            <button onclick="switchTab('tab-molienda', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Disponibilidad</button>
+                            <button onclick="switchTab('tab-molienda', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Ton/hr</button>
+                            <button onclick="switchTab('tab-molienda', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Real vs Plan</button>
+                            <button onclick="switchTab('tab-molienda', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Consumo de Bola</button>
+                        </div>
+                        <button onclick="toggleSubMenu('sub-kpi-flot', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
+                            <span>Flotación</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
+                        </button>
+                        <div id="sub-kpi-flot" class="sub-submenu pl-3 space-y-0.5">
+                            <button onclick="switchTab('tab-flotacion', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Personal Enc. / Turno</button>
+                            <button onclick="switchTab('tab-flotacion', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Disponibilidad por Banco</button>
+                            <button onclick="switchTab('tab-flotacion', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Ensayes → Balance</button>
+                            <button onclick="switchTab('tab-flotacion', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Consumo de Reactivos</button>
+                            <button onclick="switchTab('tab-flotacion', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Disp. Agua → % Tanques</button>
+                        </div>
+                        <button onclick="toggleSubMenu('sub-kpi-conc', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
+                            <span>Concentrado</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
+                        </button>
+                        <div id="sub-kpi-conc" class="sub-submenu pl-3 space-y-0.5">
+                            <button onclick="switchTab('tab-embarque', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Calidad (Humedad)</button>
+                            <button onclick="switchTab('tab-embarque', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Cantidad Piletas</button>
+                            <button onclick="switchTab('tab-embarque', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Ley Concentrado Calc.</button>
+                            <button onclick="switchTab('tab-embarque', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">Cantidad en Plancha → Embarque</button>
+                        </div>
+                        <button onclick="toggleSubMenu('sub-kpi-jales', this)" class="sub-nav-btn w-full text-left text-[11px] py-1 text-slate-400 hover:text-white transition-colors pl-2 flex items-center justify-between">
+                            <span>Presa de Jales</span><span class="material-symbols-outlined text-[11px] sub-arrow mr-1">chevron_right</span>
+                        </button>
+                        <div id="sub-kpi-jales" class="sub-submenu pl-3 space-y-0.5">
+                            <button onclick="switchTab('tab-flotacion', this)" class="sub-nav-btn w-full text-left text-[10px] py-0.5 text-slate-500 hover:text-white transition-colors pl-2">ID Zona → Capacidad x Zona</button>
+                        </div>
+                    </div>
+
+                    <!-- Cumplimiento Ambiental & Energía -->
+                    <button onclick="switchTab('tab-ambiental', this)" class="sub-nav-btn w-full text-left text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">Cumplimiento Ambiental</button>
+                    <button onclick="switchTab('tab-energia', this)" class="sub-nav-btn w-full text-left text-xs py-1.5 text-slate-400 hover:text-white transition-colors pl-7">Energía</button>
                 </div>
             </div>
 
@@ -195,15 +324,33 @@
                 </div>
             </div>
             
-            <div class="px-6 md:px-8 flex gap-6 overflow-x-auto border-t border-slate-100 dark:border-slate-800">
-                <button onclick="switchTab('tab-molienda', document.querySelectorAll('.sub-nav-btn')[0])" class="top-tab-btn border-b-2 border-primary text-primary py-3 font-bold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+            <div class="px-6 md:px-8 flex gap-4 overflow-x-auto border-t border-slate-100 dark:border-slate-800">
+                <button onclick="switchTab('tab-compras-main', this)" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                    <span class="material-symbols-outlined text-[18px]">shopping_cart</span> Compras
+                </button>
+                <button onclick="switchTab('tab-inventarios-main', this)" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                    <span class="material-symbols-outlined text-[18px]">inventory_2</span> Inventarios
+                </button>
+                <button onclick="switchTab('tab-molienda', this)" class="top-tab-btn border-b-2 border-primary text-primary py-3 font-bold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
                     <span class="material-symbols-outlined text-[18px]">cyclone</span> Trituración y Molienda
                 </button>
-                <button onclick="switchTab('tab-flotacion', document.querySelectorAll('.sub-nav-btn')[1])" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                <button onclick="switchTab('tab-flotacion', this)" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
                     <span class="material-symbols-outlined text-[18px]">waves</span> Flotación, Jales y Lab
                 </button>
-                <button onclick="switchTab('tab-embarque', document.querySelectorAll('.sub-nav-btn')[2])" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                <button onclick="switchTab('tab-embarque', this)" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
                     <span class="material-symbols-outlined text-[18px]">precision_manufacturing</span> Concentrado y Embarques
+                </button>
+                <button onclick="switchTab('tab-mtto-main', this)" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                    <span class="material-symbols-outlined text-[18px]">build</span> Mantenimiento
+                </button>
+                <button onclick="switchTab('tab-rh-main', this)" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                    <span class="material-symbols-outlined text-[18px]">group</span> RH
+                </button>
+                <button onclick="switchTab('tab-ambiental', this)" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                    <span class="material-symbols-outlined text-[18px]">eco</span> Ambiental
+                </button>
+                <button onclick="switchTab('tab-energia', this)" class="top-tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white py-3 font-semibold text-sm flex items-center gap-2 transition-colors whitespace-nowrap">
+                    <span class="material-symbols-outlined text-[18px]">bolt</span> Energía
                 </button>
             </div>
         </header>
@@ -413,6 +560,338 @@
                         </div>
                     </div>
 
+                    <!-- ==================== COMPRAS ==================== -->
+                    <div id="tab-compras-main" class="tab-content space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- ODC -->
+                            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center">
+                                    <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">receipt_long</span> Órdenes de Compra (ODC)</h3>
+                                    <span class="text-[10px] font-bold bg-accent/10 text-accent px-2 py-1 rounded">Mes Actual</span>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left data-dense">
+                                        <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                            <tr><th>No. ODC</th><th>Proveedor</th><th>Concepto</th><th class="text-center">Monto</th><th class="text-center">Estatus</th></tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
+                                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-mono font-bold">ODC-0251</td><td>Cementos MTY</td><td>Cal Viva (20t)</td><td class="text-center font-mono">$48,000</td><td class="text-center"><span class="bg-warning/10 text-warning px-1.5 py-0.5 rounded text-[9px] font-bold">En Tránsito</span></td></tr>
+                                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-mono font-bold">ODC-0252</td><td>Quimetal SA</td><td>Cianuro (5t)</td><td class="text-center font-mono">$215,000</td><td class="text-center"><span class="bg-success/10 text-success px-1.5 py-0.5 rounded text-[9px] font-bold">Recibido</span></td></tr>
+                                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-mono font-bold">ODC-0253</td><td>Industrial ZN</td><td>Bolas Grinding (2t)</td><td class="text-center font-mono">$62,500</td><td class="text-center"><span class="bg-slate-100 dark:bg-slate-700 text-slate-500 px-1.5 py-0.5 rounded text-[9px] font-bold">Pendiente</span></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- CxP -->
+                            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center">
+                                    <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-warning text-[18px]">account_balance_wallet</span> Cuentas por Pagar (CxP)</h3>
+                                    <span class="text-[10px] font-bold bg-warning/10 text-warning px-2 py-1 rounded">3 Vencidas</span>
+                                </div>
+                                <div class="p-4 space-y-3">
+                                    <div class="flex justify-between items-center p-3 bg-danger/5 border border-danger/20 rounded-lg">
+                                        <div><p class="text-xs font-bold text-slate-800 dark:text-white">Quimetal SA</p><p class="text-[10px] text-slate-500">Fact. QM-1892 — Venc. 10/Mar</p></div>
+                                        <div class="text-right"><p class="font-black text-danger font-mono text-sm">$215,000</p><span class="text-[9px] bg-danger/10 text-danger px-1.5 py-0.5 rounded font-bold">Vencida</span></div>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-warning/5 border border-warning/20 rounded-lg">
+                                        <div><p class="text-xs font-bold text-slate-800 dark:text-white">Industrial ZN</p><p class="text-[10px] text-slate-500">Fact. IZ-0041 — Venc. 20/Mar</p></div>
+                                        <div class="text-right"><p class="font-black text-warning font-mono text-sm">$62,500</p><span class="text-[9px] bg-warning/10 text-warning px-1.5 py-0.5 rounded font-bold">Por Vencer</span></div>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-success/5 border border-success/20 rounded-lg">
+                                        <div><p class="text-xs font-bold text-slate-800 dark:text-white">Cementos MTY</p><p class="text-[10px] text-slate-500">Fact. CM-5523 — Venc. 05/Abr</p></div>
+                                        <div class="text-right"><p class="font-black text-success font-mono text-sm">$48,000</p><span class="text-[9px] bg-success/10 text-success px-1.5 py-0.5 rounded font-bold">Al Corriente</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Facturación -->
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50">
+                                <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-accent text-[18px]">request_quote</span> Facturación — Mes Actual</h3>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 p-4">
+                                <div class="text-center p-3 bg-slate-50 dark:bg-slate-900/50 rounded-lg border border-slate-100 dark:border-slate-700">
+                                    <p class="text-[10px] font-bold text-slate-500 uppercase">Facturas Emitidas</p>
+                                    <p class="text-2xl font-black text-slate-800 dark:text-white mt-1">12</p>
+                                </div>
+                                <div class="text-center p-3 bg-slate-50 dark:bg-slate-900/50 rounded-lg border border-slate-100 dark:border-slate-700">
+                                    <p class="text-[10px] font-bold text-slate-500 uppercase">Monto Total</p>
+                                    <p class="text-2xl font-black text-accent mt-1">$1.2M</p>
+                                </div>
+                                <div class="text-center p-3 bg-slate-50 dark:bg-slate-900/50 rounded-lg border border-slate-100 dark:border-slate-700">
+                                    <p class="text-[10px] font-bold text-slate-500 uppercase">Pagadas</p>
+                                    <p class="text-2xl font-black text-success mt-1">9 / 12</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end tab-compras-main -->
+
+                    <!-- ==================== INVENTARIOS ==================== -->
+                    <div id="tab-inventarios-main" class="tab-content space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-accent">
+                                <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Inventario Concentrado</p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">4,820 <span class="text-sm font-normal text-slate-500">Ton</span></h3>
+                                <div class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mt-3 overflow-hidden"><div class="bg-accent h-full w-[68%]"></div></div>
+                                <p class="text-[10px] text-slate-500 mt-1">68% de capacidad de almacén</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-warning">
+                                <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Inventario Insumos</p>
+                                <div class="space-y-2 mt-2 text-xs data-dense">
+                                    <div class="flex justify-between border-b border-slate-100 dark:border-slate-700 pb-1"><span>Cianuro NaCN:</span><span class="font-bold font-mono">3.2 t</span></div>
+                                    <div class="flex justify-between border-b border-slate-100 dark:border-slate-700 pb-1"><span>Cal Viva:</span><span class="font-bold font-mono text-warning">8.5 t <span class="text-[9px] font-normal">(Bajo)</span></span></div>
+                                    <div class="flex justify-between border-b border-slate-100 dark:border-slate-700 pb-1"><span>Bolas Grinding:</span><span class="font-bold font-mono">4.1 t</span></div>
+                                    <div class="flex justify-between"><span>Floculante:</span><span class="font-bold font-mono">1.8 t</span></div>
+                                </div>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-slate-400">
+                                <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Inventario Breña <span class="text-slate-400">→ Control Calidad</span></p>
+                                <h3 class="text-3xl font-black text-slate-800 dark:text-white">1,450 <span class="text-sm font-normal text-slate-500">Ton</span></h3>
+                                <p class="text-xs text-slate-500 mt-2">Ley estimada: <span class="font-bold text-slate-700 dark:text-slate-300">2.1 g/t Au</span></p>
+                                <p class="text-xs mt-1"><span class="bg-success/10 text-success px-1.5 py-0.5 rounded font-bold text-[10px]">Control Calidad: Aprobado</span></p>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50">
+                                <h3 class="text-sm font-bold text-slate-800 dark:text-white">Movimientos de Inventario — Últimas 24 hrs</h3>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left data-dense">
+                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                        <tr><th>Hora</th><th>Material</th><th>Tipo</th><th class="text-center">Cantidad</th><th>Responsable</th></tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-mono">06:15</td><td>Cianuro NaCN</td><td><span class="text-danger text-[10px] font-bold">Consumo</span></td><td class="text-center font-mono">-0.8 t</td><td>T. Flotación</td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-mono">08:30</td><td>Bolas Grinding</td><td><span class="text-success text-[10px] font-bold">Entrada</span></td><td class="text-center font-mono text-success">+2.0 t</td><td>Almacén</td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-mono">11:00</td><td>Cal Viva</td><td><span class="text-danger text-[10px] font-bold">Consumo</span></td><td class="text-center font-mono">-1.5 t</td><td>T. Molienda</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- end tab-inventarios-main -->
+
+                    <!-- ==================== MANTENIMIENTO ==================== -->
+                    <div id="tab-mtto-main" class="tab-content space-y-6">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm border-l-4 border-l-success">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Eficiencia Mecánica</p>
+                                <h3 class="text-2xl font-black text-success">87.4%</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Plan: 90% | <span class="text-danger font-bold">-2.6%</span></p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm border-l-4 border-l-accent">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Disponibilidad Equipos</p>
+                                <h3 class="text-2xl font-black text-accent">91.2%</h3>
+                                <div class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mt-2 overflow-hidden"><div class="bg-accent h-full w-[91%]"></div></div>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm border-l-4 border-l-warning">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Correctivos Abiertos</p>
+                                <h3 class="text-2xl font-black text-warning">7</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">3 Críticos · 4 Menores</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm border-l-4 border-l-purple-500">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Personal/Turno</p>
+                                <h3 class="text-2xl font-black text-slate-800 dark:text-white">18 <span class="text-sm font-normal text-slate-500">Téc.</span></h3>
+                                <p class="text-[10px] text-slate-500 mt-1">T1: 6 · T2: 6 · T3: 6</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50">
+                                    <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-accent">precision_manufacturing</span> Disponibilidad Maquinaria/Transporte</h3>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left data-dense">
+                                        <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                            <tr><th>Equipo</th><th class="text-center">Disp.</th><th class="text-center">Hrs Operadas</th><th class="text-center">Consumo Insumo</th></tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
+                                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-success"></span> Cargador Frontal</td><td class="text-center text-success font-bold">94%</td><td class="text-center font-mono">18.8h</td><td class="text-center font-mono">42 L</td></tr>
+                                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-warning"></span> Grúa 5T</td><td class="text-center text-warning font-bold">78%</td><td class="text-center font-mono">15.6h</td><td class="text-center font-mono">18 L</td></tr>
+                                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-success"></span> Montacargas</td><td class="text-center text-success font-bold">99%</td><td class="text-center font-mono">19.8h</td><td class="text-center font-mono">8 kWh</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center">
+                                    <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-success">task_alt</span> Plan Preventivo — Cumplimiento</h3>
+                                    <span class="text-[10px] font-bold bg-success/10 text-success px-2 py-1 rounded">Mes: 76%</span>
+                                </div>
+                                <div class="p-4 space-y-3">
+                                    <div><div class="flex justify-between text-xs mb-1"><span class="text-slate-600 dark:text-slate-300 font-medium">Molinos (3)</span><span class="font-bold text-success">2/3</span></div><div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden"><div class="bg-success h-full w-[66%]"></div></div></div>
+                                    <div><div class="flex justify-between text-xs mb-1"><span class="text-slate-600 dark:text-slate-300 font-medium">Celdas Flotación</span><span class="font-bold text-success">5/5</span></div><div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden"><div class="bg-success h-full w-[100%]"></div></div></div>
+                                    <div><div class="flex justify-between text-xs mb-1"><span class="text-slate-600 dark:text-slate-300 font-medium">Bombas Proceso</span><span class="font-bold text-warning">4/7</span></div><div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden"><div class="bg-warning h-full w-[57%]"></div></div></div>
+                                    <div><div class="flex justify-between text-xs mb-1"><span class="text-slate-600 dark:text-slate-300 font-medium">Trituradoras</span><span class="font-bold text-danger">0/2</span></div><div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden"><div class="bg-danger h-full w-[0%]"></div></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50">
+                                <h3 class="text-sm font-bold text-slate-800 dark:text-white">Consumo de Insumos — Mantenimiento</h3>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left data-dense">
+                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                        <tr><th>Insumo</th><th class="text-center">Consumo Turno</th><th class="text-center">Stock Actual</th><th class="text-center">Plan Mensual</th><th class="text-center">% Cumpl.</th></tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td>Grasas Industriales</td><td class="text-center font-mono">4.5 kg</td><td class="text-center font-mono">85 kg</td><td class="text-center font-mono">120 kg</td><td class="text-center"><span class="text-warning font-bold">71%</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td>Aceite Hidráulico</td><td class="text-center font-mono">12 L</td><td class="text-center font-mono">240 L</td><td class="text-center font-mono">300 L</td><td class="text-center"><span class="text-success font-bold">95%</span></td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td>Correas/Bandas</td><td class="text-center font-mono">1 pza</td><td class="text-center font-mono">8 pza</td><td class="text-center font-mono">10 pza</td><td class="text-center"><span class="text-success font-bold">80%</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- end tab-mtto-main -->
+
+                    <!-- ==================== RH ==================== -->
+                    <div id="tab-rh-main" class="tab-content space-y-6">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm border-l-4 border-l-success">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Personal Planta</p>
+                                <h3 class="text-2xl font-black text-slate-800 dark:text-white">42</h3>
+                                <p class="text-[10px] text-success font-bold mt-1">100% asistencia turno</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm border-l-4 border-l-accent">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">TRIR (Planta)</p>
+                                <h3 class="text-2xl font-black text-success">0.0</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Sin incidentes mes</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm border-l-4 border-l-warning">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">LTRI (Planta)</p>
+                                <h3 class="text-2xl font-black text-success">0.0</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Días sin tiempo perdido: <span class="font-bold text-slate-700 dark:text-slate-300">47</span></p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm border-l-4 border-l-purple-500">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Nómina Mes</p>
+                                <h3 class="text-2xl font-black text-slate-800 dark:text-white">$1.84M</h3>
+                                <p class="text-[10px] text-success font-bold mt-1">Pagada</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50">
+                                    <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-accent">how_to_reg</span> Asistencia por Área</h3>
+                                </div>
+                                <div class="p-4 space-y-3">
+                                    <div><div class="flex justify-between text-xs mb-1"><span>Trituración</span><span class="font-bold">8/8</span></div><div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden"><div class="bg-success h-full w-full"></div></div></div>
+                                    <div><div class="flex justify-between text-xs mb-1"><span>Molienda</span><span class="font-bold">9/9</span></div><div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden"><div class="bg-success h-full w-full"></div></div></div>
+                                    <div><div class="flex justify-between text-xs mb-1"><span>Flotación</span><span class="font-bold text-warning">7/8</span></div><div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden"><div class="bg-warning h-full w-[87%]"></div></div></div>
+                                    <div><div class="flex justify-between text-xs mb-1"><span>Laboratorio</span><span class="font-bold">5/5</span></div><div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden"><div class="bg-success h-full w-full"></div></div></div>
+                                    <div><div class="flex justify-between text-xs mb-1"><span>Mantenimiento</span><span class="font-bold">12/12</span></div><div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden"><div class="bg-success h-full w-full"></div></div></div>
+                                </div>
+                            </div>
+                            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50">
+                                    <h3 class="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-danger">health_and_safety</span> Incidentes y Seguridad</h3>
+                                </div>
+                                <div class="p-4 space-y-4">
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="bg-success/5 border border-success/20 rounded-xl p-4 text-center">
+                                            <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">LTRI</p>
+                                            <p class="text-3xl font-black text-success">0.0</p>
+                                        </div>
+                                        <div class="bg-success/5 border border-success/20 rounded-xl p-4 text-center">
+                                            <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">TRIR</p>
+                                            <p class="text-3xl font-black text-success">0.0</p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-50 dark:bg-slate-900/50 rounded-lg p-3 border border-slate-100 dark:border-slate-700 space-y-1">
+                                        <div class="flex justify-between text-xs"><span class="text-slate-500">Primeros Auxilios:</span><span class="font-bold text-warning">2</span></div>
+                                        <div class="flex justify-between text-xs"><span class="text-slate-500">Near Miss:</span><span class="font-bold text-warning">3</span></div>
+                                        <div class="flex justify-between text-xs"><span class="text-slate-500">Con Tiempo Perdido:</span><span class="font-bold text-success">0</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end tab-rh-main -->
+
+                    <!-- ==================== CUMPLIMIENTO AMBIENTAL ==================== -->
+                    <div id="tab-ambiental" class="tab-content space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-success">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Parámetros NOM-141</p>
+                                <h3 class="text-2xl font-black text-success">Cumplido</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Última revisión: 15/Mar/2026</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-warning">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Presa Jales — pH</p>
+                                <h3 class="text-2xl font-black text-warning">7.8</h3>
+                                <p class="text-[10px] text-slate-500 mt-1">Rango óptimo: 7.5 – 9.5</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm border-l-4 border-l-success">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Cianuro en Efluente</p>
+                                <h3 class="text-2xl font-black text-success">0.18 <span class="text-sm font-normal text-slate-500">ppm</span></h3>
+                                <p class="text-[10px] text-success font-bold mt-1">Límite: &lt; 0.5 ppm ✓</p>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50">
+                                <h3 class="text-sm font-bold text-slate-800 dark:text-white">Monitoreos Ambientales — Planta</h3>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left data-dense">
+                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                        <tr><th>Parámetro</th><th class="text-center">Valor Medido</th><th class="text-center">Límite NOM</th><th class="text-center">Estatus</th><th>Fecha</th></tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td>CN⁻ en Efluente</td><td class="text-center font-mono">0.18 ppm</td><td class="text-center font-mono">0.5 ppm</td><td class="text-center"><span class="bg-success/10 text-success text-[9px] px-1.5 py-0.5 rounded font-bold">OK</span></td><td class="font-mono text-[10px]">18/Mar</td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td>pH Presa Jales</td><td class="text-center font-mono">7.8</td><td class="text-center font-mono">7.5–9.5</td><td class="text-center"><span class="bg-success/10 text-success text-[9px] px-1.5 py-0.5 rounded font-bold">OK</span></td><td class="font-mono text-[10px]">18/Mar</td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td>Material Particulado</td><td class="text-center font-mono">42 µg/m³</td><td class="text-center font-mono">75 µg/m³</td><td class="text-center"><span class="bg-success/10 text-success text-[9px] px-1.5 py-0.5 rounded font-bold">OK</span></td><td class="font-mono text-[10px]">17/Mar</td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td>Ruido Perimetral</td><td class="text-center font-mono">72 dB</td><td class="text-center font-mono">68 dB</td><td class="text-center"><span class="bg-danger/10 text-danger text-[9px] px-1.5 py-0.5 rounded font-bold">Alerta</span></td><td class="font-mono text-[10px]">17/Mar</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- end tab-ambiental -->
+
+                    <!-- ==================== ENERGÍA ==================== -->
+                    <div id="tab-energia" class="tab-content space-y-6">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm border-l-4 border-l-amber-500">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Consumo Global Planta</p>
+                                <h3 class="text-2xl font-black text-slate-800 dark:text-white">45.2 <span class="text-xs text-slate-400 font-normal">MW/h</span></h3>
+                                <div class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mt-2 overflow-hidden"><div class="bg-amber-400 h-full w-[92%]"></div></div>
+                                <p class="text-[10px] text-warning mt-1">92% del límite contratado</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm border-l-4 border-l-purple-500">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Molinos (3)</p>
+                                <h3 class="text-2xl font-black text-slate-800 dark:text-white">28.4 <span class="text-xs text-slate-400 font-normal">MW/h</span></h3>
+                                <p class="text-[10px] text-slate-500 mt-1">62.8% del total planta</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm border-l-4 border-l-success">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Trituración</p>
+                                <h3 class="text-2xl font-black text-slate-800 dark:text-white">4.5 <span class="text-xs text-slate-400 font-normal">MW/h</span></h3>
+                                <p class="text-[10px] text-success font-bold mt-1">Dentro de rango</p>
+                            </div>
+                            <div class="card-gradient rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm border-l-4 border-l-accent">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase mb-1">Factor de Potencia</p>
+                                <h3 class="text-2xl font-black text-success">0.92</h3>
+                                <p class="text-[10px] text-success font-bold mt-1">Óptimo (&gt; 0.90)</p>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center">
+                                <h3 class="text-sm font-bold text-slate-800 dark:text-white">Consumo por Circuito — Turno Actual</h3>
+                                <span class="text-[10px] font-bold bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 px-2 py-1 rounded">kWh / Ton procesada</span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left data-dense">
+                                    <thead class="bg-slate-50 dark:bg-slate-900/50 text-[10px] text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                                        <tr><th>Circuito</th><th class="text-center">MW/h</th><th class="text-center">kWh/Ton</th><th class="text-center">Plan kWh/t</th><th class="text-center">Var.</th></tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50 text-slate-700 dark:text-slate-300">
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">Trituración</td><td class="text-center font-mono">4.5</td><td class="text-center font-mono">2.1</td><td class="text-center font-mono text-slate-400">2.0</td><td class="text-center text-warning font-bold">+5%</td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">Molienda SAG</td><td class="text-center font-mono">14.8</td><td class="text-center font-mono">12.4</td><td class="text-center font-mono text-slate-400">12.0</td><td class="text-center text-warning font-bold">+3.3%</td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">Molienda Bolas (2)</td><td class="text-center font-mono">13.6</td><td class="text-center font-mono">11.8</td><td class="text-center font-mono text-slate-400">12.0</td><td class="text-center text-success font-bold">-1.7%</td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">Flotación</td><td class="text-center font-mono">8.2</td><td class="text-center font-mono">3.1</td><td class="text-center font-mono text-slate-400">3.0</td><td class="text-center text-warning font-bold">+3.3%</td></tr>
+                                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50"><td class="font-bold">Servicios/Aux</td><td class="text-center font-mono">4.1</td><td class="text-center text-slate-400">—</td><td class="text-center text-slate-400">—</td><td class="text-center text-slate-400">—</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- end tab-energia -->
+
                 </div>
 
                 <aside class="w-full xl:w-80 flex-shrink-0 flex flex-col gap-6">
@@ -516,41 +995,48 @@
     if (targetArrow) targetArrow.classList.toggle('open');
 }
 
-        // Lógica de Tabs corregida
+        // Toggle sub-submenus in sidebar
+        function toggleSubMenu(menuId, btn) {
+            const targetMenu = document.getElementById(menuId);
+            const targetArrow = btn.querySelector('.sub-arrow');
+            const isOpen = targetMenu.classList.contains('open');
+            // Close siblings first
+            btn.closest('.submenu').querySelectorAll('.sub-submenu').forEach(m => {
+                m.classList.remove('open');
+                const a = m.previousElementSibling && m.previousElementSibling.querySelector('.sub-arrow');
+                if(a) a.classList.remove('open');
+            });
+            if(!isOpen) {
+                targetMenu.classList.add('open');
+                if(targetArrow) targetArrow.classList.add('open');
+            }
+        }
+
+        // Lógica de Tabs
         function switchTab(tabId, el) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            
-            document.querySelectorAll('.sub-nav-btn').forEach(nav => {
-                nav.classList.remove('text-primary', 'font-bold');
-                nav.classList.add('text-slate-400');
-            });
-            
+            const target = document.getElementById(tabId);
+            if(target) target.classList.add('active');
+
+            // Update top tab buttons
             document.querySelectorAll('.top-tab-btn').forEach(btn => {
                 btn.classList.remove('border-primary', 'text-primary', 'dark:text-primary');
                 btn.classList.add('border-transparent', 'text-slate-500', 'dark:text-slate-400');
             });
-
-            if(el.classList.contains('sub-nav-btn')){
-                el.classList.remove('text-slate-400');
-                el.classList.add('text-primary', 'font-bold');
-                const index = Array.from(document.querySelectorAll('.sub-nav-btn')).indexOf(el);
-                const topBtn = document.querySelectorAll('.top-tab-btn')[index];
-                if(topBtn) {
-                    topBtn.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
-                    topBtn.classList.add('border-primary', 'text-primary', 'dark:text-primary');
+            // Activate matching top tab (matches onclick containing the tabId)
+            document.querySelectorAll('.top-tab-btn').forEach(btn => {
+                const onc = btn.getAttribute('onclick') || '';
+                if(onc.includes("'" + tabId + "'") || onc.includes('"' + tabId + '"')) {
+                    btn.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
+                    btn.classList.add('border-primary', 'text-primary', 'dark:text-primary');
                 }
-            } else {
+            });
+            // If the clicked element is itself a top-tab-btn, mark it directly
+            if(el && el.classList && el.classList.contains('top-tab-btn')) {
                 el.classList.remove('border-transparent', 'text-slate-500', 'dark:text-slate-400');
                 el.classList.add('border-primary', 'text-primary', 'dark:text-primary');
-                const index = Array.from(document.querySelectorAll('.top-tab-btn')).indexOf(el);
-                const latBtn = document.querySelectorAll('.sub-nav-btn')[index];
-                if(latBtn) {
-                    latBtn.classList.remove('text-slate-400');
-                    latBtn.classList.add('text-primary', 'font-bold');
-                }
             }
-            
+
             if(tabId === 'tab-flotacion') renderChart();
         }
 
